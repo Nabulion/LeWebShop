@@ -1,0 +1,689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comment" Type="nvarchar(max)" />
+          <Property Name="Product" Type="int" />
+          <Property Name="UserProfile" Type="int" />
+        </EntityType>
+        <EntityType Name="FAQ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="question" Type="nvarchar(max)" />
+          <Property Name="answer" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LoginUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="pass" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderLine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productCount" Type="int" />
+          <Property Name="Product" Type="int" />
+          <Property Name="ShoppingCart" Type="int" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="unitPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="countAvailable" Type="int" />
+          <Property Name="pic" Type="nvarchar(max)" />
+          <Property Name="country" Type="nvarchar" MaxLength="50" />
+          <Property Name="rating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Package" Type="int" />
+          <Property Name="ShoppingCart" Type="int" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserProfile" Type="int" />
+        </EntityType>
+        <EntityType Name="ShoppingOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="productCount" Type="int" />
+          <Property Name="ShoppingCart" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="zipcode" Type="nchar" MaxLength="4" />
+          <Property Name="newsletter" Type="bit" />
+          <Property Name="LoginID" Type="int" />
+        </EntityType>
+        <EntityType Name="Visa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserProfile" Type="int" />
+          <Property Name="visainfo" Type="nvarchar" MaxLength="16" />
+        </EntityType>
+        <Association Name="FK__Comment__Product__239E4DCF">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__UserPro__24927208">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderLine__Produ__29572725">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderLine__Shopp__2A4B4B5E">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Package__1FCDBCEB">
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Package" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Shoppin__20C1E124">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__UserP__1A14E395">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="UserProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingO__Shopp__1CF15040">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="ShoppingOrder" Type="Self.ShoppingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ShoppingOrder">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Login__1273C1CD">
+          <End Role="LoginUser" Type="Self.LoginUser" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visa__UserProfil__173876EA">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Visa" Type="Self.Visa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Visa">
+              <PropertyRef Name="UserProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="lewebshopModelStoreContainer">
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAQ" EntityType="Self.FAQ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginUser" EntityType="Self.LoginUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderLine" EntityType="Self.OrderLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingOrder" EntityType="Self.ShoppingOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visa" EntityType="Self.Visa" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comment__Product__239E4DCF" Association="Self.FK__Comment__Product__239E4DCF">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__UserPro__24927208" Association="Self.FK__Comment__UserPro__24927208">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderLine__Produ__29572725" Association="Self.FK__OrderLine__Produ__29572725">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderLine" EntitySet="OrderLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderLine__Shopp__2A4B4B5E" Association="Self.FK__OrderLine__Shopp__2A4B4B5E">
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+            <End Role="OrderLine" EntitySet="OrderLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Package__1FCDBCEB" Association="Self.FK__Product__Package__1FCDBCEB">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Shoppin__20C1E124" Association="Self.FK__Product__Shoppin__20C1E124">
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__UserP__1A14E395" Association="Self.FK__ShoppingC__UserP__1A14E395">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingO__Shopp__1CF15040" Association="Self.FK__ShoppingO__Shopp__1CF15040">
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
+            <End Role="ShoppingOrder" EntitySet="ShoppingOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Login__1273C1CD" Association="Self.FK__UserProfi__Login__1273C1CD">
+            <End Role="LoginUser" EntitySet="LoginUser" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visa__UserProfil__173876EA" Association="Self.FK__Visa__UserProfil__173876EA">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Visa" EntitySet="Visa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="lewebshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product" Type="Int32" />
+          <Property Name="UserProfile" Type="Int32" />
+          <NavigationProperty Name="Product1" Relationship="Self.FK__Comment__Product__239E4DCF" FromRole="Comment" ToRole="Product" />
+          <NavigationProperty Name="UserProfile1" Relationship="Self.FK__Comment__UserPro__24927208" FromRole="Comment" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="FAQ">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LoginUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="Self.FK__UserProfi__Login__1273C1CD" FromRole="LoginUser" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="OrderLine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productCount" Type="Int32" />
+          <Property Name="Product" Type="Int32" />
+          <Property Name="ShoppingCart" Type="Int32" />
+          <NavigationProperty Name="Product1" Relationship="Self.FK__OrderLine__Produ__29572725" FromRole="OrderLine" ToRole="Product" />
+          <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__OrderLine__Shopp__2A4B4B5E" FromRole="OrderLine" ToRole="ShoppingCart" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Package" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="countAvailable" Type="Int32" />
+          <Property Name="pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="rating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Package" Type="Int32" />
+          <Property Name="ShoppingCart" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__Product__239E4DCF" FromRole="Product" ToRole="Comment" />
+          <NavigationProperty Name="OrderLines" Relationship="Self.FK__OrderLine__Produ__29572725" FromRole="Product" ToRole="OrderLine" />
+          <NavigationProperty Name="Package1" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Product" ToRole="Package" />
+          <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__Product__Shoppin__20C1E124" FromRole="Product" ToRole="ShoppingCart" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfile" Type="Int32" />
+          <NavigationProperty Name="OrderLines" Relationship="Self.FK__OrderLine__Shopp__2A4B4B5E" FromRole="ShoppingCart" ToRole="OrderLine" />
+          <NavigationProperty Name="Products" Relationship="Self.FK__Product__Shoppin__20C1E124" FromRole="ShoppingCart" ToRole="Product" />
+          <NavigationProperty Name="UserProfile1" Relationship="Self.FK__ShoppingC__UserP__1A14E395" FromRole="ShoppingCart" ToRole="UserProfile" />
+          <NavigationProperty Name="ShoppingOrders" Relationship="Self.FK__ShoppingO__Shopp__1CF15040" FromRole="ShoppingCart" ToRole="ShoppingOrder" />
+        </EntityType>
+        <EntityType Name="ShoppingOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="productCount" Type="Int32" />
+          <Property Name="ShoppingCart" Type="Int32" />
+          <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__ShoppingO__Shopp__1CF15040" FromRole="ShoppingOrder" ToRole="ShoppingCart" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="zipcode" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="newsletter" Type="Boolean" />
+          <Property Name="LoginID" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__UserPro__24927208" FromRole="UserProfile" ToRole="Comment" />
+          <NavigationProperty Name="LoginUser" Relationship="Self.FK__UserProfi__Login__1273C1CD" FromRole="UserProfile" ToRole="LoginUser" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK__ShoppingC__UserP__1A14E395" FromRole="UserProfile" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Visas" Relationship="Self.FK__Visa__UserProfil__173876EA" FromRole="UserProfile" ToRole="Visa" />
+        </EntityType>
+        <EntityType Name="Visa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfile" Type="Int32" />
+          <Property Name="visainfo" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfile1" Relationship="Self.FK__Visa__UserProfil__173876EA" FromRole="Visa" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK__Comment__Product__239E4DCF">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__UserPro__24927208">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Login__1273C1CD">
+          <End Role="LoginUser" Type="Self.LoginUser" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderLine__Produ__29572725">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderLine__Shopp__2A4B4B5E">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OrderLine">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Package__1FCDBCEB">
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Package" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Shoppin__20C1E124">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__UserP__1A14E395">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ShoppingCart">
+              <PropertyRef Name="UserProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingO__Shopp__1CF15040">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="ShoppingOrder" Type="Self.ShoppingOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ShoppingOrder">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visa__UserProfil__173876EA">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Visa" Type="Self.Visa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Visa">
+              <PropertyRef Name="UserProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="lewebshopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="FAQs" EntityType="Self.FAQ" />
+          <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
+          <EntitySet Name="OrderLines" EntityType="Self.OrderLine" />
+          <EntitySet Name="Packages" EntityType="Self.Package" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
+          <EntitySet Name="ShoppingOrders" EntityType="Self.ShoppingOrder" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+          <EntitySet Name="Visas" EntityType="Self.Visa" />
+          <AssociationSet Name="FK__Comment__Product__239E4DCF" Association="Self.FK__Comment__Product__239E4DCF">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__UserPro__24927208" Association="Self.FK__Comment__UserPro__24927208">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Login__1273C1CD" Association="Self.FK__UserProfi__Login__1273C1CD">
+            <End Role="LoginUser" EntitySet="LoginUsers" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderLine__Produ__29572725" Association="Self.FK__OrderLine__Produ__29572725">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderLine" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderLine__Shopp__2A4B4B5E" Association="Self.FK__OrderLine__Shopp__2A4B4B5E">
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+            <End Role="OrderLine" EntitySet="OrderLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Package__1FCDBCEB" Association="Self.FK__Product__Package__1FCDBCEB">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Shoppin__20C1E124" Association="Self.FK__Product__Shoppin__20C1E124">
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__UserP__1A14E395" Association="Self.FK__ShoppingC__UserP__1A14E395">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingO__Shopp__1CF15040" Association="Self.FK__ShoppingO__Shopp__1CF15040">
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+            <End Role="ShoppingOrder" EntitySet="ShoppingOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visa__UserProfil__173876EA" Association="Self.FK__Visa__UserProfil__173876EA">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Visa" EntitySet="Visas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities">
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="lewebshopModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="comment1" ColumnName="comment" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="UserProfile" ColumnName="UserProfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAQs">
+            <EntityTypeMapping TypeName="lewebshopModel.FAQ">
+              <MappingFragment StoreEntitySet="FAQ">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginUsers">
+            <EntityTypeMapping TypeName="lewebshopModel.LoginUser">
+              <MappingFragment StoreEntitySet="LoginUser">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderLines">
+            <EntityTypeMapping TypeName="lewebshopModel.OrderLine">
+              <MappingFragment StoreEntitySet="OrderLine">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="productCount" ColumnName="productCount" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="lewebshopModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="lewebshopModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="countAvailable" ColumnName="countAvailable" />
+                <ScalarProperty Name="pic" ColumnName="pic" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="Package" ColumnName="Package" />
+                <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="lewebshopModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCart">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserProfile" ColumnName="UserProfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingOrders">
+            <EntityTypeMapping TypeName="lewebshopModel.ShoppingOrder">
+              <MappingFragment StoreEntitySet="ShoppingOrder">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="orderPrice" ColumnName="orderPrice" />
+                <ScalarProperty Name="productCount" ColumnName="productCount" />
+                <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="lewebshopModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="newsletter" ColumnName="newsletter" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visas">
+            <EntityTypeMapping TypeName="lewebshopModel.Visa">
+              <MappingFragment StoreEntitySet="Visa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UserProfile" ColumnName="UserProfile" />
+                <ScalarProperty Name="visainfo" ColumnName="visainfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
