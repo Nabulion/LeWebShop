@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>@Html.Label("Name:")</td>
+
+            <td>
+                @Html.TextArea("name")
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Password:")</td>
+
+            <td>
+                @Html.TextArea("password")
+            </td>
+        </tr>
+
+    </table>
+            <input type="submit" value="Add" />
+}
+@Html.ActionLink("Login", "Index")
+
