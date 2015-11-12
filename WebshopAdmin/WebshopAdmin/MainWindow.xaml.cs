@@ -35,93 +35,85 @@ namespace WebshopAdmin
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            sp_Options.Children.Clear();
-            sp_view.Children.Clear();
-            sp_middle.Children.Clear();
+            clear();
+
             string[] buttons = { "Create", "Edit", "Delete" };
 
-            
-
-                grid.Width = 275;
-                grid.Height = 200;
-                sp_view.Children.Add(grid);
+            grid.Width = 275;
+            grid.Height = 200;
+            sp_view.Children.Add(grid);
 
 
-                for (int i = 0; i < buttons.Count(); i++)
-                {
-                    string name = buttons[i];
-                    Button b = new Button();
-                    b.Name = name;
-                    b.Content = buttons[i];
-                    var margin = b.Margin;
-                    margin.Left = 5;
-                    margin.Top = 10;
-                    margin.Right = 5;
-                    b.Margin = margin;
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
 
-                    b.Click += new RoutedEventHandler(Button_Clicked);
-                    sp_Options.Children.Add(b);
-                }
-            
+                b.Click += new RoutedEventHandler(Button_Clicked);
+                sp_Options.Children.Add(b);
+            }
+
         }
 
         private void Button_Click_Package(object sender, RoutedEventArgs e)
         {
-            sp_Options.Children.Clear();
-            sp_view.Children.Clear();
-            sp_middle.Children.Clear();
+            clear();
             string[] buttons = { "Create", "Edit", "Delete" };
 
-            
+            box.Width = 200;
+            box.Height = 100;
+            box.DataContext = service.getProducts();
+            box.SelectionMode = SelectionMode.Multiple;
+            sp_middle.Children.Add(box);
 
-                wasClickedPackage = true;
+            Label l1 = new Label();
+            l1.Content = "Name";
+            sp_middle.Children.Add(l1);
 
-                box.Width = 200;
-                box.Height = 100;
-                box.DataContext = service.getProducts();
-                sp_middle.Children.Add(box);
-
-                Label l1 = new Label();
-                l1.Content = "Name";
-                sp_middle.Children.Add(l1);
-
-                TextBox t1 = new TextBox();
-                t1.Text = "";
-                sp_middle.Children.Add(t1);
+            TextBox t1 = new TextBox();
+            t1.Text = "";
+            sp_middle.Children.Add(t1);
 
 
-                Label l2 = new Label();
-                l2.Content = "Price";
-                sp_middle.Children.Add(l2);
+            Label l2 = new Label();
+            l2.Content = "Price";
+            sp_middle.Children.Add(l2);
 
-                TextBox t2 = new TextBox();
-                t2.Text = "";
-                sp_middle.Children.Add(t2);
-                
-              
-                
-
-                gridPackage.Width = 275;
-                gridPackage.Height = 200;
-                sp_view.Children.Add(gridPackage);
+            TextBox t2 = new TextBox();
+            t2.Text = "";
+            sp_middle.Children.Add(t2);
 
 
-                for (int i = 0; i < buttons.Count(); i++)
-                {
-                    string name = buttons[i];
-                    Button b = new Button();
-                    b.Name = name;
-                    b.Content = buttons[i];
-                    var margin = b.Margin;
-                    margin.Left = 5;
-                    margin.Top = 10;
-                    margin.Right = 5;
-                    b.Margin = margin;
 
-                    b.Click += new RoutedEventHandler(Button_Clicked_Package);
-                    sp_Options.Children.Add(b);
-                }
-            
+
+            gridPackage.Width = 275;
+            gridPackage.Height = 200;
+            sp_view.Children.Add(gridPackage);
+
+
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
+
+                b.Click += new RoutedEventHandler(Button_Clicked_Package);
+                sp_Options.Children.Add(b);
+            }
+
         }
 
 
@@ -195,6 +187,14 @@ namespace WebshopAdmin
                 }
             }
         }
+
+        private void clear()
+        {
+            sp_Options.Children.Clear();
+            sp_view.Children.Clear();
+            sp_middle.Children.Clear();
+        }
+
     }
 }
 
