@@ -28,7 +28,7 @@ namespace WebshopAdmin
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
-
+            service.createProduct(TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text);
         }
     }
 }

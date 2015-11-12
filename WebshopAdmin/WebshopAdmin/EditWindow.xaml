@@ -40,6 +40,6 @@
         <TextBox x:Name="txtPicture" Grid.Column="1" Grid.Row="5"
              Width="Auto" Margin="10.2,23.8,9,22.4" Grid.ColumnSpan="2"/>
         <Button x:Name="BtnOk" Grid.Column="1" Grid.Row="6" 
-            Width="80" Margin="0,9.6,25,10.4" Content="OK" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+            Width="80" Margin="0,9.6,25,10.4" Content="OK" HorizontalAlignment="Right" Grid.ColumnSpan="2" Click="BtnOk_Click"/>
     </Grid>
 </Window>

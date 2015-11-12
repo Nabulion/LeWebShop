@@ -47,6 +47,12 @@ namespace WebshopAdmin.Service
                 db.SaveChanges();
             }
         }
+        public List<Product> getProducts()
+        {
+            List<Product> l = new List<Product>();
+            l = db.Products.ToList();
+            return l;
+        }
 
 
     }

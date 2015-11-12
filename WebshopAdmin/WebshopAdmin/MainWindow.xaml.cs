@@ -21,11 +21,13 @@ namespace WebshopAdmin
     public partial class MainWindow : Window
     {
         int dummy = 0;
-        DataGrid grid = new DataGrid();
+        public DataGrid grid = new DataGrid();
         private Service.Service service;
         public MainWindow()
         {
             service = new Service.Service();
+            grid.ItemsSource = service.getProducts();
+
             InitializeComponent();
         }
 

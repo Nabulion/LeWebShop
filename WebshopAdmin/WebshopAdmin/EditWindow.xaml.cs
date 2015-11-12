@@ -23,20 +23,28 @@ namespace WebshopAdmin
         private int rowIndex;
         public EditWindow(Service.Service service, int rowIndex)
         {
+
             this.service = service;
             this.rowIndex = rowIndex;
             InitializeComponent();
+
             //TxtName.Text = service.getDataTable().Rows[rowIndex]["name"].ToString();
             //txtUnitprice.Text = service.getDataTable().Rows[rowIndex]["unitPrice"].ToString();
             //txtCountAvailable = service.getDataTable().Rows[rowIndex]["countAvailable"].ToString();
             //txtCountry.Text = service.getDataTable().Rows[rowIndex]["country"].ToString();
             //txtPicture.Text = service.getDataTable().Rows[rowIndex]["pic"].ToString();
+
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             //service.updateRow(rowIndex, TxtName.Text, txtUnitprice.Text, txtCountAvailable, txtCountry.Text, txtPicture.Text);
             this.Close();
+        }
+
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
     }
