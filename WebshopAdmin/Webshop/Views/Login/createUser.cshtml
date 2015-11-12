@@ -1,0 +1,69 @@
+﻿@model Webshop.Models.Wrapper
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>createUser</title>
+</head>
+<body>
+    <div>
+        <h2>Index</h2>
+        @using (Html.BeginForm(new { id = Model.userprofile.id }))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.loginuser.name)</td>
+
+                    <td>
+                        @Html.TextAreaFor(m => m.loginuser.name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.loginuser.pass)</td>
+
+                    <td>
+                        @Html.TextAreaFor(m => m.loginuser.pass)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.userprofile.Email)</td>
+
+                    <td>
+                        @Html.TextAreaFor(m => m.userprofile.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.userprofile.adress)</td>
+
+                    <td>
+                        @Html.TextAreaFor(m => m.userprofile.adress)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.userprofile.zipcode)</td>
+
+                    <td>
+                        @Html.TextAreaFor(m => m.userprofile.zipcode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.userprofile.newsletter)</td>
+
+                    <td>
+                        @Html.CheckBoxFor(m => m.userprofile.newsletter)
+                    </td>
+                </tr>
+
+            </table>
+            <input type="submit" value="Add" />
+        }
+
+    </div>
+</body>
+</html>

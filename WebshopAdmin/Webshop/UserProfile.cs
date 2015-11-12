@@ -25,12 +25,17 @@ namespace Webshop
         public string Email { get; set; }
         public string adress { get; set; }
         public string zipcode { get; set; }
-        public Nullable<bool> newsletter { get; set; }
+        public bool newsletter { get; set; }
         public Nullable<int> LoginID { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual LoginUser LoginUser { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
         public virtual ICollection<Visa> Visas { get; set; }
+
+        public bool notNullable()
+        {
+            return newsletter == true;
+        }
     }
 }

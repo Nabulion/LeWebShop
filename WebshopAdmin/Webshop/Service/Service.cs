@@ -7,20 +7,39 @@ using System.Web;
 
 namespace Webshop.Service
 {
-    public class Service
+    public static class Service
     {
-        lewebshopEntities DB = Dao.Dao.getDB();
+        private static lewebshopEntities DB = Dao.Dao.getDB();
 
-        public LoginUser createUserLogin(String name, String password)
+        public static UserProfile createUser(String name, String password, String email, String adress, String zipcode, bool newsletter)
         {
             LoginUser tempUser = new LoginUser();
             tempUser.pass = HashPass(password);
             tempUser.name = name;
             DB.LoginUsers.Add(tempUser);
-            DB.SaveChanges();
-            return tempUser;
+            UserProfile temp = createUserProfile(email, adress, zipcode, newsletter, tempUser);
+            try
+            {
+                DB.SaveChanges();
+            }
+            catch
+            {
+                DB.Entry(temp).Reload();
+            }
+            return temp;
         }
-        private String HashPass(String password)
+        private static UserProfile createUserProfile(String email, String adress, String zipcode, bool newsletter, LoginUser u)
+        {
+            UserProfile temp = new UserProfile();
+            temp.Email = email;
+            temp.adress = adress;
+            temp.zipcode = zipcode;
+            temp.newsletter = newsletter;
+            temp.LoginUser = u;
+            DB.UserProfiles.Add(temp);
+            return temp;
+        }
+        private static String HashPass(String password)
         {
             SHA1 sha1 = SHA1.Create();
 
@@ -35,7 +54,7 @@ namespace Webshop.Service
 
             return sb.ToString();
         }
-        public LoginUser validateLogin(String password)
+        public static LoginUser validateLogin(String password)
         {
             String tempPass = HashPass(password);
             LoginUser user = Dao.Dao.findUser(tempPass);
@@ -45,16 +64,29 @@ namespace Webshop.Service
             }
             return user;
         }
-        public void deleteUserLogin(String pass)
+        public static void deleteUserLogin(String pass)
         {
+            
             LoginUser temp = Dao.Dao.findUser(pass);
             DB.LoginUsers.Remove(temp);
-            DB.SaveChanges();
+            try
+            {
+                DB.SaveChanges();
+            }
+            catch
+            {
+                DB.Entry(temp).Reload();
+            }
+            
         }
-        public void updateUserLogin(String pass, String newname, String newpass)
+        public static void updateUserLogin(String pass, String newname, String newpass)
         {
             LoginUser temp = Dao.Dao.findUser(pass);
             Dao.Dao.updateUser(temp, newname, newpass);
+        }
+        public static UserProfile findUser(int id)
+        {
+            return DB.UserProfiles.Find(id);
         }
 
     }
