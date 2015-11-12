@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebshopAdmin;
 
-namespace webshopAdmin.Dao
+namespace WebshopAdmin.Dao
 {
     public class Database
     {
