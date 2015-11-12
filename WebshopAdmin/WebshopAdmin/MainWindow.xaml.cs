@@ -27,6 +27,7 @@ namespace WebshopAdmin
         {
             service = new Service.Service();
             grid.ItemsSource = service.getProducts();
+            grid.CanUserAddRows = false;
 
             InitializeComponent();
         }
@@ -71,14 +72,22 @@ namespace WebshopAdmin
                 switch (button.Name)
                 {
                     case "Create":
-                        CreateWindow cw = new CreateWindow(service);
+                        CreateWindow cw = new CreateWindow(service, grid);
                         cw.Show();
                         break;
 
+                    case "Delete":
+                        {
+                            service.deleteProduct((Product)grid.SelectedItem);
+                            grid.ItemsSource = null;
+                            grid.ItemsSource = service.getProducts();
+                        }
+                    break;
                     case "Edit":
                         if (grid.SelectedItem != null)
                         {
-                            EditWindow ew = new EditWindow(service, grid.SelectedIndex);
+                            EditWindow ew = new EditWindow(service, grid.SelectedIndex,grid.SelectedItem, grid);
+
                             ew.Show();
                         }
                         else
@@ -87,6 +96,7 @@ namespace WebshopAdmin
                         }
 
                         break;
+                        
                     
                 }
             }

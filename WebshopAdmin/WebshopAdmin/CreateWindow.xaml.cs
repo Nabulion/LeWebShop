@@ -20,8 +20,10 @@ namespace WebshopAdmin
     public partial class CreateWindow : Window
     {
         private Service.Service service;
-        public CreateWindow(Service.Service service)
+        private DataGrid grid;
+        public CreateWindow(Service.Service service, DataGrid grid)
         {
+            this.grid = grid;
             this.service = service;
             InitializeComponent();
         }
@@ -29,6 +31,9 @@ namespace WebshopAdmin
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
             service.createProduct(TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text);
+            grid.ItemsSource = null;
+            grid.ItemsSource = service.getProducts();
+            this.Close();
         }
     }
 }

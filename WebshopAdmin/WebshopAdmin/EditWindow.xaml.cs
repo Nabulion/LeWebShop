@@ -21,18 +21,21 @@ namespace WebshopAdmin
     {
         private Service.Service service;
         private int rowIndex;
-        public EditWindow(Service.Service service, int rowIndex)
+        private object selectedItem;
+        private DataGrid grid;
+        public EditWindow(Service.Service service, int rowIndex, object selectedItem, DataGrid grid)
         {
-
+            this.selectedItem = selectedItem;
             this.service = service;
             this.rowIndex = rowIndex;
+            this.grid = grid;
             InitializeComponent();
 
-            //TxtName.Text = service.getDataTable().Rows[rowIndex]["name"].ToString();
-            //txtUnitprice.Text = service.getDataTable().Rows[rowIndex]["unitPrice"].ToString();
-            //txtCountAvailable = service.getDataTable().Rows[rowIndex]["countAvailable"].ToString();
-            //txtCountry.Text = service.getDataTable().Rows[rowIndex]["country"].ToString();
-            //txtPicture.Text = service.getDataTable().Rows[rowIndex]["pic"].ToString();
+            TxtName.Text = service.filldata(service.getProducts()).Rows[rowIndex]["name"].ToString();
+            txtUnitprice.Text = service.filldata(service.getProducts()).Rows[rowIndex]["unitPrice"].ToString();
+            txtCountAvailable.Text = service.filldata(service.getProducts()).Rows[rowIndex]["countAvailable"].ToString();
+            txtCountry.Text = service.filldata(service.getProducts()).Rows[rowIndex]["country"].ToString();
+            txtPicture.Text = service.filldata(service.getProducts()).Rows[rowIndex]["pic"].ToString();
 
         }
 
@@ -44,7 +47,10 @@ namespace WebshopAdmin
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
-            
+            service.updateProduct((Product)selectedItem,TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text);
+            grid.ItemsSource = null;
+            grid.ItemsSource = service.getProducts();
+            this.Close();
         }
 
     }
