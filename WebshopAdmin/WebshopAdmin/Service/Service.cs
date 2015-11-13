@@ -24,7 +24,7 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("pic");
             dt.Columns.Add("country");
             dt.Columns.Add("rating");
-            createFAQ("qqq", "asd");
+           
             
         }
         public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country)
@@ -107,7 +107,7 @@ namespace WebshopAdmin.Service
             faq.question = question;
             faq.answer = answer;
             db.SaveChanges();
-            //Fill datatable?
+            
         }
         public void createPackage(List<Product> list, string name, decimal price)
         {
