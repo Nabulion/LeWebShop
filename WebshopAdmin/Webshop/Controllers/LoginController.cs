@@ -18,8 +18,16 @@ namespace Webshop.Controllers
         public ActionResult Index(FormCollection fc)
         {
             String pass = fc["password"];
-            LoginUser temp = Service.Service.validateLogin(pass);
-            return View();
+            try {
+                LoginUser temp = Service.Service.validateLogin(pass);
+                return RedirectToAction("userProfile", temp);
+            }
+            catch
+            {
+                return View("");
+            }
+
+            
         }
         public ActionResult createUser()
         {
@@ -31,14 +39,8 @@ namespace Webshop.Controllers
         [HttpPost]
         public ActionResult createUser(FormCollection fc)
         {
-           
-           String name = fc["name"];
-            String pass = (fc["pass"]);
-           String Email = fc["Email"];
-           String adresse = fc["adress"];
-           String zipcode = fc["zipcode"];
            bool newsl = Convert.ToBoolean((fc["newsletter"]));
-           UserProfile temp = Service.Service.createUser(name, pass, Email, adresse, zipcode, newsl);
+           UserProfile temp = Service.Service.createUser(fc["name"], (fc["pass"]), fc["Email"], fc["adress"], fc["zipcode"], newsl);
            
            return RedirectToAction("userProfile", temp);
         }
