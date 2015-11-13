@@ -24,12 +24,14 @@ namespace WebshopAdmin
         public DataGrid gridPackage = new DataGrid();
         private ListBox box = new ListBox();
         private Service.Service service;
-      
+        lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
             service = new Service.Service();
             grid.ItemsSource = service.getProducts();
+
             grid.CanUserAddRows = false;
+            gridPackage.ItemsSource = db.Packages.ToList();
             gridPackage.CanUserAddRows = false;
             box.ItemsSource = service.getProducts();
             InitializeComponent();
