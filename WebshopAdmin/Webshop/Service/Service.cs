@@ -24,7 +24,7 @@ namespace Webshop.Service
             }
             catch
             {
-                DB.Entry(temp).Reload();
+
             }
             return temp;
         }
@@ -43,13 +43,15 @@ namespace Webshop.Service
         {
             SHA1 sha1 = SHA1.Create();
 
-            byte[] hashData = sha1.ComputeHash(Encoding.Default.GetBytes(password));
+            var input = Encoding.ASCII.GetBytes(password);
+
+            var hashData = sha1.ComputeHash(input);
 
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < hashData.Length; i++)
             {
-                sb.Append(hashData[i].ToString());
+                sb.Append(hashData[i].ToString("X2"));
             }
 
             return sb.ToString();

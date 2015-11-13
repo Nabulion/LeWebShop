@@ -31,9 +31,14 @@ namespace Webshop.Controllers
         [HttpPost]
         public ActionResult createUser(FormCollection fc)
         {
-            bool newsl = false;// bool.Parse(fc["newsletter"]);
-            String n = "sad";// fc["pass"];
-           UserProfile temp = Service.Service.createUser(fc["name"], n, fc["Email"], fc["adress"], fc["zipcode"], newsl);
+           
+           String name = fc["name"];
+            String pass = (fc["pass"]);
+           String Email = fc["Email"];
+           String adresse = fc["adress"];
+           String zipcode = fc["zipcode"];
+           bool newsl = Convert.ToBoolean((fc["newsletter"]));
+           UserProfile temp = Service.Service.createUser(name, pass, Email, adresse, zipcode, newsl);
            
            return RedirectToAction("userProfile", temp);
         }
