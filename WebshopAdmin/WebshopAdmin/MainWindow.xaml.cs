@@ -22,18 +22,22 @@ namespace WebshopAdmin
     {
         public DataGrid grid = new DataGrid();
         public DataGrid gridPackage = new DataGrid();
-        private ListBox box = new ListBox();
+        public DataGrid gridFAQ = new DataGrid();
+        private ListBox boxProducts = new ListBox();
+        private ListBox boxFAQs = new ListBox();
         private Service.Service service;
         lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
             service = new Service.Service();
             grid.ItemsSource = service.getProducts();
-
             grid.CanUserAddRows = false;
             gridPackage.ItemsSource = db.Packages.ToList();
             gridPackage.CanUserAddRows = false;
-            box.ItemsSource = service.getProducts();
+            boxProducts.ItemsSource = service.getProducts();
+            boxFAQs.ItemsSource = db.FAQs.ToList();
+            gridFAQ.ItemsSource = db.FAQs.ToList();
+            gridFAQ.CanUserAddRows = false;
             InitializeComponent();
         }
 
@@ -71,11 +75,11 @@ namespace WebshopAdmin
             clear();
             string[] buttons = { "Create", "Edit", "Delete" };
 
-            box.Width = 200;
-            box.Height = 100;
-            box.DataContext = service.getProducts();
-            box.SelectionMode = SelectionMode.Multiple;
-            sp_middle.Children.Add(box);
+            boxProducts.Width = 200;
+            boxProducts.Height = 100;
+            boxProducts.DataContext = service.getProducts();
+            boxProducts.SelectionMode = SelectionMode.Multiple;
+            sp_middle.Children.Add(boxProducts);
 
             Label l1 = new Label();
             l1.Content = "Name";
@@ -116,6 +120,61 @@ namespace WebshopAdmin
             }
 
         }
+
+        private void Button_Click_FAQ(object sender, RoutedEventArgs e)
+        {
+            clear();
+
+            string[] buttons = { "Create", "Edit", "Delete" };
+
+            boxFAQs.Width = 200;
+            boxFAQs.Height = 100;
+            boxFAQs.DataContext = db.FAQs.ToList();
+            boxFAQs.SelectionMode = SelectionMode.Multiple;
+            sp_middle.Children.Add(boxFAQs);
+
+            Label l1 = new Label();
+            l1.Content = "Question";
+            sp_middle.Children.Add(l1);
+
+            TextBox t1 = new TextBox();
+            t1.Text = "";
+            sp_middle.Children.Add(t1);
+
+
+            Label l2 = new Label();
+            l2.Content = "Answer";
+            sp_middle.Children.Add(l2);
+
+            TextBox t2 = new TextBox();
+            t2.Text = "";
+            sp_middle.Children.Add(t2);
+
+            gridFAQ.Width = 275;
+            gridFAQ.Height = 200;
+            sp_view.Children.Add(gridFAQ);
+
+
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
+
+                b.Click += b_Click_FAQ;
+                sp_Options.Children.Add(b);
+            }
+
+
+        }
+
+
 
 
         void Button_Clicked(object sender, EventArgs e)
@@ -176,12 +235,12 @@ namespace WebshopAdmin
                         {
                             l.Add((Product)i);
                         }
-                        
-                        service.createPackage(l,textBox.Text,Convert.ToDecimal(textBox1.Text));
+
+                        service.createPackage(l, textBox.Text, Convert.ToDecimal(textBox1.Text));
 
                         gridPackage.ItemsSource = null;
                         gridPackage.ItemsSource = db.Packages.ToList();
-                        
+
                         break;
 
                     case "Delete":
@@ -208,7 +267,7 @@ namespace WebshopAdmin
                                 list.Add((Product)select);
                             }
 
-                            service.editpackage(list,p, textboxname.Text, Convert.ToDecimal(textboxprice.Text));
+                            service.editpackage(list, p, textboxname.Text, Convert.ToDecimal(textboxprice.Text));
                             gridPackage.ItemsSource = null;
                             gridPackage.ItemsSource = db.Packages.ToList();
                         }
@@ -220,6 +279,56 @@ namespace WebshopAdmin
                 }
             }
         }
+
+        void b_Click_FAQ(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                switch (button.Name)
+                {
+                    case "Create":
+                        var textQuestion = sp_middle.Children.OfType<TextBox>().First();
+                        var textAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                        service.createFAQ(textQuestion.Text, textAnswer.Text);
+                        gridFAQ.ItemsSource = null;
+                        gridFAQ.ItemsSource = db.FAQs.ToList();
+
+
+                        break;
+
+                    case "Delete":
+                        {
+                            service.deleteFAQ((FAQ)gridFAQ.SelectedItem);
+                            gridFAQ.ItemsSource = null;
+                            gridFAQ.ItemsSource = db.FAQs.ToList();
+                           
+                        }
+                        break;
+                    case "Edit":
+                       if (gridFAQ.SelectedItem != null)
+                        {
+                            var datatable = sp_view.Children.OfType<DataGrid>().First();
+                            var textboxQuestion = sp_middle.Children.OfType<TextBox>().First();
+                            var textboxAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                            
+                            FAQ faq = (FAQ)datatable.SelectedItem;
+                            service.editFAQ(faq, textboxQuestion.Text, textboxAnswer.Text);
+                            gridPackage.ItemsSource = null;
+                            gridPackage.ItemsSource = db.Packages.ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Vælg venligst en række fra datagrid");
+                        }
+                        break;
+                }
+            }
+        }
+
+
+
+
 
         private void clear()
         {
