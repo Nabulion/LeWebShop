@@ -1,0 +1,33 @@
+﻿body {
+    background-color:deeppink
+}
+aside{
+    float:right;
+    position:fixed;
+    left: 1200px;
+    top: 50px;
+}
+table{
+    border:5px solid green;
+    width:80%;
+    background-color:burlywood;
+}
+section{
+    padding-top:10px;
+    position:absolute;
+    left:650px;
+}
+#menutop {
+    padding-left:100px;
+    padding-top:50px;
+}
+#menu{
+    float:left;
+    padding-left:100px;
+    padding-top:5px;
+}
+header{
+    padding-left:50px;
+    padding-top:50px;
+}
+
