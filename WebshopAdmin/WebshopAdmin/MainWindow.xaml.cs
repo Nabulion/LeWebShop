@@ -33,7 +33,7 @@ namespace WebshopAdmin
             grid.ItemsSource = service.getProducts();
             grid.CanUserAddRows = false;
 
-           
+
             gridPackage.ItemsSource = db.Packages.ToList();
             gridPackage.CanUserAddRows = false;
             gridPackage.IsReadOnly = true;
@@ -104,11 +104,13 @@ namespace WebshopAdmin
             t2.Text = "";
             sp_middle.Children.Add(t2);
 
-
+           
             gridPackage.Width = 275;
-            gridPackage.Height = 200;
-            sp_view.Children.Add(gridPackage);
+            gridPackage.Height = 200; 
             removeColumn();
+            sp_view.Children.Add(gridPackage);
+            
+            
 
 
             for (int i = 0; i < buttons.Count(); i++)
@@ -307,6 +309,7 @@ namespace WebshopAdmin
                            
                         }
                         break;
+
                     case "Edit":
                        if (gridFAQ.SelectedItem != null)
                         {
