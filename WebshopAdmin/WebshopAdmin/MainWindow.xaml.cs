@@ -153,7 +153,7 @@ namespace WebshopAdmin
                 }
             }
         }
-
+        // Package functions.
         void Button_Clicked_Package(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -165,13 +165,20 @@ namespace WebshopAdmin
 
                         Package pac = new Package();
                         var textBox = sp_middle.Children.OfType<TextBox>().FirstOrDefault();
-                        pac.name = textBox.Text;
                         var textBox1 = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                        var listbox = sp_middle.Children.OfType<ListBox>().First();
                         pac.price = Convert.ToDecimal(textBox1.Text);
-                        Product product = (Product)sp_middle.Children.OfType<ListBox>().FirstOrDefault().SelectedValue;
-                        pac.Products.Add(product);
-                        db.Packages.Add(pac);
-                        db.SaveChanges();
+                        pac.name = textBox.Text;
+                        List<Product> l = new List<Product>();
+                        listbox.SelectionMode = SelectionMode.Multiple;
+
+                        foreach (var i in listbox.SelectedItems)
+                        {
+                            l.Add((Product)i);
+                        }
+                        
+                        service.createPackage(l,textBox.Text,Convert.ToDecimal(textBox1.Text));
+
                         gridPackage.ItemsSource = null;
                         gridPackage.ItemsSource = db.Packages.ToList();
                         
@@ -179,17 +186,31 @@ namespace WebshopAdmin
 
                     case "Delete":
                         {
-                            service.deleteProduct((Product)grid.SelectedItem);
-                            grid.ItemsSource = null;
-                            grid.ItemsSource = service.getProducts();
+                            var datatable = sp_view.Children.OfType<DataGrid>().First();
+                            Package p = (Package)datatable.SelectedItem;
+                            service.deletePackage(p);
+                            gridPackage.ItemsSource = null;
+                            gridPackage.ItemsSource = db.Packages.ToList();
                         }
                         break;
                     case "Edit":
-                        if (grid.SelectedItem != null)
+                        if (gridPackage.SelectedItem != null)
                         {
-                            EditWindow ew = new EditWindow(service, grid.SelectedIndex, grid.SelectedItem, grid);
+                            var datatable = sp_view.Children.OfType<DataGrid>().First();
+                            var textboxname = sp_middle.Children.OfType<TextBox>().First();
+                            var textboxprice = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                            var listboxproducts = sp_middle.Children.OfType<ListBox>().First();
+                            List<Product> list = new List<Product>();
+                            Package p = (Package)datatable.SelectedItem;
+                            listboxproducts.SelectionMode = SelectionMode.Multiple;
+                            foreach (var select in listboxproducts.SelectedItems)
+                            {
+                                list.Add((Product)select);
+                            }
 
-                            ew.Show();
+                            service.editpackage(list,p, textboxname.Text, Convert.ToDecimal(textboxprice.Text));
+                            gridPackage.ItemsSource = null;
+                            gridPackage.ItemsSource = db.Packages.ToList();
                         }
                         else
                         {

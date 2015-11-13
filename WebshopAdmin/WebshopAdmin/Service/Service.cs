@@ -119,25 +119,28 @@ namespace WebshopAdmin.Service
                 pro.Package1 = p;
             }
             db.Packages.Add(p);
+            db.SaveChanges();
         }
         public void deletePackage(Package p)
         {
-            // Test
-            foreach (Product pro in db.Products)
-            {
-                if (pro.Package1.name == p.name)
-                {
-                    pro.Package1 = null;
-                    db.Packages.Remove(p);
-                }
-            }
+
+            db.Packages.Remove(p);
             db.SaveChanges();
         }
-        public void editpackage(Package p, string name, decimal price)
+        public void editpackage(List<Product> l,Package p, string name, decimal price)
         {
+
             p.name = name;
             p.price = price;
-            //Selected products osv TODO
+            foreach (Product pro in l)
+            {
+                pro.Package1 = p;
+            }
+
+            db.SaveChanges();
+            
+
+
         }
 
 
