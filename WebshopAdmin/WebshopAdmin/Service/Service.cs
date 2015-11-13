@@ -24,6 +24,7 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("pic");
             dt.Columns.Add("country");
             dt.Columns.Add("rating");
+            createFAQ("qqq", "asd");
             
         }
         public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country)
@@ -72,9 +73,6 @@ namespace WebshopAdmin.Service
         }
         public DataTable filldata(List<Product> l)
         {
-            
-            
-
             foreach (var product in l)
             {
                 var row = dt.NewRow();
@@ -88,6 +86,61 @@ namespace WebshopAdmin.Service
             }
 
             return dt;
+        }
+
+        public void createFAQ(string question, string answer)
+        {
+            FAQ f = new FAQ();
+            f.answer = answer;
+            f.question = question;
+            db.FAQs.Add(f);
+            db.SaveChanges();
+
+        }
+        public void deleteFAQ(FAQ faq)
+        {
+            db.FAQs.Remove(faq);
+            db.SaveChanges();
+        }
+        public void editFAQ(FAQ faq, string question, string answer)
+        {
+            faq.question = question;
+            faq.answer = answer;
+            db.SaveChanges();
+            //Fill datatable?
+        }
+        public void createPackage(List<Product> list, string name, decimal price)
+        {
+            Package p = new Package();
+            p.name = name;
+            p.price = price;
+            foreach (Product pro in list)
+            {
+                pro.Package1 = p;
+            }
+            db.Packages.Add(p);
+            db.SaveChanges();
+        }
+        public void deletePackage(Package p)
+        {
+
+            db.Packages.Remove(p);
+            db.SaveChanges();
+        }
+        public void editpackage(List<Product> l,Package p, string name, decimal price)
+        {
+
+            p.name = name;
+            p.price = price;
+            foreach (Product pro in l)
+            {
+                pro.Package1 = p;
+            }
+
+            db.SaveChanges();
+            
+
+
         }
 
 

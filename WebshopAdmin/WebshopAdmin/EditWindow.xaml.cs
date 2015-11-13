@@ -39,12 +39,6 @@ namespace WebshopAdmin
 
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            //service.updateRow(rowIndex, TxtName.Text, txtUnitprice.Text, txtCountAvailable, txtCountry.Text, txtPicture.Text);
-            this.Close();
-        }
-
         private void BtnOk_Click(object sender, RoutedEventArgs e)
         {
             service.updateProduct((Product)selectedItem,TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text);

@@ -5,7 +5,7 @@
     <DockPanel Background="LightSteelBlue" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" LastChildFill="False">
         <StackPanel Orientation="Horizontal" Height="75" Margin="0,0,0.2,0" DockPanel.Dock="Top">
             <Button Content="Product" Width="75" Height="50" Margin="5,0,5,0" Click="Button_Click"/>
-            <Button Content="Button" Width="75" Height="50"  Margin="5,0,5,0"/>
+            <Button Content="Package" Width="75" Height="50"  Margin="5,0,5,0" Click="Button_Click_Package"/>
             <Button Content="Button" Width="75" Height="50" Margin="5,0,5,0"/>
             <Button Content="Button" Width="75" Height="50" Margin="5,0,5,0"/>
             <Button Content="Button" Width="75" Height="50" Margin="5,0,5,0"/>
@@ -13,6 +13,9 @@
         <StackPanel x:Name="sp_Options" Height="247" Orientation="Vertical" Width="75"  DockPanel.Dock="Left">
         </StackPanel>
         <StackPanel x:Name="sp_view"  DockPanel.Dock="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="300">
+        </StackPanel>
+        <StackPanel x:Name="sp_middle" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            
         </StackPanel>
     </DockPanel>
 </Window>
