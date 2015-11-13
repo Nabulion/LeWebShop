@@ -24,11 +24,15 @@ namespace WebshopAdmin
         public DataGrid gridPackage = new DataGrid();
         private ListBox box = new ListBox();
         private Service.Service service;
+        lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
             service = new Service.Service();
             grid.ItemsSource = service.getProducts();
+
             grid.CanUserAddRows = false;
+            gridPackage.ItemsSource = db.Packages.ToList();
+            gridPackage.CanUserAddRows = false;
             box.ItemsSource = service.getProducts();
             InitializeComponent();
         }
@@ -89,9 +93,6 @@ namespace WebshopAdmin
             TextBox t2 = new TextBox();
             t2.Text = "";
             sp_middle.Children.Add(t2);
-
-
-
 
             gridPackage.Width = 275;
             gridPackage.Height = 200;
@@ -161,8 +162,19 @@ namespace WebshopAdmin
                 switch (button.Name)
                 {
                     case "Create":
-                        CreateWindow cw = new CreateWindow(service, grid);
-                        cw.Show();
+
+                        Package pac = new Package();
+                        var textBox = sp_middle.Children.OfType<TextBox>().FirstOrDefault();
+                        pac.name = textBox.Text;
+                        var textBox1 = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                        pac.price = Convert.ToDecimal(textBox1.Text);
+                        Product product = (Product)sp_middle.Children.OfType<ListBox>().FirstOrDefault().SelectedValue;
+                        pac.Products.Add(product);
+                        db.Packages.Add(pac);
+                        db.SaveChanges();
+                        gridPackage.ItemsSource = null;
+                        gridPackage.ItemsSource = db.Packages.ToList();
+                        
                         break;
 
                     case "Delete":
