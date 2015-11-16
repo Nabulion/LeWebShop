@@ -21,9 +21,11 @@
         Adresse:    @Model.adress<br />
         zip:        @Model.zipcode<br />
         tilmeldt nyheds brev: @Model.newsletter
-
-
+        <br />
         @Html.ActionLink("Rediger", "updateUser",new { id = Model.id })
+        <br />
+        @Html.ActionLink("Tilføj Dankort info", "visa", new { id = Model.id })
+
     </div>
 </body>
 </html>

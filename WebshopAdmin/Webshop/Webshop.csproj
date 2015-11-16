@@ -197,6 +197,7 @@
     <Content Include="Views\Webshop\Index.cshtml" />
     <Content Include="Views\Webshop\userProfile.cshtml" />
     <Content Include="Views\Webshop\updateUser.cshtml" />
+    <Content Include="Views\Webshop\visa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,24 @@
+﻿@model Webshop.Visa
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>visa</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm(new { id = Model.UserProfile1.id })) Model er null
+        {
+            @Html.LabelFor(m => m.visainfo)
+            @Html.TextBox("visa")
+            <input type="submit" value="Godkend" />
+        }
+    </div>
+</body>
+</html>

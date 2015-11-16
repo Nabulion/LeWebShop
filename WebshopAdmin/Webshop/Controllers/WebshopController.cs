@@ -36,6 +36,19 @@ namespace Webshop.Controllers
             Service.Service.updateUserLogin(temp, fc["name"], (fc["pass"]), fc["Email"], fc["adress"], fc["zipcode"], newsl);
             return RedirectToAction("userProfile", new { id = temp.id });
         }
+        public ActionResult visa(int id)
+        {
+            UserProfile temp = Service.Service.findUser(id);
+            return View(new Visa());
+        }
+        [HttpPost]
+        public ActionResult visa(FormCollection fc, int id)
+        {
+            String visa = fc["visa"];
+            UserProfile temp = Service.Service.findUser(id);
+            Service.Service.createVisa(temp, visa);
+            return RedirectToAction("userProfile", new { id = temp.id });
+        }
 
     }
 }

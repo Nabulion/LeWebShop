@@ -59,8 +59,8 @@ namespace Webshop.Service
         public static UserProfile validateLogin(String password, String name)
         {
             String tempPass = HashPass(password);
-            UserProfile user = Dao.Dao.findUser(tempPass,name);
-           
+            UserProfile user = Dao.Dao.findUser(tempPass, name);
+
             if (user == null)
             {
                 throw new Exception("Password not correct");
@@ -69,8 +69,8 @@ namespace Webshop.Service
         }
         public static void deleteUserLogin(String pass, String name)
         {
-            
-            UserProfile temp = Dao.Dao.findUser(pass,name);
+
+            UserProfile temp = Dao.Dao.findUser(pass, name);
             DB.LoginUsers.Remove(temp.LoginUser);
             DB.UserProfiles.Remove(temp);
             try
@@ -81,7 +81,7 @@ namespace Webshop.Service
             {
                 DB.Entry(temp).Reload();
             }
-            
+
         }
         public static void updateUserLogin(UserProfile temp, String newname, String newpass, String newEmail, String newAdress, String zipCode, bool newsletter)
         {
@@ -90,6 +90,10 @@ namespace Webshop.Service
         public static UserProfile findUser(int id)
         {
             return DB.UserProfiles.Find(id);
+        }
+        public static Visa createVisa(UserProfile temp, String Visa)
+        {
+            return Dao.Dao.visaInfo(temp, Visa);
         }
 
     }

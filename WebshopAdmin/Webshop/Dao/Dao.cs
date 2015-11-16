@@ -34,5 +34,14 @@ namespace Webshop.Dao
             u.newsletter = newsletter;
             DB.SaveChanges();
         }
+        public static Visa visaInfo(UserProfile temp, String Visa)
+        {
+            Visa v = new Visa();
+            v.UserProfile1 = temp;
+            v.visainfo = Visa;
+            DB.Visas.Add(v);
+            DB.SaveChanges();
+            return v;
+        }
     }
 }
