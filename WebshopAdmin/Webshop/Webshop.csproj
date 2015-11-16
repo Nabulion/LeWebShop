@@ -94,6 +94,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="pic\ost1.jpg" />
+    <Content Include="pic\ost2.jpg" />
+    <Content Include="pic\ost3.jpg" />
+    <Content Include="pic\ost4.jpg" />
+    <Content Include="pic\ost5.jpg" />
     <Content Include="pic\pic_mountain.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -188,15 +188,19 @@ namespace WebshopAdmin.Service
                     i = p.id;
                 }
             }
-            Byte[] imageByteArray = db.Products.ToList().ElementAt(i).picture;
-            BitmapImage biImg = new BitmapImage();
-            MemoryStream ms = new MemoryStream(imageByteArray);
-            biImg.BeginInit();
-            biImg.StreamSource = ms;
-            biImg.EndInit();
+          
+                Byte[] imageByteArray = db.Products.ToList().ElementAt(i - 1).picture;
+                BitmapImage biImg = new BitmapImage();
 
-            BitmapImage imgSrc = biImg;
-            return biImg;
+                MemoryStream ms = new MemoryStream(imageByteArray);
+                biImg.BeginInit();
+                biImg.StreamSource = ms;
+                biImg.EndInit();
+
+                BitmapImage imgSrc = biImg;
+                return biImg;
+          
+           
         }
         // Writes picture to database
         public byte[] convertToByteArray(BitmapImage img)
