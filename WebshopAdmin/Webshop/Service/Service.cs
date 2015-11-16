@@ -56,10 +56,10 @@ namespace Webshop.Service
 
             return sb.ToString();
         }
-        public static UserProfile validateLogin(String password)
+        public static UserProfile validateLogin(String password, String name)
         {
             String tempPass = HashPass(password);
-            UserProfile user = Dao.Dao.findUser(tempPass);
+            UserProfile user = Dao.Dao.findUser(tempPass,name);
            
             if (user == null)
             {
@@ -67,10 +67,10 @@ namespace Webshop.Service
             }
             return user;
         }
-        public static void deleteUserLogin(String pass)
+        public static void deleteUserLogin(String pass, String name)
         {
             
-            UserProfile temp = Dao.Dao.findUser(pass);
+            UserProfile temp = Dao.Dao.findUser(pass,name);
             DB.LoginUsers.Remove(temp.LoginUser);
             DB.UserProfiles.Remove(temp);
             try
@@ -83,10 +83,9 @@ namespace Webshop.Service
             }
             
         }
-        public static void updateUserLogin(String pass, String newname, String newpass)
+        public static void updateUserLogin(UserProfile temp, String newname, String newpass, String newEmail, String newAdress, String zipCode, bool newsletter)
         {
-            UserProfile temp = Dao.Dao.findUser(pass);
-            Dao.Dao.updateUser(temp.LoginUser, newname, newpass);
+            Dao.Dao.updateUser(temp, newname, newpass, newEmail, newAdress, zipCode, newsletter);
         }
         public static UserProfile findUser(int id)
         {

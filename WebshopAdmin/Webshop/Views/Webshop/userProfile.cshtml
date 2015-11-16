@@ -1,0 +1,29 @@
+﻿@model Webshop.UserProfile
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>userProfile</title>
+</head>
+<body>
+    <div>
+        <h1>Bruger Profil</h1>
+
+        Profil id:  @Model.id<br />
+        Navn:       @Model.LoginUser.name<br />
+        Email:      @Model.Email<br />
+        Adresse:    @Model.adress<br />
+        zip:        @Model.zipcode<br />
+        tilmeldt nyheds brev: @Model.newsletter
+
+
+        @Html.ActionLink("Rediger", "updateUser",new { id = Model.id })
+    </div>
+</body>
+</html>

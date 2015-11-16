@@ -18,15 +18,20 @@ namespace Webshop.Dao
             }
             return DB;
         }
-        public static UserProfile findUser(String pass)
+        public static UserProfile findUser(String pass, String name)
         {
-            UserProfile temp = (from l in DB.UserProfiles where l.LoginUser.pass == pass select l).First();
+            UserProfile temp = (from l in DB.UserProfiles where l.LoginUser.pass == pass && l.LoginUser.name == name select l).First();
             return temp;
         }
-        public static void updateUser(LoginUser u, String newname, String newpass)
+        public static void updateUser(UserProfile u, String newname, String newpass, String newEmail, String newAdress, String zipCode, bool newsletter)
         {
-            u.name = newname;
-            u.pass = newpass;
+
+            u.LoginUser.name = newname;
+            u.LoginUser.pass = newpass;
+            u.Email = newEmail;
+            u.adress = newAdress;
+            u.zipcode = zipCode;
+            u.newsletter = newsletter;
             DB.SaveChanges();
         }
     }

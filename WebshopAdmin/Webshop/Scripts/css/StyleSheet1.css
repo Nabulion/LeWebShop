@@ -1,5 +1,5 @@
 ﻿body {
-    background-color:deeppink
+    background-color:white
 }
 aside{
     float:right;
@@ -28,5 +28,9 @@ section{
 header{
     padding-left:50px;
     padding-top:50px;
+}
+#Error{
+    text-decoration-color:red;
+    color:red;
 }
 

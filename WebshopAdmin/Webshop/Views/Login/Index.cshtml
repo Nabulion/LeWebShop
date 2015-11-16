@@ -3,28 +3,38 @@
     ViewBag.Title = "Index";
     Layout = null;
 }
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
+    <title>Log Ind</title>
+</head>
+<body>
+    <h2>Index</h2>
+    @using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <td>@Html.Label("Navn:")</td>
 
-<h2>Index</h2>
-@using (Html.BeginForm())
-{
-    <table>
-        <tr>
-            <td>@Html.Label("Name:")</td>
+                <td>
+                    @Html.TextBox("name")
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Kodeord:")</td>
 
-            <td>
-                @Html.TextArea("name")
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.Label("Password:")</td>
+                <td>
+                    @Html.Password("password")
+                </td>
 
-            <td>
-                @Html.TextArea("password")
-            </td>
-        </tr>
+            </tr>
 
-    </table>
-            <input type="submit" value="Log in" />
-}
+        </table>
 
-@Html.ActionLink("Create User", "createUser", "Login")
+        <input type="submit" value="Log in" />    <div id="Error">@Html.ValidationMessage("LoginError")</div>
+    }
+
+    @Html.ActionLink("Create User", "createUser", "Login")
+</body>
+</html>

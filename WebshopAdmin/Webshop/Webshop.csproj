@@ -98,7 +98,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\css\StyleSheet.css" />
+    <Content Include="Scripts\css\StyleSheet1.css" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -189,8 +189,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\createUser.cshtml" />
-    <Content Include="Views\Login\userProfile.cshtml" />
     <Content Include="Views\Webshop\Index.cshtml" />
+    <Content Include="Views\Webshop\userProfile.cshtml" />
+    <Content Include="Views\Webshop\updateUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

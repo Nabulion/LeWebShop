@@ -18,6 +18,24 @@ namespace Webshop.Controllers
             }
             return View(temp);
         }
-        
+        public ActionResult userProfile(int id)
+        {
+            UserProfile temp = Service.Service.findUser(id);
+            return View(temp);
+        }
+        public ActionResult updateUser(int id)
+        {
+            UserProfile temp = Service.Service.findUser(id);
+            return View(temp);
+        }
+        [HttpPost]
+        public ActionResult updateUser(FormCollection fc, int id)
+        {
+            UserProfile temp = Service.Service.findUser(id);
+            bool newsl = fc["newsletter"].Contains("true");
+            Service.Service.updateUserLogin(temp, fc["name"], (fc["pass"]), fc["Email"], fc["adress"], fc["zipcode"], newsl);
+            return RedirectToAction("userProfile", new { id = temp.id });
+        }
+
     }
 }

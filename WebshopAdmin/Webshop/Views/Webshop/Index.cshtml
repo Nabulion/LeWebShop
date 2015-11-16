@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
     <title>Index</title>
 </head>
 <body>
@@ -20,7 +20,8 @@
         }
         else
         {
-            @Html.ActionLink("Bruger Profile", "Index", "Login")
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.id } )<br />
+            @Html.ActionLink("Log ud", "index", new { id = -1})
         }
 
         <h1>OSTEPAKKEN</h1>

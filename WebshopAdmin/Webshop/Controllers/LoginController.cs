@@ -14,16 +14,19 @@ namespace Webshop.Controllers
         {
             return View();
         }
-        [HttpPost]
+        //[HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Index(FormCollection fc)
         {
+            String name = fc["name"];
             String pass = fc["password"];
             try {
-                UserProfile temp = Service.Service.validateLogin(pass);
+                UserProfile temp = Service.Service.validateLogin(pass, name);
                 return RedirectToAction("Index","Webshop", new { id = temp.id });
             }
             catch
             {
+                    ModelState.AddModelError("LoginError", "Log in er ikke korrekt prøv igen");
                 return View("");
             }
 
@@ -39,15 +42,11 @@ namespace Webshop.Controllers
         [HttpPost]
         public ActionResult createUser(FormCollection fc)
         {
-           bool newsl = Convert.ToBoolean((fc["newsletter"]));
+           bool newsl = fc["newsletter"].Contains("true");
            UserProfile temp = Service.Service.createUser(fc["name"], (fc["pass"]), fc["Email"], fc["adress"], fc["zipcode"], newsl);
-           
-           return RedirectToAction("userProfile", temp);
+            
+            return RedirectToAction("Index", "Webshop", new { id = temp.id });
         }
-        public ActionResult userProfile(int id)
-        {
-            UserProfile temp = Service.Service.findUser(id);
-            return View(temp);
-        }
+        
     }
 }

@@ -21,43 +21,44 @@
                     <td>@Html.LabelFor(m => m.loginuser.name)</td>
 
                     <td>
-                        @Html.TextArea("name")
+                        @Html.TextBox("name")
                     </td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(m => m.loginuser.pass)</td>
 
                     <td>
-                        @Html.TextArea("pass")
+                        @Html.Password("pass")
                     </td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(m => m.userprofile.Email)</td>
 
                     <td>
-                        @Html.TextArea("Email")
+                        @Html.TextBox("Email")
                     </td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(m => m.userprofile.adress)</td>
 
                     <td>
-                        @Html.TextArea("adress")
+                        @Html.TextBox("adress")
                     </td>
                 </tr>
                 <tr>
                     <td>@Html.LabelFor(m => m.userprofile.zipcode)</td>
 
-                    <td>@Html.TextArea("zipcode")</td>
+                    <td>@Html.TextBox("zipcode")</td>
                 </tr>
                 <tr>
+                    
                     <td>@Html.LabelFor(m => m.userprofile.newsletter)</td>
 
-                    <td>@Html.CheckBoxFor(m => m.userprofile.newsletter)</td>
+                    <td>@Html.CheckBox("newsletter")</td>
                 </tr>
 
             </table>
-            <input type="submit" value="Add" />
+            <input type="submit" value="Opret" />
         }
 
     </div>
