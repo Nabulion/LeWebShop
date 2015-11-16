@@ -19,8 +19,8 @@ namespace Webshop.Controllers
         {
             String pass = fc["password"];
             try {
-                LoginUser temp = Service.Service.validateLogin(pass);
-                return RedirectToAction("userProfile", temp);
+                UserProfile temp = Service.Service.validateLogin(pass);
+                return RedirectToAction("Index","Webshop", new { id = temp.id });
             }
             catch
             {

@@ -9,9 +9,14 @@ namespace Webshop.Controllers
     public class WebshopController : Controller
     {
         // GET: Webshop
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View();
+            UserProfile temp = Dao.Dao.getDB().UserProfiles.Find(id);
+            if (temp == null)
+            {
+                temp = new UserProfile();
+            }
+            return View(temp);
         }
         
     }

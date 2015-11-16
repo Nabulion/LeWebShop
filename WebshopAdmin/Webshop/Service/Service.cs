@@ -56,10 +56,11 @@ namespace Webshop.Service
 
             return sb.ToString();
         }
-        public static LoginUser validateLogin(String password)
+        public static UserProfile validateLogin(String password)
         {
             String tempPass = HashPass(password);
-            LoginUser user = Dao.Dao.findUser(tempPass);
+            UserProfile user = Dao.Dao.findUser(tempPass);
+           
             if (user == null)
             {
                 throw new Exception("Password not correct");
@@ -69,8 +70,9 @@ namespace Webshop.Service
         public static void deleteUserLogin(String pass)
         {
             
-            LoginUser temp = Dao.Dao.findUser(pass);
-            DB.LoginUsers.Remove(temp);
+            UserProfile temp = Dao.Dao.findUser(pass);
+            DB.LoginUsers.Remove(temp.LoginUser);
+            DB.UserProfiles.Remove(temp);
             try
             {
                 DB.SaveChanges();
@@ -83,8 +85,8 @@ namespace Webshop.Service
         }
         public static void updateUserLogin(String pass, String newname, String newpass)
         {
-            LoginUser temp = Dao.Dao.findUser(pass);
-            Dao.Dao.updateUser(temp, newname, newpass);
+            UserProfile temp = Dao.Dao.findUser(pass);
+            Dao.Dao.updateUser(temp.LoginUser, newname, newpass);
         }
         public static UserProfile findUser(int id)
         {
