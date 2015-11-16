@@ -47,7 +47,7 @@ namespace WebshopAdmin
             InitializeComponent();
         }
 
-        //Følgende button_click metoder er til knapperne øverst i gui'et
+        //Følgende button_click metoder er til tab-knapperne øverst i gui'et
         //Denne metode sætter Products
         private void Button_Click_Products(object sender, RoutedEventArgs e)
         {
