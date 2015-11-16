@@ -181,7 +181,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Webshop\Webshop.csproj">
+      <Project>{ad91e57d-703a-41ea-a88b-2c7f741db14c}</Project>
+      <Name>Webshop</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

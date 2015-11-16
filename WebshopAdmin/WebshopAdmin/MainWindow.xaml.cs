@@ -25,11 +25,12 @@ namespace WebshopAdmin
         public DataGrid gridFAQ = new DataGrid();
         private ListBox boxProducts = new ListBox();
         private Service.Service service;
+        private Image img = new Image();
         lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
             service = new Service.Service();
-            
+
             grid.ItemsSource = service.getProducts();
             grid.CanUserAddRows = false;
 
@@ -37,13 +38,13 @@ namespace WebshopAdmin
             gridPackage.ItemsSource = db.Packages.ToList();
             gridPackage.CanUserAddRows = false;
             gridPackage.IsReadOnly = true;
-         
-            
+
+
             boxProducts.ItemsSource = service.getProducts();
-           
+
             gridFAQ.ItemsSource = db.FAQs.ToList();
             gridFAQ.CanUserAddRows = false;
-            
+
             InitializeComponent();
         }
 
@@ -57,7 +58,13 @@ namespace WebshopAdmin
 
             grid.Width = 275;
             grid.Height = 200;
+            grid.SelectionChanged += new SelectionChangedEventHandler(Event_SelectionChanged);
+            
             sp_view.Children.Add(grid);
+
+
+
+            sp_middle.Children.Add(img);
 
 
             for (int i = 0; i < buttons.Count(); i++)
@@ -75,6 +82,16 @@ namespace WebshopAdmin
                 b.Click += new RoutedEventHandler(Button_Clicked_Product);
                 sp_Options.Children.Add(b);
             }
+        }
+
+        private void Event_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+            Product p = new Product();
+            p = (Product)grid.SelectedItem;
+            img.Source = service.getImage(p.name);
+
+
         }
 
         //Denne metode sætter package
@@ -106,9 +123,9 @@ namespace WebshopAdmin
             t2.Text = "";
             sp_middle.Children.Add(t2);
 
-           
+
             gridPackage.Width = 275;
-            gridPackage.Height = 200; 
+            gridPackage.Height = 200;
             removeColumn();
             sp_view.Children.Add(gridPackage);
 
@@ -216,14 +233,14 @@ namespace WebshopAdmin
                 }
             }
         }
-        
+
         // Package CRUD
         void Button_Clicked_Package(object sender, EventArgs e)
         {
             Button button = sender as Button;
             if (button != null)
             {
-                
+
                 switch (button.Name)
                 {
                     case "Create":
@@ -271,7 +288,7 @@ namespace WebshopAdmin
                             {
                                 list.Add((Product)select);
                             }
-                            
+
                             service.editpackage(list, p, textboxname.Text, Convert.ToDecimal(textboxprice.Text));
                             gridPackage.ItemsSource = null;
                             gridPackage.ItemsSource = db.Packages.ToList();
@@ -309,17 +326,17 @@ namespace WebshopAdmin
                             service.deleteFAQ((FAQ)gridFAQ.SelectedItem);
                             gridFAQ.ItemsSource = null;
                             gridFAQ.ItemsSource = db.FAQs.ToList();
-                           
+
                         }
                         break;
 
                     case "Edit":
-                       if (gridFAQ.SelectedItem != null)
+                        if (gridFAQ.SelectedItem != null)
                         {
                             var datatable = sp_view.Children.OfType<DataGrid>().First();
                             var textboxQuestion = sp_middle.Children.OfType<TextBox>().First();
                             var textboxAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
-                            
+
                             FAQ faq = (FAQ)datatable.SelectedItem;
                             service.editFAQ(faq, textboxQuestion.Text, textboxAnswer.Text);
                             gridFAQ.ItemsSource = null;

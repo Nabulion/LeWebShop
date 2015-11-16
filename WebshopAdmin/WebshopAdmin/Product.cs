@@ -24,21 +24,17 @@ namespace WebshopAdmin
         public string name { get; set; }
         public Nullable<decimal> unitPrice { get; set; }
         public Nullable<int> countAvailable { get; set; }
-        public string pic { get; set; }
         public string country { get; set; }
         public Nullable<decimal> rating { get; set; }
         public Nullable<int> Package { get; set; }
         public Nullable<int> ShoppingCart { get; set; }
+        public string category { get; set; }
+        public Nullable<bool> @new { get; set; }
+        public byte[] picture { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
-
-        public override string ToString()
-        {
-            return "Product: " + name + ", " + country;
-        }
-
     }
 }

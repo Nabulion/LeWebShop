@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using WebshopAdmin;
 using System.Data.SqlClient;
 using System.Data;
+using System.Windows.Media.Imaging;
+using System.IO;
+using System.Windows.Controls;
 
 
 namespace WebshopAdmin.Service
@@ -27,18 +30,44 @@ namespace WebshopAdmin.Service
            
             
         }
-        public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country)
+
+        // Product
+
+        public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
-            // Skal have path til billede
-            p.pic = pic;
+            try
+            {
+                p.picture=convertToByteArray(new BitmapImage(new Uri(@pic)));
+            }
+            catch
+            {
+                p.picture = null;
+            }
+            p.category = category;
+            p.@new = newP;
             p.unitPrice = unitprice;
             p.rating = 0;
             p.countAvailable = countavailable;
             p.country = country;
             db.Products.Add(p);
             db.SaveChanges();
+
+        }
+
+        public Boolean findPicture(string s, Image i)
+        {
+            try
+            {
+                BitmapImage bi = new BitmapImage(new Uri(@s));
+                i.Source = bi;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
 
         }
         public void deleteProduct(Product p)
@@ -55,7 +84,7 @@ namespace WebshopAdmin.Service
                 p.country = newCountry;
                 p.unitPrice = newUnitprice;
                 p.countAvailable = newCountavailable;
-                p.pic = newPic;
+                //p.pic = newPic;
                 p.rating = newRating;
                 db.SaveChanges();
                 filldata(db.Products.ToList());
@@ -79,7 +108,7 @@ namespace WebshopAdmin.Service
                 row["name"] = product.name;
                 row["unitprice"] = Convert.ToString(product.unitPrice);
                 row["countavailable"] = Convert.ToString(product.countAvailable);
-                row["pic"] = product.pic;
+                //row["pic"] = product.pic;
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
                 dt.Rows.Add(row);
@@ -88,6 +117,8 @@ namespace WebshopAdmin.Service
             return dt;
         }
 
+
+        // FAQ 
         public void createFAQ(string question, string answer)
         {
             FAQ f = new FAQ();
@@ -109,6 +140,10 @@ namespace WebshopAdmin.Service
             db.SaveChanges();
             
         }
+
+
+        // Package
+
         public void createPackage(List<Product> list, string name, decimal price)
         {
             Package p = new Package();
@@ -138,11 +173,44 @@ namespace WebshopAdmin.Service
             }
 
             db.SaveChanges();
-            
-
 
         }
+        // Get picture from database
+        public BitmapImage getImage(string s)
+        {
+            List<Product> l = new List<Product>();
+            l = db.Products.ToList();
+            int i = 0;
+            foreach (Product p in l)
+            {
+                if (p.name == s)
+                {
+                    i = p.id;
+                }
+            }
+          
+                Byte[] imageByteArray = db.Products.ToList().ElementAt(i - 1).picture;
+                BitmapImage biImg = new BitmapImage();
 
+                MemoryStream ms = new MemoryStream(imageByteArray);
+                biImg.BeginInit();
+                biImg.StreamSource = ms;
+                biImg.EndInit();
+
+                BitmapImage imgSrc = biImg;
+                return biImg;
+          
+           
+        }
+        // Writes picture to database
+        public byte[] convertToByteArray(BitmapImage img)
+        {
+            MemoryStream ms = new MemoryStream();
+            JpegBitmapEncoder enconder = new JpegBitmapEncoder();
+            enconder.Frames.Add(BitmapFrame.Create(img));
+            enconder.Save(ms);
+            return ms.ToArray();
+        }
 
     }
 }
