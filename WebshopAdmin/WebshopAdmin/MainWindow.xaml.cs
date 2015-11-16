@@ -47,6 +47,8 @@ namespace WebshopAdmin
             InitializeComponent();
         }
 
+        //Følgende button_click metoder er til knapperne øverst i gui'et
+        //Denne metode sætter Products
         private void Button_Click_Products(object sender, RoutedEventArgs e)
         {
             clear();
@@ -70,14 +72,14 @@ namespace WebshopAdmin
                 margin.Right = 5;
                 b.Margin = margin;
 
-                b.Click += new RoutedEventHandler(Button_Clicked);
+                b.Click += new RoutedEventHandler(Button_Clicked_Product);
                 sp_Options.Children.Add(b);
             }
         }
 
+        //Denne metode sætter package
         private void Button_Click_Package(object sender, RoutedEventArgs e)
         {
-
             clear();
             string[] buttons = { "Create", "Edit", "Delete" };
 
@@ -109,9 +111,6 @@ namespace WebshopAdmin
             gridPackage.Height = 200; 
             removeColumn();
             sp_view.Children.Add(gridPackage);
-            
-            
-
 
             for (int i = 0; i < buttons.Count(); i++)
             {
@@ -128,9 +127,9 @@ namespace WebshopAdmin
                 b.Click += new RoutedEventHandler(Button_Clicked_Package);
                 sp_Options.Children.Add(b);
             }
-
         }
 
+        //denne metode sætter FAQ
         private void Button_Click_FAQ(object sender, RoutedEventArgs e)
         {
             clear();
@@ -180,7 +179,9 @@ namespace WebshopAdmin
 
         }
 
-        void Button_Clicked(object sender, EventArgs e)
+        //Følgende Button_Clicked sætter CRUD options for de forskellige tabs
+        //Product CRUD
+        void Button_Clicked_Product(object sender, EventArgs e)
         {
             Button button = sender as Button;
             if (button != null)
@@ -216,7 +217,7 @@ namespace WebshopAdmin
             }
         }
         
-        // Package functions.
+        // Package CRUD
         void Button_Clicked_Package(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -284,6 +285,8 @@ namespace WebshopAdmin
             }
         }
 
+
+        //FAQ crud
         void b_Click_FAQ(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
