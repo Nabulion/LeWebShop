@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="id" />
@@ -55,9 +55,11 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="unitPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="countAvailable" Type="int" />
-          <Property Name="pic" Type="nvarchar(max)" />
           <Property Name="country" Type="nvarchar" MaxLength="50" />
           <Property Name="rating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="picture" Type="image" />
+          <Property Name="category" Type="nvarchar" MaxLength="50" />
+          <Property Name="new" Type="bit" />
           <Property Name="Package" Type="int" />
           <Property Name="ShoppingCart" Type="int" />
         </EntityType>
@@ -268,8 +270,7 @@
             <End Role="Visa" EntitySet="Visa" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="lewebshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -329,7 +330,6 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="countAvailable" Type="Int32" />
-          <Property Name="pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Package" Type="Int32" />
@@ -338,6 +338,9 @@
           <NavigationProperty Name="OrderLines" Relationship="Self.FK__OrderLine__Produ__29572725" FromRole="Product" ToRole="OrderLine" />
           <NavigationProperty Name="Package1" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Product" ToRole="Package" />
           <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__Product__Shoppin__20C1E124" FromRole="Product" ToRole="ShoppingCart" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="new" Type="Boolean" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -612,11 +615,13 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="lewebshopModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="new" ColumnName="new" />
+                <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
                 <ScalarProperty Name="countAvailable" ColumnName="countAvailable" />
-                <ScalarProperty Name="pic" ColumnName="pic" />
                 <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="Package" ColumnName="Package" />
