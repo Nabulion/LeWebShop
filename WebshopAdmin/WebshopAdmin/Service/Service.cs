@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Controls;
 
 
 namespace WebshopAdmin.Service
@@ -32,18 +33,41 @@ namespace WebshopAdmin.Service
 
         // Product
 
-        public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country)
+        public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
-            // Skal have path til billede
-            //p.pic = pic;
+            try
+            {
+                p.picture=convertToByteArray(new BitmapImage(new Uri(@pic)));
+            }
+            catch
+            {
+                p.picture = null;
+            }
+            p.category = category;
+            p.@new = newP;
             p.unitPrice = unitprice;
             p.rating = 0;
             p.countAvailable = countavailable;
             p.country = country;
             db.Products.Add(p);
             db.SaveChanges();
+
+        }
+
+        public Boolean findPicture(string s, Image i)
+        {
+            try
+            {
+                BitmapImage bi = new BitmapImage(new Uri(@s));
+                i.Source = bi;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
 
         }
         public void deleteProduct(Product p)
@@ -175,7 +199,7 @@ namespace WebshopAdmin.Service
             return biImg;
         }
         // Writes picture to database
-        public byte[] writeTodatabase(BitmapImage img)
+        public byte[] convertToByteArray(BitmapImage img)
         {
             MemoryStream ms = new MemoryStream();
             JpegBitmapEncoder enconder = new JpegBitmapEncoder();
