@@ -180,24 +180,23 @@ namespace WebshopAdmin.Service
         {
             List<Product> l = new List<Product>();
             l = db.Products.ToList();
+            BitmapImage biImg = new BitmapImage();
             int i = 0;
             foreach (Product p in l)
             {
+                i++;
                 if (p.name == s)
                 {
-                    i = p.id;
+                    Byte[] imageByteArray = db.Products.ToList().ElementAt(i-1).picture;
+                    MemoryStream ms = new MemoryStream(imageByteArray);
+                    biImg.BeginInit();
+                    biImg.StreamSource = ms;
+                    biImg.EndInit();
+
+                    BitmapImage imgSrc = biImg;
                 }
             }
-          
-                Byte[] imageByteArray = db.Products.ToList().ElementAt(i - 1).picture;
-                BitmapImage biImg = new BitmapImage();
-
-                MemoryStream ms = new MemoryStream(imageByteArray);
-                biImg.BeginInit();
-                biImg.StreamSource = ms;
-                biImg.EndInit();
-
-                BitmapImage imgSrc = biImg;
+            
                 return biImg;
           
            

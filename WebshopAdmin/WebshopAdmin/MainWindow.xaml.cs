@@ -26,9 +26,11 @@ namespace WebshopAdmin
         private ListBox boxProducts = new ListBox();
         private Service.Service service;
         private Image img = new Image();
+        
         lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
+           
             service = new Service.Service();
 
             grid.ItemsSource = service.getProducts();
@@ -86,12 +88,11 @@ namespace WebshopAdmin
 
         private void Event_SelectionChanged(object sender, RoutedEventArgs e)
         {
-
-            Product p = new Product();
-            p = (Product)grid.SelectedItem;
+            
+            List<Product> l = new List<Product>();
+            l = service.getProducts();
+            Product p = l.ElementAt(0);
             img.Source = service.getImage(p.name);
-
-
         }
 
         //Denne metode sætter package
