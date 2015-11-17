@@ -76,8 +76,11 @@ namespace WebshopAdmin.Service
         }
         public void deleteProduct(Product p)
         {
+            if (p != null)
+            {
                 db.Products.Remove(p);
                 db.SaveChanges();
+            }
         }
         public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry, string category, Boolean @new)
         {

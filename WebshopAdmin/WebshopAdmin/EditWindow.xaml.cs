@@ -59,10 +59,18 @@ namespace WebshopAdmin
             if(checkBoxNew.IsChecked == true){
                 new1 = true;
             }
-            service.updateProduct((Product)selectedItem,TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
-            grid.ItemsSource = null;
-            grid.ItemsSource = service.getProducts();
-            this.Close();
+            decimal d;
+            if (selectedItem != null && TxtName.Text != "" && decimal.TryParse(txtUnitprice.Text, out d) && decimal.TryParse(txtCountAvailable.Text, out d) && txtCountry.Text != "" && comboBoxCategoryEdit.SelectedItem != null)
+            {
+                service.updateProduct((Product)selectedItem, TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, 0, txtCountry.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
+                grid.ItemsSource = null;
+                grid.ItemsSource = service.getProducts();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Udfyld alle felter, på nær picture og new product");
+            }
         }
 
     }

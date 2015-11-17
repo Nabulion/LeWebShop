@@ -222,8 +222,15 @@ namespace WebshopAdmin
                     case "Delete":
                         {
                             service.deleteProduct((Product)grid.SelectedItem);
-                            grid.ItemsSource = null;
-                            grid.ItemsSource = service.getProducts();
+                            if (grid.SelectedItem != null)
+                            {
+                                grid.ItemsSource = null;
+                                grid.ItemsSource = service.getProducts();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Vælg et produkt");
+                            }
                         }
                         break;
                     case "Edit":
