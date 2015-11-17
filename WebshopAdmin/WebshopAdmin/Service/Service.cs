@@ -33,7 +33,7 @@ namespace WebshopAdmin.Service
 
         // Product
 
-        public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
+        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
@@ -53,6 +53,8 @@ namespace WebshopAdmin.Service
             p.country = country;
             db.Products.Add(p);
             db.SaveChanges();
+
+            return p;
 
         }
      
