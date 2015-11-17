@@ -27,6 +27,7 @@ namespace WebshopAdmin
             InitializeComponent();
             this.grid = grid;
             this.service = service;
+            this.grid.IsReadOnly = true;
 
             List<String> categories = new List<String>();
             categories.Add("Discount pris");

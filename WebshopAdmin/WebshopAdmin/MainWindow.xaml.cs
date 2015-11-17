@@ -35,6 +35,7 @@ namespace WebshopAdmin
 
             grid.ItemsSource = service.getProducts();
             grid.CanUserAddRows = false;
+            grid.IsReadOnly = true;
 
 
             gridPackage.ItemsSource = db.Packages.ToList();
@@ -46,6 +47,7 @@ namespace WebshopAdmin
 
             gridFAQ.ItemsSource = db.FAQs.ToList();
             gridFAQ.CanUserAddRows = false;
+            grid.IsReadOnly = true;
 
             InitializeComponent();
         }
@@ -222,8 +224,15 @@ namespace WebshopAdmin
                     case "Delete":
                         {
                             service.deleteProduct((Product)grid.SelectedItem);
-                            grid.ItemsSource = null;
-                            grid.ItemsSource = service.getProducts();
+                            if (grid.SelectedItem != null)
+                            {
+                                grid.ItemsSource = null;
+                                grid.ItemsSource = service.getProducts();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Vælg et produkt");
+                            }
                         }
                         break;
                     case "Edit":

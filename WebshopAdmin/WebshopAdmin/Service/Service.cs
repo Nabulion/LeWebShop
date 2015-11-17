@@ -76,8 +76,11 @@ namespace WebshopAdmin.Service
         }
         public void deleteProduct(Product p)
         {
+            if (p != null)
+            {
                 db.Products.Remove(p);
                 db.SaveChanges();
+            }
         }
         public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry, string category, Boolean @new)
         {
@@ -88,7 +91,13 @@ namespace WebshopAdmin.Service
                 p.country = newCountry;
                 p.unitPrice = newUnitprice;
                 p.countAvailable = newCountavailable;
+                try { 
                 p.picture = convertToByteArray(new BitmapImage(new Uri(@newPic)));
+                }
+                catch
+                {
+                    p.picture = null;
+                }
                 p.rating = newRating;
                 p.category = category;
                 p.@new = @new;
