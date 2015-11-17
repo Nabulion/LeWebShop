@@ -25,23 +25,41 @@ namespace WebshopAdmin
         private DataGrid grid;
         public EditWindow(Service.Service service, int rowIndex, object selectedItem, DataGrid grid)
         {
+
+            InitializeComponent();
             this.selectedItem = selectedItem;
             this.service = service;
             this.rowIndex = rowIndex;
             this.grid = grid;
-            InitializeComponent();
+
+            List<String> categories = new List<String>();
+            categories.Add("Discount pris");
+            categories.Add("Hverdags oste");
+            categories.Add("Luxus oste");
+            categories.Add("Eksklusive oste");
+            categories.Add("Styk ost");
+            categories.Add("Osteborde");
+
+            comboBoxCategoryEdit.ItemsSource = categories.ToList();
+
+            
 
             TxtName.Text = service.filldata(service.getProducts()).Rows[rowIndex]["name"].ToString();
             txtUnitprice.Text = service.filldata(service.getProducts()).Rows[rowIndex]["unitPrice"].ToString();
             txtCountAvailable.Text = service.filldata(service.getProducts()).Rows[rowIndex]["countAvailable"].ToString();
             txtCountry.Text = service.filldata(service.getProducts()).Rows[rowIndex]["country"].ToString();
-            txtPicture.Text = service.filldata(service.getProducts()).Rows[rowIndex]["pic"].ToString();
+           
+            
 
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            service.updateProduct((Product)selectedItem,TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text);
+        {   
+            bool new1 = false; 
+            if(checkBoxNew.IsChecked == true){
+                new1 = true;
+            }
+            service.updateProduct((Product)selectedItem,TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
             grid.ItemsSource = null;
             grid.ItemsSource = service.getProducts();
             this.Close();
