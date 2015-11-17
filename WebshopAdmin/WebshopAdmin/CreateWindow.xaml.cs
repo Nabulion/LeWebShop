@@ -47,11 +47,26 @@ namespace WebshopAdmin
             if(checkBoxNew.IsChecked == true){
                 new1 = true;
             }
-
-            service.createProduct(TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, 0, txtCountry.Text, comboBoxCategory.SelectedItem.ToString(), new1);
-            grid.ItemsSource = null;
-            grid.ItemsSource = service.getProducts();
-            this.Close();
+            if (txtCountAvailable.Text == "" || txtCountry.Text == "" || TxtName.Text == "" || txtUnitprice.Text == "" || comboBoxCategory.SelectedItem == null)
+            {
+                MessageBox.Show("Fill name, country, unit price, count available and select a category");
+            }
+            else
+            {
+                decimal d;
+                if (decimal.TryParse(txtCountAvailable.Text, out d) && decimal.TryParse(txtUnitprice.Text, out d))
+                {
+                    service.createProduct(TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, 0, txtCountry.Text, comboBoxCategory.SelectedItem.ToString(), new1);
+                    grid.ItemsSource = null;
+                    grid.ItemsSource = service.getProducts();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Count Available and Unit price must be a number");
+                }
+                
+            }
         }
 
     
