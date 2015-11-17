@@ -28,7 +28,7 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("pic");
             dt.Columns.Add("country");
             dt.Columns.Add("rating");
-           
+         
             
         }
 
@@ -193,12 +193,15 @@ namespace WebshopAdmin.Service
                 if (p.name == s)
                 {
                     Byte[] imageByteArray = db.Products.ToList().ElementAt(i-1).picture;
-                    MemoryStream ms = new MemoryStream(imageByteArray);
-                    biImg.BeginInit();
-                    biImg.StreamSource = ms;
-                    biImg.EndInit();
+                    if (imageByteArray != null)
+                    {
+                        MemoryStream ms = new MemoryStream(imageByteArray);
+                        biImg.BeginInit();
+                        biImg.StreamSource = ms;
+                        biImg.EndInit();
 
-                    BitmapImage imgSrc = biImg;
+                        BitmapImage imgSrc = biImg;
+                    }
                 }
             }
             
@@ -218,7 +221,7 @@ namespace WebshopAdmin.Service
 
         //Mail
         
-        public void sendNewsLetter(string address, string content, string subject)
+        public void sendNewsLetter(string content, string subject)
         {
             MailMessage m = new MailMessage();
             m.From = new MailAddress("me@mycompany.com");
@@ -228,10 +231,12 @@ namespace WebshopAdmin.Service
             {
                 m.To.Add(u.Email);
             }
+            
             m.Subject = subject;
             m.Body = content;
 
             SmtpClient smtp = new SmtpClient("127.0.0.1");
+            smtp.Send(m);
         }
         
 

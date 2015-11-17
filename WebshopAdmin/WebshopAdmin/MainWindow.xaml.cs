@@ -88,11 +88,19 @@ namespace WebshopAdmin
 
         private void Event_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            
             List<Product> l = new List<Product>();
-            l = service.getProducts();
-            Product p = l.ElementAt(0);
-            img.Source = service.getImage(p.name);
+            l = db.Products.ToList();
+            Product pe = new Product();
+            if (grid.SelectedItem != null)
+            {
+                pe = (Product)grid.SelectedItem;
+                img.Source = service.getImage(pe.name);
+            }
+            else
+            {
+                grid.SelectedItem = l.ElementAt(0);
+            }
+            
         }
 
         //Denne metode sætter package
