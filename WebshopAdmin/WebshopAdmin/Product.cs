@@ -36,5 +36,10 @@ namespace WebshopAdmin
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
+
+        public override string ToString()
+        {
+            return "Product: " + name + " " + country;
+        }
     }
 }
