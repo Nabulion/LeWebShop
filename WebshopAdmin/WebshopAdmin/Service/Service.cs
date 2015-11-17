@@ -55,15 +55,7 @@ namespace WebshopAdmin.Service
             db.SaveChanges();
 
         }
-        public void editImage(Product pro, string s)
-        {
-            if (pro != null)
-            {
-                pro.picture = convertToByteArray(new BitmapImage(new Uri(@s)));
-                db.SaveChanges();
-            }
-        }
-
+     
 
         public Boolean findPicture(string s, Image i)
         {
@@ -84,17 +76,19 @@ namespace WebshopAdmin.Service
                 db.Products.Remove(p);
                 db.SaveChanges();
         }
-        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry)
+        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry, string category, Boolean @new)
         {
-            if (newName != null && newUnitprice != null && p != null && newCountavailable != null && newPic != null && newRating != null)
+            if (newName != null && p != null && newPic != null)
             {
                 p.countAvailable = newCountavailable;
                 p.name = newName;
                 p.country = newCountry;
                 p.unitPrice = newUnitprice;
                 p.countAvailable = newCountavailable;
-                //p.pic = newPic;
+                p.picture = convertToByteArray(new BitmapImage(new Uri(@newPic)));
                 p.rating = newRating;
+                p.category = category;
+                p.@new = @new;
                 db.SaveChanges();
                 filldata(db.Products.ToList());
             }
