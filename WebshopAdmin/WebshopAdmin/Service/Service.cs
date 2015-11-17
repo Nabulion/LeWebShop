@@ -9,6 +9,7 @@ using System.Data;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
+using System.Net.Mail;
 
 
 namespace WebshopAdmin.Service
@@ -27,13 +28,13 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("pic");
             dt.Columns.Add("country");
             dt.Columns.Add("rating");
-           
+         
             
         }
 
         // Product
 
-        public void createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
+        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
@@ -54,7 +55,10 @@ namespace WebshopAdmin.Service
             db.Products.Add(p);
             db.SaveChanges();
 
+            return p;
+
         }
+     
 
         public Boolean findPicture(string s, Image i)
         {
@@ -72,20 +76,31 @@ namespace WebshopAdmin.Service
         }
         public void deleteProduct(Product p)
         {
+            if (p != null)
+            {
                 db.Products.Remove(p);
                 db.SaveChanges();
+            }
         }
-        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry)
+        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry, string category, Boolean @new)
         {
-            if (newName != null && newUnitprice != null && p != null && newCountavailable != null && newPic != null && newRating != null)
+            if (newName != null && p != null && newPic != null)
             {
                 p.countAvailable = newCountavailable;
                 p.name = newName;
                 p.country = newCountry;
                 p.unitPrice = newUnitprice;
                 p.countAvailable = newCountavailable;
-                //p.pic = newPic;
+                try { 
+                p.picture = convertToByteArray(new BitmapImage(new Uri(@newPic)));
+                }
+                catch
+                {
+                    p.picture = null;
+                }
                 p.rating = newRating;
+                p.category = category;
+                p.@new = @new;
                 db.SaveChanges();
                 filldata(db.Products.ToList());
             }
@@ -108,7 +123,6 @@ namespace WebshopAdmin.Service
                 row["name"] = product.name;
                 row["unitprice"] = Convert.ToString(product.unitPrice);
                 row["countavailable"] = Convert.ToString(product.countAvailable);
-                //row["pic"] = product.pic;
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
                 dt.Rows.Add(row);
@@ -188,18 +202,20 @@ namespace WebshopAdmin.Service
                 if (p.name == s)
                 {
                     Byte[] imageByteArray = db.Products.ToList().ElementAt(i-1).picture;
-                    MemoryStream ms = new MemoryStream(imageByteArray);
-                    biImg.BeginInit();
-                    biImg.StreamSource = ms;
-                    biImg.EndInit();
+                    if (imageByteArray != null)
+                    {
+                        MemoryStream ms = new MemoryStream(imageByteArray);
+                        biImg.BeginInit();
+                        biImg.StreamSource = ms;
+                        biImg.EndInit();
 
-                    BitmapImage imgSrc = biImg;
+                        BitmapImage imgSrc = biImg;
+                    }
                 }
             }
             
                 return biImg;
           
-           
         }
         // Writes picture to database
         public byte[] convertToByteArray(BitmapImage img)
@@ -210,6 +226,28 @@ namespace WebshopAdmin.Service
             enconder.Save(ms);
             return ms.ToArray();
         }
+
+
+        //Mail
+        
+        public void sendNewsLetter(string content, string subject)
+        {
+            MailMessage m = new MailMessage();
+            m.From = new MailAddress("me@mycompany.com");
+            List<UserProfile> users = new List<UserProfile>();
+            users = db.UserProfiles.ToList();
+            foreach (UserProfile u in users)
+            {
+                m.To.Add(u.Email);
+            }
+            
+            m.Subject = subject;
+            m.Body = content;
+
+            SmtpClient smtp = new SmtpClient("127.0.0.1");
+            smtp.Send(m);
+        }
+        
 
     }
 }

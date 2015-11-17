@@ -1,9 +1,11 @@
 ﻿<Window x:Class="WebshopAdmin.EditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EditWindow" Height="500" Width="350">
+         Title="EditWindow" Height="650" Width="350">
     <Grid Background="LightSteelBlue">
         <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -39,7 +41,13 @@
            Content="Picture" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="26" Margin="0,22.8,95.373,22.4"/>
         <TextBox x:Name="txtPicture" Grid.Column="1" Grid.Row="5"
              Width="Auto" Margin="10.2,23.8,9,22.4" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnOk" Grid.Column="1" Grid.Row="6" 
+        <Label x:Name="lblCategory" Grid.Column="0" Grid.Row="6" 
+           Content="Category" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="26" Margin="0,22.8,95.373,22.4"/>
+        <ComboBox x:Name="comboBoxCategoryEdit" Grid.Column="1" HorizontalAlignment="Left" Margin="15.2,17,0,0" Grid.Row="6" VerticalAlignment="Top" Width="222" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblNewProduct" Grid.Column="0" Grid.Row="7" 
+           Content="New Product" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="26" Margin="0,22.8,95.373,22.4"/>
+        <CheckBox x:Name="checkBoxNew"  Content="isNew" Grid.Column="1" HorizontalAlignment="Left" Margin="55.2,23.4,0,0" Grid.Row="7" VerticalAlignment="Top"/>
+        <Button x:Name="BtnOk" Grid.Column="1" Grid.Row="8" 
             Width="80" Margin="0,9.6,25,10.4" Content="OK" HorizontalAlignment="Right" Grid.ColumnSpan="2" Click="BtnOk_Click"/>
     </Grid>
 </Window>

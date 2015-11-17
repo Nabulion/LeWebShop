@@ -26,15 +26,16 @@ namespace WebshopAdmin
         private ListBox boxProducts = new ListBox();
         private Service.Service service;
         private Image img = new Image();
-        
+
         lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
-           
+
             service = new Service.Service();
 
             grid.ItemsSource = service.getProducts();
             grid.CanUserAddRows = false;
+            grid.IsReadOnly = true;
 
 
             gridPackage.ItemsSource = db.Packages.ToList();
@@ -46,6 +47,7 @@ namespace WebshopAdmin
 
             gridFAQ.ItemsSource = db.FAQs.ToList();
             gridFAQ.CanUserAddRows = false;
+            gridFAQ.IsReadOnly = true;
 
             InitializeComponent();
         }
@@ -61,7 +63,7 @@ namespace WebshopAdmin
             grid.Width = 275;
             grid.Height = 200;
             grid.SelectionChanged += new SelectionChangedEventHandler(Event_SelectionChanged);
-            
+
             sp_view.Children.Add(grid);
 
 
@@ -88,11 +90,19 @@ namespace WebshopAdmin
 
         private void Event_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            
             List<Product> l = new List<Product>();
-            l = service.getProducts();
-            Product p = l.ElementAt(0);
-            img.Source = service.getImage(p.name);
+            l = db.Products.ToList();
+            Product pe = new Product();
+            if (grid.SelectedItem != null)
+            {
+                pe = (Product)grid.SelectedItem;
+                img.Source = service.getImage(pe.name);
+            }
+            else
+            {
+                grid.SelectedItem = l.ElementAt(0);
+            }
+
         }
 
         //Denne metode sætter package
@@ -103,7 +113,7 @@ namespace WebshopAdmin
 
             boxProducts.Width = 200;
             boxProducts.Height = 100;
-            boxProducts.DataContext = service.getProducts();
+            boxProducts.ItemsSource = service.getProducts();
             boxProducts.SelectionMode = SelectionMode.Multiple;
             sp_middle.Children.Add(boxProducts);
 
@@ -214,8 +224,15 @@ namespace WebshopAdmin
                     case "Delete":
                         {
                             service.deleteProduct((Product)grid.SelectedItem);
-                            grid.ItemsSource = null;
-                            grid.ItemsSource = service.getProducts();
+                            if (grid.SelectedItem != null)
+                            {
+                                grid.ItemsSource = null;
+                                grid.ItemsSource = service.getProducts();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Vælg et produkt");
+                            }
                         }
                         break;
                     case "Edit":
@@ -250,8 +267,10 @@ namespace WebshopAdmin
                         var textBox = sp_middle.Children.OfType<TextBox>().FirstOrDefault();
                         var textBox1 = sp_middle.Children.OfType<TextBox>().ElementAt(1);
                         var listbox = sp_middle.Children.OfType<ListBox>().First();
+                        if (textBox1.Text != null && textBox.Text != "") { 
                         pac.price = Convert.ToDecimal(textBox1.Text);
                         pac.name = textBox.Text;
+                        }
                         List<Product> l = new List<Product>();
                         listbox.SelectionMode = SelectionMode.Multiple;
 
@@ -260,9 +279,18 @@ namespace WebshopAdmin
                             l.Add((Product)i);
                         }
 
-                        service.createPackage(l, textBox.Text, Convert.ToDecimal(textBox1.Text));
-                        gridPackage.ItemsSource = null;
-                        gridPackage.ItemsSource = db.Packages.ToList();
+
+                        decimal d;
+                        if (decimal.TryParse(textBox1.Text, out d) && textBox.Text != "")
+                        {
+                            service.createPackage(l, textBox.Text, Convert.ToDecimal(textBox1.Text));
+                            gridPackage.ItemsSource = null;
+                            gridPackage.ItemsSource = db.Packages.ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Name must be letters and price must be a number");
+                        }
 
                         break;
 
@@ -270,35 +298,49 @@ namespace WebshopAdmin
                         {
                             var datatable = sp_view.Children.OfType<DataGrid>().First();
                             Package p = (Package)datatable.SelectedItem;
-                            service.deletePackage(p);
-                            gridPackage.ItemsSource = null;
-                            gridPackage.ItemsSource = db.Packages.ToList();
+                            if (p != null)
+                            {
+                                service.deletePackage(p);
+                                gridPackage.ItemsSource = null;
+                                gridPackage.ItemsSource = db.Packages.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Select a package");
+                            }
                         }
                         break;
                     case "Edit":
-                        if (gridPackage.SelectedItem != null)
                         {
-                            var datatable = sp_view.Children.OfType<DataGrid>().First();
-                            var textboxname = sp_middle.Children.OfType<TextBox>().First();
-                            var textboxprice = sp_middle.Children.OfType<TextBox>().ElementAt(1);
-                            var listboxproducts = sp_middle.Children.OfType<ListBox>().First();
-                            List<Product> list = new List<Product>();
-                            Package p = (Package)datatable.SelectedItem;
-                            listboxproducts.SelectionMode = SelectionMode.Multiple;
-                            foreach (var select in listboxproducts.SelectedItems)
-                            {
-                                list.Add((Product)select);
-                            }
+                            
+                                var datatable = sp_view.Children.OfType<DataGrid>().First();
+                                var textboxname = sp_middle.Children.OfType<TextBox>().First();
+                                var textboxprice = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                                var listboxproducts = sp_middle.Children.OfType<ListBox>().First();
+                                List<Product> list = new List<Product>();
 
-                            service.editpackage(list, p, textboxname.Text, Convert.ToDecimal(textboxprice.Text));
-                            gridPackage.ItemsSource = null;
-                            gridPackage.ItemsSource = db.Packages.ToList();
+                                if (gridPackage.SelectedItem != null && decimal.TryParse(textboxprice.Text, out d) && !textboxname.Text.Equals("") && listboxproducts.SelectedItems != null)
+                                {
+                                    
+                                    Package p = (Package)datatable.SelectedItem;
+                                    listboxproducts.SelectionMode = SelectionMode.Multiple;
+                                    foreach (var select in listboxproducts.SelectedItems)
+                                    {
+                                        list.Add((Product)select);
+                                    }
+
+                                    service.editpackage(list, p, textboxname.Text, Convert.ToDecimal(textboxprice.Text));
+                                    gridPackage.ItemsSource = null;
+                                    gridPackage.ItemsSource = db.Packages.ToList();
+                                }
+
+                                else
+                                {
+                                    MessageBox.Show("Pick a row in the grid and insert name, price and pick the products");
+                                }
+                            
                         }
-                        else
-                        {
-                            MessageBox.Show("Vælg venligst en række fra datagrid");
-                        }
-                        break;
+                    break;
                 }
             }
         }
@@ -315,19 +357,31 @@ namespace WebshopAdmin
                     case "Create":
                         var textQuestion = sp_middle.Children.OfType<TextBox>().First();
                         var textAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
-                        service.createFAQ(textQuestion.Text, textAnswer.Text);
-                        gridFAQ.ItemsSource = null;
-                        gridFAQ.ItemsSource = db.FAQs.ToList();
-
-
+                        if (textAnswer.Text != "" && textQuestion.Text != "")
+                        {
+                            service.createFAQ(textQuestion.Text, textAnswer.Text);
+                            gridFAQ.ItemsSource = null;
+                            gridFAQ.ItemsSource = db.FAQs.ToList();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Fill answer and question");
+                        }
                         break;
 
                     case "Delete":
                         {
-                            service.deleteFAQ((FAQ)gridFAQ.SelectedItem);
-                            gridFAQ.ItemsSource = null;
-                            gridFAQ.ItemsSource = db.FAQs.ToList();
-
+                            
+                            if (gridFAQ.SelectedItem != null)
+                            {
+                                service.deleteFAQ((FAQ)gridFAQ.SelectedItem);
+                                gridFAQ.ItemsSource = null;
+                                gridFAQ.ItemsSource = db.FAQs.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Pick a FAQ");
+                            }
                         }
                         break;
 
@@ -337,15 +391,17 @@ namespace WebshopAdmin
                             var datatable = sp_view.Children.OfType<DataGrid>().First();
                             var textboxQuestion = sp_middle.Children.OfType<TextBox>().First();
                             var textboxAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
-
                             FAQ faq = (FAQ)datatable.SelectedItem;
-                            service.editFAQ(faq, textboxQuestion.Text, textboxAnswer.Text);
-                            gridFAQ.ItemsSource = null;
-                            gridFAQ.ItemsSource = db.FAQs.ToList();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Vælg venligst en række fra datagrid");
+                            if (textboxQuestion.Text != "" && textboxAnswer.Text != "" && faq != null)
+                            {
+                                service.editFAQ(faq, textboxQuestion.Text, textboxAnswer.Text);
+                                gridFAQ.ItemsSource = null;
+                                gridFAQ.ItemsSource = db.FAQs.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Fill answer, question and pick a FAQ");
+                            }
                         }
                         break;
                 }
