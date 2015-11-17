@@ -47,7 +47,7 @@ namespace WebshopAdmin
 
             gridFAQ.ItemsSource = db.FAQs.ToList();
             gridFAQ.CanUserAddRows = false;
-            grid.IsReadOnly = true;
+            gridFAQ.IsReadOnly = true;
 
             InitializeComponent();
         }
@@ -267,8 +267,10 @@ namespace WebshopAdmin
                         var textBox = sp_middle.Children.OfType<TextBox>().FirstOrDefault();
                         var textBox1 = sp_middle.Children.OfType<TextBox>().ElementAt(1);
                         var listbox = sp_middle.Children.OfType<ListBox>().First();
+                        if (textBox1.Text != null && textBox.Text != "") { 
                         pac.price = Convert.ToDecimal(textBox1.Text);
                         pac.name = textBox.Text;
+                        }
                         List<Product> l = new List<Product>();
                         listbox.SelectionMode = SelectionMode.Multiple;
 
