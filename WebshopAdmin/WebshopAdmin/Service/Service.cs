@@ -114,7 +114,6 @@ namespace WebshopAdmin.Service
                 row["name"] = product.name;
                 row["unitprice"] = Convert.ToString(product.unitPrice);
                 row["countavailable"] = Convert.ToString(product.countAvailable);
-                row["picture"] = product.picture;
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
                 dt.Rows.Add(row);
@@ -218,7 +217,7 @@ namespace WebshopAdmin.Service
 
 
         //Mail
-        /*
+        
         public void sendNewsLetter(string address, string content, string subject)
         {
             MailMessage m = new MailMessage();
@@ -227,12 +226,14 @@ namespace WebshopAdmin.Service
             users = db.UserProfiles.ToList();
             foreach (UserProfile u in users)
             {
-                
+                m.To.Add(u.Email);
             }
-            m.To.Add("");
+            m.Subject = subject;
+            m.Body = content;
 
+            SmtpClient smtp = new SmtpClient("127.0.0.1");
         }
-        */
+        
 
     }
 }
