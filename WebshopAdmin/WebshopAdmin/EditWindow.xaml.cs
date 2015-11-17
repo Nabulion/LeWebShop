@@ -42,24 +42,25 @@ namespace WebshopAdmin
 
             comboBoxCategoryEdit.ItemsSource = categories.ToList();
 
-            
+
 
             TxtName.Text = service.filldata(service.getProducts()).Rows[rowIndex]["name"].ToString();
             txtUnitprice.Text = service.filldata(service.getProducts()).Rows[rowIndex]["unitPrice"].ToString();
             txtCountAvailable.Text = service.filldata(service.getProducts()).Rows[rowIndex]["countAvailable"].ToString();
             txtCountry.Text = service.filldata(service.getProducts()).Rows[rowIndex]["country"].ToString();
-           
-            
+
+
 
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {   
-            bool new1 = false; 
-            if(checkBoxNew.IsChecked == true){
+        {
+            bool new1 = false;
+            if (checkBoxNew.IsChecked == true)
+            {
                 new1 = true;
             }
-            service.updateProduct((Product)selectedItem,TxtName.Text, Convert.ToDecimal(txtUnitprice.Text),Convert.ToInt32(txtCountAvailable.Text),txtPicture.Text,0,txtCountry.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
+            service.updateProduct((Product)selectedItem, TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, 0, txtCountry.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
             grid.ItemsSource = null;
             grid.ItemsSource = service.getProducts();
             this.Close();
