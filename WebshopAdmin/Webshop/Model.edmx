@@ -55,9 +55,11 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="unitPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="countAvailable" Type="int" />
-          <Property Name="pic" Type="nvarchar(max)" />
           <Property Name="country" Type="nvarchar" MaxLength="50" />
           <Property Name="rating" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="picture" Type="image" />
+          <Property Name="category" Type="nvarchar" MaxLength="50" />
+          <Property Name="new" Type="bit" />
           <Property Name="Package" Type="int" />
           <Property Name="ShoppingCart" Type="int" />
         </EntityType>
@@ -329,9 +331,11 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="countAvailable" Type="Int32" />
-          <Property Name="pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="new" Type="Boolean" />
           <Property Name="Package" Type="Int32" />
           <Property Name="ShoppingCart" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__Product__239E4DCF" FromRole="Product" ToRole="Comment" />
@@ -504,7 +508,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="lewebshopEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="lewebshopEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="FAQs" EntityType="Self.FAQ" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
@@ -561,7 +565,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities">
+        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities1">
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="lewebshopModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
@@ -616,9 +620,11 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
                 <ScalarProperty Name="countAvailable" ColumnName="countAvailable" />
-                <ScalarProperty Name="pic" ColumnName="pic" />
                 <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="new" ColumnName="new" />
                 <ScalarProperty Name="Package" ColumnName="Package" />
                 <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
               </MappingFragment>

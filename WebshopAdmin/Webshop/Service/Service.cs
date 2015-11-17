@@ -9,7 +9,7 @@ namespace Webshop.Service
 {
     public static class Service
     {
-        private static lewebshopEntities DB = Dao.Dao.getDB();
+        private static lewebshopEntities1 DB = Dao.Dao.getDB();
 
         public static UserProfile createUser(String name, String password, String email, String adress, String zipcode, bool newsletter)
         {
@@ -94,6 +94,15 @@ namespace Webshop.Service
         public static Visa createVisa(UserProfile temp, String Visa)
         {
             return Dao.Dao.visaInfo(temp, Visa);
+        }
+        public static List<Product> getProductCategory(String category)
+        {
+            return Dao.Dao.getProduct(category);
+
+        }
+        public static Product findProduct(int id)
+        {
+            return Dao.Dao.findProduct(id);
         }
 
     }

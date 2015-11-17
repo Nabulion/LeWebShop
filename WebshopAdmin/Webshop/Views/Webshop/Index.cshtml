@@ -1,7 +1,7 @@
 ﻿@model Webshop.UserProfile
 
 @{
-    Layout = null;
+  
 }
 
 <!DOCTYPE html>
@@ -12,44 +12,23 @@
     <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
     <title>Index</title>
 </head>
+
 <body>
-    <header>
+    <header id="indkøbskurv">
         @if (Model.LoginUser == null)
         {
             @Html.ActionLink("Login", "Index", "Login")
         }
         else
         {
-            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.id } )<br />
-            @Html.ActionLink("Log ud", "index", new { id = -1})
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.id })<br />
+            @Html.ActionLink("Log ud", "index", new { id = -1 })
         }
 
-        <h1>OSTEPAKKEN</h1>
+        <div>
+            @Html.ActionLink("Indkøbskurv", "Index")
+        </div>
     </header>
-    <div>
-        <nav>
-            <table id="menutop">
-                <tr>
-                    <td>@Html.ActionLink("Home", "Index")</td>
-                    <td>@Html.ActionLink("Sidste nyt", "Index")</td>
-                    <td>@Html.ActionLink("Månedens tilbud", "Index")</td>
-                    <td>@Html.ActionLink("Handelsbetingelser", "Index")</td>
-                    <td>@Html.ActionLink("Kundeservice", "Index")</td>
-                </tr>
-
-            </table>
-            <ul id="menu">
-                <li>@Html.ActionLink("Discount pris", "Index")</li>
-                <li>@Html.ActionLink("Hverdagsoste", "Index")</li>
-                <li>@Html.ActionLink("Luksusoste", "Index")</li>
-                <li>@Html.ActionLink("Eksklusive oste", "Index")</li>
-                <li>@Html.ActionLink("Osteborde", "Index")</li>
-            </ul>
-        </nav>
-    </div>
-    <aside>
-        @Html.ActionLink("Indkøbskurv", "Index")
-    </aside>
 
     <section>
         <img src="~/pic/pic_mountain.jpg" alt="ost" style="width:304px;height:228px;">

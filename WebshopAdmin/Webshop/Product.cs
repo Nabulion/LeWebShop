@@ -11,9 +11,12 @@ namespace Webshop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Data;
+    //using System.Windows.Media.Imaging;
+    using System.IO;
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
             this.Comments = new HashSet<Comment>();
@@ -24,15 +27,47 @@ namespace Webshop
         public string name { get; set; }
         public Nullable<decimal> unitPrice { get; set; }
         public Nullable<int> countAvailable { get; set; }
-        public string pic { get; set; }
         public string country { get; set; }
         public Nullable<decimal> rating { get; set; }
+        public byte[] picture { get; set; }
+        public string category { get; set; }
+        public Nullable<bool> @new { get; set; }
         public Nullable<int> Package { get; set; }
         public Nullable<int> ShoppingCart { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
+
+        // Get picture from database
+        /*public BitmapImage getImage(string s)
+        {
+            List<Product> l = new List<Product>();
+            l = Dao.Dao.getDB().Products;
+            l = db.Products.ToList();
+            BitmapImage biImg = new BitmapImage();
+            int i = 0;
+            foreach (Product p in l)
+            {
+                i++;
+                if (p.name == s)
+                {
+                    Byte[] imageByteArray = db.Products.ToList().ElementAt(i - 1).picture;
+                    MemoryStream ms = new MemoryStream(imageByteArray);
+                    biImg.BeginInit();
+                    biImg.StreamSource = ms;
+                    biImg.EndInit();
+
+                    BitmapImage imgSrc = biImg;
+                }
+            }
+
+            return biImg;
+
+
+        }*/
     }
 }

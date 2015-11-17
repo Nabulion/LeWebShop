@@ -8,13 +8,13 @@ namespace Webshop.Dao
 {
     public class Dao
     {
-        private static lewebshopEntities DB;
+        private static lewebshopEntities1 DB;
 
-        public static lewebshopEntities getDB()
+        public static lewebshopEntities1 getDB()
         {
             if (DB == null)
             {
-                DB = new lewebshopEntities();
+                DB = new lewebshopEntities1();
             }
             return DB;
         }
@@ -42,6 +42,24 @@ namespace Webshop.Dao
             DB.Visas.Add(v);
             DB.SaveChanges();
             return v;
+        }
+        public static List<Product> getProduct(String category)
+        {
+
+            var product = from p in DB.Products where p.category == category select p;
+            //new List<Product>();
+             
+            /*for (int i = 0; i < DB.Products.Count(); i++) {
+                if (DB.Products.ToList()[i].category == category)
+                {
+                    product.Add(DB.Products.ToList()[i]);
+                }
+            }*/
+            return product.ToList();
+        }
+        public static Product findProduct(int id)
+        {
+            return DB.Products.Find(id);
         }
     }
 }

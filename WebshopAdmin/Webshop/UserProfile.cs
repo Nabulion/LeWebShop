@@ -14,6 +14,7 @@ namespace Webshop
     
     public partial class UserProfile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserProfile()
         {
             this.Comments = new HashSet<Comment>();
@@ -25,17 +26,15 @@ namespace Webshop
         public string Email { get; set; }
         public string adress { get; set; }
         public string zipcode { get; set; }
-        public bool newsletter { get; set; }
+        public Nullable<bool> newsletter { get; set; }
         public Nullable<int> LoginID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual LoginUser LoginUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Visa> Visas { get; set; }
-
-        public bool notNullable()
-        {
-            return newsletter == true;
-        }
     }
 }

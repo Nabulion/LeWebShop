@@ -1,6 +1,12 @@
 ﻿body {
     background-color:white
 }
+#indkøbskurv{
+    float:right;
+    position:fixed;
+    left: 1200px;
+    top: 50px;
+}
 aside{
     float:right;
     position:fixed;
@@ -22,12 +28,11 @@ section{
 }
 #menu{
     float:left;
-    padding-left:100px;
+    padding-left:50px;
     padding-top:5px;
 }
 header{
-    padding-left:50px;
-    padding-top:50px;
+    
 }
 #Error{
     text-decoration-color:red;

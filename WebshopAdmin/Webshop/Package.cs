@@ -14,6 +14,7 @@ namespace Webshop
     
     public partial class Package
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Package()
         {
             this.Products = new HashSet<Product>();
@@ -23,6 +24,7 @@ namespace Webshop
         public string name { get; set; }
         public Nullable<decimal> price { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }
 }

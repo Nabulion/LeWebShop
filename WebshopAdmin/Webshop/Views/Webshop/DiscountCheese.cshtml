@@ -1,0 +1,31 @@
+﻿@model  IEnumerable<Webshop.Product>
+
+@{
+  
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DiscountCheese</title>
+</head>
+<body>
+    <div> 
+        <h1>Discount pris</h1>
+       
+            @foreach (var i in Model)
+            {
+                <div>Id: @i.id<br /></div>
+                <div>Navn: @i.name<BR /></div>
+                <div>Land: @i.country<br /></div>
+                <div>Bedømmelse: @i.rating<br /></div>
+                <div>Pris: @i.unitPrice<br /></div>
+                @Html.ActionLink("Produkt", "productInfo", new { id = i.id});
+            }
+       
+
+    </div>
+</body>
+</html>

@@ -39,7 +39,9 @@ namespace Webshop.Controllers
         public ActionResult visa(int id)
         {
             UserProfile temp = Service.Service.findUser(id);
-            return View(new Visa());
+            Visa v = new Visa();
+            v.UserProfile1 = temp;
+            return View(v);
         }
         [HttpPost]
         public ActionResult visa(FormCollection fc, int id)
@@ -48,6 +50,16 @@ namespace Webshop.Controllers
             UserProfile temp = Service.Service.findUser(id);
             Service.Service.createVisa(temp, visa);
             return RedirectToAction("userProfile", new { id = temp.id });
+        }
+        public ActionResult DiscountCheese()
+        {
+            List<Product> list = Service.Service.getProductCategory("Discount pris");
+            return View(list);
+        }
+        public ActionResult productInfo(int id)
+        {
+            Product p = Service.Service.findProduct(id);
+            return View(p);
         }
 
     }
