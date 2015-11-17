@@ -55,6 +55,15 @@ namespace WebshopAdmin.Service
             db.SaveChanges();
 
         }
+        public void editImage(Product pro, string s)
+        {
+            if (pro != null)
+            {
+                pro.picture = convertToByteArray(new BitmapImage(new Uri(@s)));
+                db.SaveChanges();
+            }
+        }
+
 
         public Boolean findPicture(string s, Image i)
         {
@@ -199,7 +208,6 @@ namespace WebshopAdmin.Service
             
                 return biImg;
           
-           
         }
         // Writes picture to database
         public byte[] convertToByteArray(BitmapImage img)
