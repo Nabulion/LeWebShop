@@ -15,17 +15,22 @@
     <div> 
         <table>
             <thead>
-                @Model.name
+                <h2>@Model.name</h2>
             </thead>
             <tbody>
                 <tr>
-                    <td>ID: @Model.id <br />
-                    Navn: @Model.name
-                    Land: @Model.country
-                    Rating: @Model.rating
-                    Pris: @Model.unitPrice</td>
-                    @Model.description
-                    <!--Beskrivelse Model.Discription-->
+                    
+                    <td>
+                        ID: @Model.id <br />
+                        Navn: @Model.name <br />
+                        Land: @Model.country <br />
+                        Rating: @Model.rating <br />
+                        Pris: @Model.unitPrice <br />
+                        Beskrivelse: @Model.description
+                    </td>
+                    <td>
+                        Billede
+                    </td>
                 </tr>
             </tbody>
        
