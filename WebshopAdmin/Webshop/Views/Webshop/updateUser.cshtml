@@ -1,0 +1,65 @@
+﻿@model Webshop.UserProfile
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateUser</title>
+</head>
+<body>
+    <div>
+        <h2>Opdater Profil</h2>
+        @using (Html.BeginForm(new { id = Model.id }))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(m => m.LoginUser.name)</td>
+
+                    <td>@Html.TextBox("name")</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.LoginUser.pass)</td>
+
+                    <td>
+                        @Html.Password("pass")
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Email)</td>
+
+                    <td>
+                        @Html.TextBox("Email")
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.adress)</td>
+
+                    <td>
+                        @Html.TextBox("adress")
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.zipcode)</td>
+
+                    <td>@Html.TextBox("zipcode")</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.newsletter)</td>
+
+                    <td>@Html.CheckBoxFor(m => m.newsletter)</td>
+                </tr>
+
+            </table>
+            <input type="submit" value="Godkend" />
+        }
+        @Html.ActionLink("Tilføj Dankort info", "visa", new { id = Model.id })
+        @Html.ActionLink("Hjem", "Index")
+
+    </div>
+</body>
+</html>
