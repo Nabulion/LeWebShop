@@ -11,9 +11,8 @@ namespace Webshop
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    //using System.Windows.Media.Imaging;
-    using System.IO;
+    using System.ComponentModel;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,6 +30,7 @@ namespace Webshop
         public Nullable<decimal> rating { get; set; }
         public byte[] picture { get; set; }
         public string category { get; set; }
+        public string description { get; set; }
         public Nullable<bool> @new { get; set; }
         public Nullable<int> Package { get; set; }
         public Nullable<int> ShoppingCart { get; set; }
@@ -42,32 +42,13 @@ namespace Webshop
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
 
-        // Get picture from database
-        /*public BitmapImage getImage(string s)
+        public System.Drawing.Bitmap getImg()
         {
-            List<Product> l = new List<Product>();
-            l = Dao.Dao.getDB().Products;
-            l = db.Products.ToList();
-            BitmapImage biImg = new BitmapImage();
-            int i = 0;
-            foreach (Product p in l)
-            {
-                i++;
-                if (p.name == s)
-                {
-                    Byte[] imageByteArray = db.Products.ToList().ElementAt(i - 1).picture;
-                    MemoryStream ms = new MemoryStream(imageByteArray);
-                    biImg.BeginInit();
-                    biImg.StreamSource = ms;
-                    biImg.EndInit();
 
-                    BitmapImage imgSrc = biImg;
-                }
-            }
-
-            return biImg;
-
-
-        }*/
+            System.ComponentModel.TypeConverter t = TypeDescriptor.GetConverter(typeof(System.Drawing.Bitmap));
+            System.Drawing.Bitmap b = (System.Drawing.Bitmap)t.ConvertFrom(this.picture);
+            return b;
+        }
     }
+
 }

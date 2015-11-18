@@ -4,12 +4,13 @@ using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel;
 
 namespace Webshop.Service
 {
     public static class Service
     {
-        private static lewebshopEntities1 DB = Dao.Dao.getDB();
+        private static lewebshopEntities2 DB = Dao.Dao.getDB();
 
         public static UserProfile createUser(String name, String password, String email, String adress, String zipcode, bool newsletter)
         {
@@ -105,5 +106,6 @@ namespace Webshop.Service
             return Dao.Dao.findProduct(id);
         }
 
+        
     }
 }
