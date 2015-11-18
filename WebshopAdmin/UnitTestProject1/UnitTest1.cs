@@ -24,8 +24,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestCreateProduct()
         {
-            service.cre
-            service.createProduct("Test Ost", (decimal)20, 100, @"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg", "Danmark", "Test Katagori", true);
+            service.createProduct("Test ost", (decimal)20, 20, @"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg", "Danmark", "Test kategori", true);
+            
             var queryProduct = from product in db.Products
                                where product.name == "Test Ost"
                                select product;    
@@ -37,9 +37,9 @@ namespace UnitTestProject1
             Assert.AreEqual((decimal)20, p.unitPrice);
             Assert.AreEqual(100, p.countAvailable);
             //Assert.AreEqual(service.convertToByteArray(img), p.picture);
-            Assert.AreEqual((decimal)5, p.rating);
+            Assert.AreEqual((decimal)0, p.rating);
             Assert.AreEqual("Danmark", p.country);
-            Assert.AreEqual("Test Katagori", p.category);
+            Assert.AreEqual("Test Kategori", p.category);
             Assert.AreEqual(true, p.@new);
         }
     }

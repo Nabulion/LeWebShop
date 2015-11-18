@@ -28,7 +28,6 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("pic");
             dt.Columns.Add("country");
             dt.Columns.Add("rating");
-         
             
         }
 

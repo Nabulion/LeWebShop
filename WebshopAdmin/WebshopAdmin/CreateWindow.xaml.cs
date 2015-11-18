@@ -57,7 +57,7 @@ namespace WebshopAdmin
                 decimal d;
                 if (decimal.TryParse(txtCountAvailable.Text, out d) && decimal.TryParse(txtUnitprice.Text, out d))
                 {
-                    service.createProduct(TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, 0, txtCountry.Text, comboBoxCategory.SelectedItem.ToString(), new1);
+                    service.createProduct(TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, txtCountry.Text, comboBoxCategory.SelectedItem.ToString(), new1);
                     grid.ItemsSource = null;
                     grid.ItemsSource = service.getProducts();
                     this.Close();
