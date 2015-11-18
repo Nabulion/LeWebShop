@@ -21,7 +21,7 @@ namespace WebshopAdmin
     public partial class MainWindow : Window
     {
         public DataGrid grid = new DataGrid();
-        public DataGrid gridPackage = new DataGrid();
+        public DataGrid gridPackage;
         public DataGrid gridFAQ = new DataGrid();
         private ListBox boxProducts = new ListBox();
         private Service.Service service;
@@ -30,26 +30,27 @@ namespace WebshopAdmin
         lewebshopEntities db = Dao.Database.db;
         public MainWindow()
         {
-
+            InitializeComponent();
             service = new Service.Service();
 
             grid.ItemsSource = service.getProducts();
             grid.CanUserAddRows = false;
             grid.IsReadOnly = true;
 
-
+            boxProducts.ItemsSource = service.getProducts();
+            
+            gridPackage = new DataGrid();
             gridPackage.ItemsSource = db.Packages.ToList();
             gridPackage.CanUserAddRows = false;
             gridPackage.IsReadOnly = true;
-
-
-            boxProducts.ItemsSource = service.getProducts();
+            
+            
 
             gridFAQ.ItemsSource = db.FAQs.ToList();
             gridFAQ.CanUserAddRows = false;
             gridFAQ.IsReadOnly = true;
 
-            InitializeComponent();
+            
         }
 
         //Følgende button_click metoder er til tab-knapperne øverst i gui'et
@@ -108,7 +109,9 @@ namespace WebshopAdmin
         //Denne metode sætter package
         private void Button_Click_Package(object sender, RoutedEventArgs e)
         {
+            
             clear();
+            
             string[] buttons = { "Create", "Edit", "Delete" };
 
             boxProducts.Width = 200;
@@ -139,6 +142,7 @@ namespace WebshopAdmin
             gridPackage.Height = 200;
             removeColumn();
             sp_view.Children.Add(gridPackage);
+            
 
             for (int i = 0; i < buttons.Count(); i++)
             {
@@ -286,6 +290,7 @@ namespace WebshopAdmin
                             service.createPackage(l, textBox.Text, Convert.ToDecimal(textBox1.Text));
                             gridPackage.ItemsSource = null;
                             gridPackage.ItemsSource = db.Packages.ToList();
+                            
                         }
                         else
                         {

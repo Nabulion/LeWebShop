@@ -28,13 +28,12 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("pic");
             dt.Columns.Add("country");
             dt.Columns.Add("rating");
-         
             
         }
 
         // Product
 
-        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
+        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, string country, string category, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
