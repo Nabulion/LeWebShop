@@ -106,11 +106,6 @@ namespace Webshop.Service
             return Dao.Dao.findProduct(id);
         }
 
-        public static System.Drawing.Bitmap getImg(Product p) {
-            
-            System.ComponentModel.TypeConverter t = TypeDescriptor.GetConverter(typeof(System.Drawing.Bitmap));
-            System.Drawing.Bitmap b = (System.Drawing.Bitmap)t.ConvertFrom(p.picture);
-            return b;
-        }
+        
     }
 }

@@ -14,17 +14,23 @@
 <body>
     <div> 
         <h1>Discount pris</h1>
-       
+        <table>
+
             @foreach (var i in Model)
             {
-                <div>Id: @i.id<br /></div>
-                <div>Navn: @i.name<BR /></div>
-                <div>Land: @i.country<br /></div>
-                <div>Bedømmelse: @i.rating<br /></div>
-                <div>Pris: @i.unitPrice<br /></div>
-                @Html.ActionLink("Produkt", "productInfo", new { id = i.id});
-            }
-       
+                <tr>
+                    <td>
+                        Id: @i.id <br />
+                        Navn: @i.name<BR />
+                        Land: @i.country<br />
+                        Bedømmelse: @i.rating<br />
+                        Pris: @i.unitPrice<br />
+                        @Html.ActionLink("Produkt", "productInfo", new { id = i.id });
+                    </td>
+                </tr>}
+        </table>
+
+
 
     </div>
 </body>

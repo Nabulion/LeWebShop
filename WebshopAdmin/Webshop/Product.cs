@@ -11,7 +11,8 @@ namespace Webshop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -40,5 +41,14 @@ namespace Webshop
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
+
+        public System.Drawing.Bitmap getImg()
+        {
+
+            System.ComponentModel.TypeConverter t = TypeDescriptor.GetConverter(typeof(System.Drawing.Bitmap));
+            System.Drawing.Bitmap b = (System.Drawing.Bitmap)t.ConvertFrom(this.picture);
+            return b;
+        }
     }
+
 }
