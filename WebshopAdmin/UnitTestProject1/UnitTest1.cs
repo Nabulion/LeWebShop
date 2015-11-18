@@ -24,7 +24,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestCreateProduct()
         {
-            service.createProduct("Test Ost", (decimal)20, 100, @"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg", (decimal)5, "Danmark", "Test Katagori", true);
+            service.cre
+            service.createProduct("Test Ost", (decimal)20, 100, @"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg", "Danmark", "Test Katagori", true);
             var queryProduct = from product in db.Products
                                where product.name == "Test Ost"
                                select product;    

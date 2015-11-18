@@ -34,7 +34,7 @@ namespace WebshopAdmin.Service
 
         // Product
 
-        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, decimal rating, string country, string category, Boolean newP)
+        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, string country, string category, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
@@ -82,7 +82,7 @@ namespace WebshopAdmin.Service
                 db.SaveChanges();
             }
         }
-        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, string newCountry, string category, Boolean @new)
+        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry, string category, Boolean @new)
         {
             if (newName != null && p != null && newPic != null)
             {
@@ -98,7 +98,7 @@ namespace WebshopAdmin.Service
                 {
                     p.picture = null;
                 }
-                p.rating = 0;
+                p.rating = newRating;
                 p.category = category;
                 p.@new = @new;
                 db.SaveChanges();
