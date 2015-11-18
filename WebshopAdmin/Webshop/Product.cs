@@ -12,6 +12,7 @@ namespace Webshop
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Drawing;
 
     public partial class Product
     {
@@ -42,12 +43,13 @@ namespace Webshop
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
 
-        public System.Drawing.Bitmap getImg()
+        public String getImg()
         {
-
             System.ComponentModel.TypeConverter t = TypeDescriptor.GetConverter(typeof(System.Drawing.Bitmap));
-            System.Drawing.Bitmap b = (System.Drawing.Bitmap)t.ConvertFrom(this.picture);
-            return b;
+            //System.Drawing.Bitmap b = (System.Drawing.Bitmap)t.ConvertFrom(this.picture);
+            string base64String = Convert.ToBase64String(this.picture);
+
+            return base64String;
         }
     }
 

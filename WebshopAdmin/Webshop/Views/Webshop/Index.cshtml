@@ -29,9 +29,31 @@
             @Html.ActionLink("Indkøbskurv", "Index")
         </div>
     </header>
+    <h1>OSTEPAKKEN</h1>
+    <div>
+        <nav>
+            <table id="menutop">
+                <tr>
+                    <td>@Html.ActionLink("Home", "Index")</td>
+                    <td>@Html.ActionLink("Sidste nyt", "Index", new { id = Model.id})</td>
+                    <td>@Html.ActionLink("Månedens tilbud", "Index", new { id = Model.id })</td>
+                    <td>@Html.ActionLink("Handelsbetingelser", "Index", new { id = Model.id })</td>
+                    <td>@Html.ActionLink("Kundeservice", "Index", new { id = Model.id })</td>
+                </tr>
+
+            </table>
+            <ul id="menu">
+                <li>@Html.ActionLink("Discount pris", "DiscountCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Hverdagsoste", "Index", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Luksusoste", "Index", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Eksklusive oste", "Index", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Osteborde", "Index", new { id = Model.id })</li>
+            </ul>
+        </nav>
+    </div>
 
     <section>
-        <img src="~/pic/pic_mountain.jpg" alt="ost" style="width:304px;height:228px;">
+        
     </section>
 </body>
 </html>

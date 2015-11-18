@@ -1,4 +1,4 @@
-﻿@model Webshop.Product
+﻿@model Webshop.Models.Wrapper
 
 @{
    
@@ -12,34 +12,46 @@
     <title>productInfo</title>
 </head>
 <body>
+    <header id="indkøbskurv">
+        @if (Model.userprofile == null)
+        {
+            @Html.ActionLink("Login", "Index", "Login")
+        }
+        else
+        {
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.userprofile.id })<br />
+            @Html.ActionLink("Log ud", "index", new { id = -1 })
+        }
+
+        <div>
+            @Html.ActionLink("Indkøbskurv", "Index")
+        </div>
+    </header>
     <div> 
         <table>
             <thead>
-                <h2>@Model.name</h2>
+                <h2>@Model.produkt.name</h2>
             </thead>
             <tbody>
                 <tr>
                     
                     <td>
-                        ID: @Model.id <br />
-                        Navn: @Model.name <br />
-                        Land: @Model.country <br />
-                        Rating: @Model.rating <br />
-                        Pris: @Model.unitPrice <br />
-                        Beskrivelse: @Model.description
+                        ID: @Model.produkt.id <br />
+                        Navn: @Model.produkt.name <br />
+                        Land: @Model.produkt.country <br />
+                        Rating: @Model.produkt.rating <br />
+                        Pris: @Model.produkt.unitPrice <br />
+                        Beskrivelse: @Model.produkt.description
                     </td>
                     <td>
-                        Billede
+                        <img src="@String.Format("data:image/png;base64,{0}", @Model.produkt.getImg())" />
                     </td>
                 </tr>
             </tbody>
-       
-       
-       
-       
-       
-      
         </table>
+        
+        
+        
     </div>
 </body>
 </html>

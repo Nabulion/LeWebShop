@@ -1,7 +1,6 @@
-﻿@model  IEnumerable<Webshop.Product>
-
+﻿@model  Webshop.Models.Wrapper
 @{
-  
+
 }
 
 <!DOCTYPE html>
@@ -11,12 +10,27 @@
     <meta name="viewport" content="width=device-width" />
     <title>DiscountCheese</title>
 </head>
-<body>
-    <div> 
-        <h1>Discount pris</h1>
-        <table>
 
-            @foreach (var i in Model)
+<body>
+    <header id="indkøbskurv">
+        @if (Model.userprofile.id == 0)
+        { 
+            @Html.ActionLink("Login", "Index", "Login")
+        }
+        else
+        {
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.userprofile.id }) < br />
+            @Html.ActionLink("Log ud", "index", new { id = -1 })
+        }
+
+        <div>
+            @Html.ActionLink("Indkøbskurv", "Index")
+        </div>
+    </header>
+    <div>
+        <h1>Discount pris</h1>
+        <table id="produktList">
+            @foreach (var i in Model.list)
             {
                 <tr>
                     <td>
@@ -25,9 +39,14 @@
                         Land: @i.country<br />
                         Bedømmelse: @i.rating<br />
                         Pris: @i.unitPrice<br />
-                        @Html.ActionLink("Produkt", "productInfo", new { id = i.id });
+                        @Html.ActionLink("Produkt", "productInfo", new { id = i.id }, new { id = Model.userprofile.id})
+
                     </td>
-                </tr>}
+                    <td>
+                        Billede
+                    </td>
+                </tr>
+            }
         </table>
 
 

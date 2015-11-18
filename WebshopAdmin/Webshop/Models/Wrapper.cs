@@ -9,5 +9,7 @@ namespace Webshop.Models
     {
         public UserProfile userprofile { get; set; }
         public LoginUser loginuser { get; set; }
+        public Product produkt { get; set; }
+        public List<Product> list { get; set; }
     }
 }

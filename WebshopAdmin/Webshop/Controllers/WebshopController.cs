@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Webshop.Models;
 
 namespace Webshop.Controllers
 {
@@ -11,10 +12,12 @@ namespace Webshop.Controllers
         // GET: Webshop
         public ActionResult Index(int? id)
         {
-            UserProfile temp = Dao.Dao.getDB().UserProfiles.Find(id);
+
+            UserProfile temp = Dao.Dao.getDB().UserProfiles.Find(id.GetValueOrDefault());
             if (temp == null)
             {
                 temp = new UserProfile();
+                temp.id = 0;
             }
             return View(temp);
         }
@@ -51,15 +54,27 @@ namespace Webshop.Controllers
             Service.Service.createVisa(temp, visa);
             return RedirectToAction("userProfile", new { id = temp.id });
         }
-        public ActionResult DiscountCheese()
+        public ActionResult DiscountCheese(int id)
         {
             List<Product> list = Service.Service.getProductCategory("Discount pris");
-            return View(list);
+            Wrapper w = new Wrapper();
+            w.list = list;
+            w.userprofile = new UserProfile();
+            if (id == 0)
+            {
+                w.userprofile.id = 0;
+            }
+            else
+            {
+                w.userprofile = Service.Service.findUser(id);
+            }
+            return View(w);
         }
         public ActionResult productInfo(int id)
         {
-            Product p = Service.Service.findProduct(id);
-            return View(p);
+            Wrapper w = new Wrapper();
+            w.produkt = Service.Service.findProduct(id);
+            return View(w);
         }
 
     }
