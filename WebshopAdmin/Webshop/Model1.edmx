@@ -59,6 +59,7 @@
           <Property Name="rating" Type="decimal" Precision="18" Scale="0" />
           <Property Name="picture" Type="image" />
           <Property Name="category" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar(max)" />
           <Property Name="new" Type="bit" />
           <Property Name="Package" Type="int" />
           <Property Name="ShoppingCart" Type="int" />
@@ -335,6 +336,7 @@
           <Property Name="rating" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="new" Type="Boolean" />
           <Property Name="Package" Type="Int32" />
           <Property Name="ShoppingCart" Type="Int32" />
@@ -508,7 +510,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="lewebshopEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="lewebshopEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="FAQs" EntityType="Self.FAQ" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
@@ -565,7 +567,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities1">
+        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities2">
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="lewebshopModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
@@ -624,6 +626,7 @@
                 <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="picture" ColumnName="picture" />
                 <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="new" ColumnName="new" />
                 <ScalarProperty Name="Package" ColumnName="Package" />
                 <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />

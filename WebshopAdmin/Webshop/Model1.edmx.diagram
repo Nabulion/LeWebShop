@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e79a355f06ae4d908b82a5942e79f946" Name="Diagram1">
-        <EntityTypeShape EntityType="lewebshopModel.Comment" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+      <Diagram DiagramId="69819ccae33e4c0fb9a6f2680d257cba" Name="Diagram1">
+        <EntityTypeShape EntityType="lewebshopModel.Comment" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="lewebshopModel.FAQ" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="lewebshopModel.LoginUser" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="lewebshopModel.OrderLine" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="lewebshopModel.Package" Width="1.5" PointX="8.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="lewebshopModel.OrderLine" Width="1.5" PointX="7.5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lewebshopModel.Package" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="lewebshopModel.Product" Width="1.5" PointX="10.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="lewebshopModel.ShoppingCart" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="lewebshopModel.ShoppingOrder" Width="1.5" PointX="7.5" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="lewebshopModel.UserProfile" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lewebshopModel.ShoppingCart" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lewebshopModel.ShoppingOrder" Width="1.5" PointX="7.5" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lewebshopModel.UserProfile" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="lewebshopModel.Visa" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
         <AssociationConnector Association="lewebshopModel.FK__Comment__Product__239E4DCF" ManuallyRouted="false" />
         <AssociationConnector Association="lewebshopModel.FK__Comment__UserPro__24927208" ManuallyRouted="false" />
