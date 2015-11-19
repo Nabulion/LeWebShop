@@ -28,19 +28,27 @@ namespace UnitTestProject1
             
             var queryProduct = from product in db.Products
                                where product.name == "Test Ost"
-                               select product;    
- 
-            //BitmapImage img = service.getImage(@"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg");
+                               select product;
+
+            BitmapImage img = service.getImage(@"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg");
 
             WebshopAdmin.Product p = queryProduct.ToList().ElementAt(0);
-            Assert.AreEqual("Test Ost", p.name);
+            Assert.AreEqual("Test ost", p.name);
             Assert.AreEqual((decimal)20, p.unitPrice);
-            Assert.AreEqual(100, p.countAvailable);
-            //Assert.AreEqual(service.convertToByteArray(img), p.picture);
+            Assert.AreEqual(20, p.countAvailable);
+            CollectionAssert.AreEqual(service.convertToByteArray(img), p.picture);
             Assert.AreEqual((decimal)0, p.rating);
             Assert.AreEqual("Danmark", p.country);
-            Assert.AreEqual("Test Kategori", p.category);
+            Assert.AreEqual("Test kategori", p.category);
             Assert.AreEqual(true, p.@new);
         }
+
+        //[TestMethod]
+
+        //public void TestCreatePackage()
+        //{
+        //    service.createPackage("Danske oste")
+        //}
+
     }
 }
