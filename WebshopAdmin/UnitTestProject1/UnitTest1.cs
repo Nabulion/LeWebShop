@@ -13,7 +13,7 @@ namespace UnitTestProject1
     public class UnitTest1
     {
         WebshopAdmin.Service.Service service = new WebshopAdmin.Service.Service();
-        WebshopAdmin.lewebshopEntities db = WebshopAdmin.Dao.Database.db;
+        WebshopAdmin.lewebshopEntities1 db = WebshopAdmin.Dao.Database.db;
 
         [TestInitialize]
         public void TestInit()
@@ -24,7 +24,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestCreateProduct()
         {
-            service.createProduct("Test ost", (decimal)20, 20, @"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg", "Danmark", "Test kategori", true);
+            service.createProduct("Test ost", (decimal)20, 20, @"C:\Users\Jens\Source\Repos\LeWebShop2\WebshopAdmin\Webshop\pic\ost3.jpg", "Danmark", "Test kategori", "osten smager af mug",  true);
             
             var queryProduct = from product in db.Products
                                where product.name == "Test Ost"
@@ -40,6 +40,7 @@ namespace UnitTestProject1
             Assert.AreEqual((decimal)0, p.rating);
             Assert.AreEqual("Danmark", p.country);
             Assert.AreEqual("Test kategori", p.category);
+            Assert.AreEqual("osten samger af mug", p.PDescription);
             Assert.AreEqual(true, p.@new);
         }
 

@@ -49,8 +49,7 @@ namespace WebshopAdmin
             txtUnitprice.Text = service.filldata(service.getProducts()).Rows[rowIndex]["unitPrice"].ToString();
             txtCountAvailable.Text = service.filldata(service.getProducts()).Rows[rowIndex]["countAvailable"].ToString();
             txtCountry.Text = service.filldata(service.getProducts()).Rows[rowIndex]["country"].ToString();
-           
-            
+            txtDescription.Text = service.filldata(service.getProducts()).Rows[rowIndex]["PDescription"].ToString();
 
         }
 
@@ -61,9 +60,9 @@ namespace WebshopAdmin
                 new1 = true;
             }
             decimal d;
-            if (selectedItem != null && TxtName.Text != "" && decimal.TryParse(txtUnitprice.Text, out d) && decimal.TryParse(txtCountAvailable.Text, out d) && txtCountry.Text != "" && comboBoxCategoryEdit.SelectedItem != null)
+            if (selectedItem != null && TxtName.Text != "" && decimal.TryParse(txtUnitprice.Text, out d) && decimal.TryParse(txtCountAvailable.Text, out d) && txtCountry.Text != "" && comboBoxCategoryEdit.SelectedItem != null && txtDescription.Text != "")
             {
-                service.updateProduct((Product)selectedItem, TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtPicture.Text, 0, txtCountry.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
+                service.updateProduct((Product)selectedItem, TxtName.Text, Convert.ToDecimal(txtUnitprice.Text), Convert.ToInt32(txtCountAvailable.Text), txtCountry.Text, txtPicture.Text, txtDescription.Text, comboBoxCategoryEdit.SelectedItem.ToString(), new1);
                 grid.ItemsSource = null;
                 grid.ItemsSource = service.getProducts();
                 this.Close();

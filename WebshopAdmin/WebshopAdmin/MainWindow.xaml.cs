@@ -27,7 +27,7 @@ namespace WebshopAdmin
         private Service.Service service;
         private Image img = new Image();
 
-        lewebshopEntities db = Dao.Database.db;
+        lewebshopEntities1 db = Dao.Database.db;
         public MainWindow()
         {
             InitializeComponent();
