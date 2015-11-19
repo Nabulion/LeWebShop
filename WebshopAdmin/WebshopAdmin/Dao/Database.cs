@@ -9,14 +9,14 @@ namespace WebshopAdmin.Dao
 {
     public class Database
     {
-        private static lewebshopEntities DB = null;
-        public static lewebshopEntities db
+        private static lewebshopEntities1 DB = null;
+        public static lewebshopEntities1 db
         {
             get
             {
                 if (DB == null)
                 {
-                    DB = new lewebshopEntities();
+                    DB = new lewebshopEntities1();
                 }
                 return DB;
             }
