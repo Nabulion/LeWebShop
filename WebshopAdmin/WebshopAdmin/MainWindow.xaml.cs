@@ -608,6 +608,15 @@ namespace WebshopAdmin
             t1.Text = "";
             sp_view.Children.Add(t1);
 
+            Label l4 = new Label();
+            l4.Content = "Gennemsnit Salg i Kr";
+            l4.Width = 175;
+            sp_view.Children.Add(l4);
+
+            TextBox t2 = new TextBox();
+            t2.Text = "";
+            sp_view.Children.Add(t2);
+
             for (int i = 0; i < buttons.Count(); i++)
             {
                 string name = buttons[i];
@@ -638,10 +647,14 @@ namespace WebshopAdmin
                         var datepickerStart = sp_middle.Children.OfType<DatePicker>().First();
                         var datepickerEnd = sp_middle.Children.OfType<DatePicker>().ElementAt(1);
                         var textbox = sp_view.Children.OfType<TextBox>().First();
+                        var textbox2 = sp_view.Children.OfType<TextBox>().ElementAt(1);
                         if (datepickerStart.SelectedDate != null && datepickerEnd != null)
                         {
                             int i = 0;
                             i = service.numberOfSales((DateTime)datepickerStart.SelectedDate, (DateTime)datepickerEnd.SelectedDate);
+                            decimal d = 0;
+                            d = service.averagePriceOnSales((DateTime)datepickerStart.SelectedDate, (DateTime)datepickerEnd.SelectedDate);
+                            textbox2.Text = d + "";
                             textbox.Text = i + "";
                         }
 

@@ -79,5 +79,11 @@ namespace UnitTestProject1
             Assert.AreEqual("LUGTER OSTEN?", faq1.question);
             Assert.AreEqual("JA", faq1.answer);        
         }
+        [TestMethod]
+        public void TestStats()
+        {
+            int i = service.numberOfSales(DateTime.Today, DateTime.Today.AddDays(1));
+            Assert.AreEqual(0, i);
+        }
     }
 }

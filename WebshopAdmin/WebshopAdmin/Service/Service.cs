@@ -307,8 +307,9 @@ namespace WebshopAdmin.Service
                 {
                     d = (decimal)s.orderPrice + d;
                 }
+                return d/l.Count;
             }
-            return d / l.Count;
+            return d;
         }
         
 
