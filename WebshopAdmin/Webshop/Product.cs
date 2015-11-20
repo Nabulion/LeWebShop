@@ -12,7 +12,6 @@ namespace Webshop
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Drawing;
 
     public partial class Product
     {
@@ -34,23 +33,18 @@ namespace Webshop
         public string description { get; set; }
         public Nullable<bool> @new { get; set; }
         public Nullable<int> Package { get; set; }
-        public Nullable<int> ShoppingCart { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Package Package1 { get; set; }
-        public virtual ShoppingCart ShoppingCart1 { get; set; }
 
         public String getImg()
         {
             System.ComponentModel.TypeConverter t = TypeDescriptor.GetConverter(typeof(System.Drawing.Bitmap));
-            //System.Drawing.Bitmap b = (System.Drawing.Bitmap)t.ConvertFrom(this.picture);
-            string base64String = Convert.ToBase64String(this.picture);
-
-            return base64String;
+            String Base = Convert.ToBase64String(this.picture);
+            return Base;
         }
     }
-
 }

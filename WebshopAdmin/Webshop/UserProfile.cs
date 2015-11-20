@@ -20,6 +20,8 @@ namespace Webshop
             this.Comments = new HashSet<Comment>();
             this.ShoppingCarts = new HashSet<ShoppingCart>();
             this.Visas = new HashSet<Visa>();
+            ShoppingCarts.Add(new ShoppingCart());
+
         }
     
         public int id { get; set; }
