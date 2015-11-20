@@ -607,6 +607,7 @@ namespace WebshopAdmin
             t1.Width = 175;
             t1.Text = "";
             sp_view.Children.Add(t1);
+            t1.IsReadOnly = true;
 
             Label l4 = new Label();
             l4.Content = "Gennemsnit Salg i Kr";
@@ -616,6 +617,7 @@ namespace WebshopAdmin
             TextBox t2 = new TextBox();
             t2.Width = 175;
             t2.Text = "";
+            t2.IsReadOnly = true;
             sp_view.Children.Add(t2);
 
             for (int i = 0; i < buttons.Count(); i++)
@@ -649,8 +651,6 @@ namespace WebshopAdmin
                         var datepickerEnd = sp_middle.Children.OfType<DatePicker>().ElementAt(1);
                         var textbox = sp_view.Children.OfType<TextBox>().First();
                         var textbox2 = sp_view.Children.OfType<TextBox>().ElementAt(1);
-                        textbox.IsReadOnly = true;
-                        textbox2.IsReadOnly = true;
                         if (datepickerStart.SelectedDate != null && datepickerEnd != null)
                         {
                             int i = 0;
