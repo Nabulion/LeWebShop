@@ -18,6 +18,7 @@ namespace Webshop
         public Nullable<decimal> orderPrice { get; set; }
         public Nullable<int> productCount { get; set; }
         public Nullable<int> ShoppingCart { get; set; }
+        public Nullable<System.DateTime> dato { get; set; }
     
         public virtual ShoppingCart ShoppingCart1 { get; set; }
     }

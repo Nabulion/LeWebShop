@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="id" />
@@ -46,6 +46,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="monthsale" Type="bit" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -60,8 +61,10 @@
           <Property Name="picture" Type="image" />
           <Property Name="category" Type="nvarchar" MaxLength="50" />
           <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="monthsale" Type="bit" />
           <Property Name="new" Type="bit" />
           <Property Name="Package" Type="int" />
+          <Property Name="ShoppingCart" Type="int" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -77,6 +80,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orderPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="productCount" Type="int" />
+          <Property Name="dato" Type="datetime" />
           <Property Name="ShoppingCart" Type="int" />
         </EntityType>
         <EntityType Name="UserProfile">
@@ -98,7 +102,7 @@
           <Property Name="UserProfile" Type="int" />
           <Property Name="visainfo" Type="nvarchar" MaxLength="16" />
         </EntityType>
-        <Association Name="FK__Comment__Product__22AA2996">
+        <Association Name="FK__Comment__Product__239E4DCF">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -110,7 +114,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__UserPro__239E4DCF">
+        <Association Name="FK__Comment__UserPro__24927208">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -122,7 +126,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderLine__Produ__286302EC">
+        <Association Name="FK__OrderLine__Produ__29572725">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -134,7 +138,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderLine__Shopp__29572725">
+        <Association Name="FK__OrderLine__Shopp__2A4B4B5E">
           <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
           <End Role="OrderLine" Type="Self.OrderLine" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,6 +159,18 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="Package" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Shoppin__20C1E124">
+          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ShoppingCart" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -217,24 +233,28 @@
           <EntitySet Name="ShoppingOrder" EntityType="Self.ShoppingOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visa" EntityType="Self.Visa" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Comment__Product__22AA2996" Association="Self.FK__Comment__Product__22AA2996">
+          <AssociationSet Name="FK__Comment__Product__239E4DCF" Association="Self.FK__Comment__Product__239E4DCF">
             <End Role="Product" EntitySet="Product" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comment__UserPro__239E4DCF" Association="Self.FK__Comment__UserPro__239E4DCF">
+          <AssociationSet Name="FK__Comment__UserPro__24927208" Association="Self.FK__Comment__UserPro__24927208">
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderLine__Produ__286302EC" Association="Self.FK__OrderLine__Produ__286302EC">
+          <AssociationSet Name="FK__OrderLine__Produ__29572725" Association="Self.FK__OrderLine__Produ__29572725">
             <End Role="Product" EntitySet="Product" />
             <End Role="OrderLine" EntitySet="OrderLine" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderLine__Shopp__29572725" Association="Self.FK__OrderLine__Shopp__29572725">
+          <AssociationSet Name="FK__OrderLine__Shopp__2A4B4B5E" Association="Self.FK__OrderLine__Shopp__2A4B4B5E">
             <End Role="ShoppingCart" EntitySet="ShoppingCart" />
             <End Role="OrderLine" EntitySet="OrderLine" />
           </AssociationSet>
           <AssociationSet Name="FK__Product__Package__1FCDBCEB" Association="Self.FK__Product__Package__1FCDBCEB">
             <End Role="Package" EntitySet="Package" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Shoppin__20C1E124" Association="Self.FK__Product__Shoppin__20C1E124">
+            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK__ShoppingC__UserP__1A14E395" Association="Self.FK__ShoppingC__UserP__1A14E395">
@@ -254,8 +274,7 @@
             <End Role="Visa" EntitySet="Visa" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="lewebshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -306,6 +325,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Package" ToRole="Product" />
+          <Property Name="monthsale" Type="Boolean" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -325,6 +345,9 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__Product__22AA2996" FromRole="Product" ToRole="Comment" />
           <NavigationProperty Name="OrderLines" Relationship="Self.FK__OrderLine__Produ__286302EC" FromRole="Product" ToRole="OrderLine" />
           <NavigationProperty Name="Package1" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Product" ToRole="Package" />
+          <Property Name="monthsale" Type="Boolean" />
+          <Property Name="ShoppingCart" Type="Int32" />
+          <NavigationProperty Name="ShoppingCart1" Relationship="lewebshopModel.FK__Product__Shoppin__20C1E124" FromRole="Product" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -335,6 +358,7 @@
           <NavigationProperty Name="OrderLines" Relationship="Self.FK__OrderLine__Shopp__29572725" FromRole="ShoppingCart" ToRole="OrderLine" />
           <NavigationProperty Name="UserProfile1" Relationship="Self.FK__ShoppingC__UserP__1A14E395" FromRole="ShoppingCart" ToRole="UserProfile" />
           <NavigationProperty Name="ShoppingOrders" Relationship="Self.FK__ShoppingO__Shopp__1CF15040" FromRole="ShoppingCart" ToRole="ShoppingOrder" />
+          <NavigationProperty Name="Products" Relationship="lewebshopModel.FK__Product__Shoppin__20C1E124" FromRole="ShoppingCart" ToRole="Product" />
         </EntityType>
         <EntityType Name="ShoppingOrder">
           <Key>
@@ -345,6 +369,7 @@
           <Property Name="productCount" Type="Int32" />
           <Property Name="ShoppingCart" Type="Int32" />
           <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__ShoppingO__Shopp__1CF15040" FromRole="ShoppingOrder" ToRole="ShoppingCart" />
+          <Property Name="dato" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -525,7 +550,23 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Visa" EntitySet="Visas" />
           </AssociationSet>
+          <AssociationSet Name="FK__Product__Shoppin__20C1E124" Association="lewebshopModel.FK__Product__Shoppin__20C1E124">
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Product__Shoppin__20C1E124">
+          <End Type="lewebshopModel.ShoppingCart" Role="ShoppingCart" Multiplicity="0..1" />
+          <End Type="lewebshopModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ShoppingCart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -573,6 +614,7 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="lewebshopModel.Package">
               <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="monthsale" ColumnName="monthsale" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="price" ColumnName="price" />
@@ -582,6 +624,8 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="lewebshopModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
+                <ScalarProperty Name="monthsale" ColumnName="monthsale" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
@@ -607,6 +651,7 @@
           <EntitySetMapping Name="ShoppingOrders">
             <EntityTypeMapping TypeName="lewebshopModel.ShoppingOrder">
               <MappingFragment StoreEntitySet="ShoppingOrder">
+                <ScalarProperty Name="dato" ColumnName="dato" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="orderPrice" ColumnName="orderPrice" />
                 <ScalarProperty Name="productCount" ColumnName="productCount" />

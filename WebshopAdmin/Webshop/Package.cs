@@ -23,6 +23,7 @@ namespace Webshop
         public int id { get; set; }
         public string name { get; set; }
         public Nullable<decimal> price { get; set; }
+        public Nullable<bool> monthsale { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }

@@ -24,6 +24,7 @@
         <AssociationConnector Association="lewebshopModel.FK__ShoppingC__UserP__1A14E395" ManuallyRouted="false" />
         <AssociationConnector Association="lewebshopModel.FK__ShoppingO__Shopp__1CF15040" ManuallyRouted="false" />
         <AssociationConnector Association="lewebshopModel.FK__Visa__UserProfil__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="lewebshopModel.FK__Product__Shoppin__20C1E124" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

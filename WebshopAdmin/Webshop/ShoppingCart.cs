@@ -19,6 +19,7 @@ namespace Webshop
         {
             this.OrderLines = new HashSet<OrderLine>();
             this.ShoppingOrders = new HashSet<ShoppingOrder>();
+            this.Products = new HashSet<Product>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,7 @@ namespace Webshop
         public virtual UserProfile UserProfile1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingOrder> ShoppingOrders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
