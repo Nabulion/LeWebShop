@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="lewebshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="id" />
@@ -59,6 +59,7 @@
           <Property Name="rating" Type="decimal" Precision="18" Scale="0" />
           <Property Name="picture" Type="image" />
           <Property Name="category" Type="nvarchar" MaxLength="50" />
+          <Property Name="PDescription" Type="nvarchar(max)" />
           <Property Name="new" Type="bit" />
           <Property Name="Package" Type="int" />
           <Property Name="ShoppingCart" Type="int" />
@@ -270,7 +271,8 @@
             <End Role="Visa" EntitySet="Visa" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="lewebshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -332,15 +334,16 @@
           <Property Name="countAvailable" Type="Int32" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="new" Type="Boolean" />
           <Property Name="Package" Type="Int32" />
           <Property Name="ShoppingCart" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK__Comment__Product__239E4DCF" FromRole="Product" ToRole="Comment" />
           <NavigationProperty Name="OrderLines" Relationship="Self.FK__OrderLine__Produ__29572725" FromRole="Product" ToRole="OrderLine" />
           <NavigationProperty Name="Package1" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Product" ToRole="Package" />
           <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__Product__Shoppin__20C1E124" FromRole="Product" ToRole="ShoppingCart" />
-          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="new" Type="Boolean" />
-          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -507,7 +510,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="lewebshopEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="lewebshopEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="FAQs" EntityType="Self.FAQ" />
           <EntitySet Name="LoginUsers" EntityType="Self.LoginUser" />
@@ -564,7 +567,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities">
+        <EntityContainerMapping StorageEntityContainer="lewebshopModelStoreContainer" CdmEntityContainer="lewebshopEntities1">
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="lewebshopModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
@@ -615,15 +618,16 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="lewebshopModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="picture" ColumnName="picture" />
-                <ScalarProperty Name="new" ColumnName="new" />
-                <ScalarProperty Name="category" ColumnName="category" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
                 <ScalarProperty Name="countAvailable" ColumnName="countAvailable" />
                 <ScalarProperty Name="country" ColumnName="country" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="PDescription" ColumnName="PDescription" />
+                <ScalarProperty Name="new" ColumnName="new" />
                 <ScalarProperty Name="Package" ColumnName="Package" />
                 <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
               </MappingFragment>

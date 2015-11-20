@@ -16,7 +16,8 @@ namespace WebshopAdmin.Service
 {
     public class Service
     {
-        lewebshopEntities db = Dao.Database.db;
+        lewebshopEntities1 db = Dao.Database.db;
+        
         DataTable dt;
 
         public Service()
@@ -25,15 +26,16 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("name");
             dt.Columns.Add("unitprice");
             dt.Columns.Add("countavailable");
-            dt.Columns.Add("pic");
             dt.Columns.Add("country");
+            dt.Columns.Add("pic");
+            dt.Columns.Add("PDescription");
             dt.Columns.Add("rating");
             
         }
 
         // Product
 
-        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, string country, string category, Boolean newP)
+        public Product createProduct(string name, decimal unitprice, int countavailable, string pic, string country, string category, string description, Boolean newP)
         {
             Product p = new Product();
             p.name = name;
@@ -46,6 +48,7 @@ namespace WebshopAdmin.Service
                 p.picture = null;
             }
             p.category = category;
+            p.PDescription = description;
             p.@new = newP;
             p.unitPrice = unitprice;
             p.rating = 0;
@@ -81,23 +84,22 @@ namespace WebshopAdmin.Service
                 db.SaveChanges();
             }
         }
-        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newPic, decimal newRating, string newCountry, string category, Boolean @new)
+        public void updateProduct(Product p, string newName, decimal newUnitprice, int newCountavailable, string newCountry, string newPic, string description, string category, Boolean @new)
         {
             if (newName != null && p != null && newPic != null)
             {
-                p.countAvailable = newCountavailable;
                 p.name = newName;
-                p.country = newCountry;
                 p.unitPrice = newUnitprice;
                 p.countAvailable = newCountavailable;
+                p.country = newCountry;
                 try { 
                 p.picture = convertToByteArray(new BitmapImage(new Uri(@newPic)));
                 }
                 catch
                 {
                     p.picture = null;
-                }
-                p.rating = newRating;
+                } 
+                p.PDescription = description;
                 p.category = category;
                 p.@new = @new;
                 db.SaveChanges();
@@ -124,6 +126,7 @@ namespace WebshopAdmin.Service
                 row["countavailable"] = Convert.ToString(product.countAvailable);
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
+                row["PDescription"] = product.PDescription;
                 dt.Rows.Add(row);
             }
 

@@ -24,10 +24,5 @@ namespace WebshopAdmin
         public Nullable<decimal> price { get; set; }
     
         public virtual ICollection<Product> Products { get; set; }
-
-        public override string ToString()
-        {
-            return "Package: " + name + ", " + price; 
-        }
     }
 }
