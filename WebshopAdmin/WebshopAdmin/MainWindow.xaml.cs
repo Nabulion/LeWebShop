@@ -215,7 +215,45 @@ namespace WebshopAdmin
         {
             clear();
 
-            string[] buttons = { "Create", "Edit", "Delete" };
+            ComboBox boxProducts = new ComboBox();
+            boxProducts.Width = 175;
+            var margin1 = boxProducts.Margin;
+            margin1.Bottom = 20;
+            margin1.Left = 10;
+            margin1.Top = 10;
+            margin1.Right = 10;
+            boxProducts.Margin = margin1;
+            boxProducts.ItemsSource = service.getProducts();
+            sp_middle.Children.Add(boxProducts);
+
+            ComboBox boxPackages = new ComboBox();
+            boxPackages.Width = 175;
+            boxPackages.ItemsSource = db.Packages.ToList();
+            sp_middle.Children.Add(boxPackages);
+
+            Label labelProduct = new Label();
+            labelProduct.Width = 200;
+            labelProduct.Content = "Sale Products:";
+            sp_view.Children.Add(labelProduct);
+
+            ListBox saleProduct = new ListBox();
+            saleProduct.Width = 200;
+            saleProduct.Height = 90;
+            sp_view.Children.Add(saleProduct);
+
+            Label labelPackage = new Label();
+            labelPackage.Width = 200;
+            labelPackage.Content = "Sale Products:";
+            sp_view.Children.Add(labelPackage);
+
+            ListBox salePackage = new ListBox();
+            salePackage.Width = 200;
+            salePackage.Height = 90;
+            sp_view.Children.Add(salePackage);
+
+
+
+            string[] buttons = { "Add", "Remove"};
 
             for (int i = 0; i < buttons.Count(); i++)
             {
@@ -229,11 +267,82 @@ namespace WebshopAdmin
                 margin.Right = 5;
                 b.Margin = margin;
 
-                b.Click += b_Click_FAQ;
+                b.Click += b_Click_MonthlySale;
                 sp_Options.Children.Add(b);
             }
 
 
+        }
+
+        private void b_Click_MonthlySale(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                switch (button.Name)
+                {
+                    case "Add":
+                        var comboProduct = sp_middle.Children.OfType<ComboBox>().First();
+                        var comboPackage = sp_middle.Children.OfType<ComboBox>().ElementAt(1);
+                        var listProduct = sp_view.Children.OfType<ListBox>().First();
+                        var listPackage = sp_view.Children.OfType<ListBox>().ElementAt(1);
+
+                        if (comboProduct.SelectedItem != null)
+                        {
+                            Product p = (Product)comboProduct.SelectedItem;
+                            p.monthsale = true;
+                            
+
+                        }
+
+                        if (comboPackage.SelectedItem != null)
+                        {
+                            Package pac = (Package)comboPackage.SelectedItem;
+                            pac.monthsale = true;
+                        }                  
+                        else
+                        {
+                            MessageBox.Show("Fill answer and question");
+                        }
+                        break;
+
+                    case "Remove":
+                        {
+
+                            if (gridFAQ.SelectedItem != null)
+                            {
+                                service.deleteFAQ((FAQ)gridFAQ.SelectedItem);
+                                gridFAQ.ItemsSource = null;
+                                gridFAQ.ItemsSource = db.FAQs.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Pick a FAQ");
+                            }
+                        }
+                        break;
+
+                    case "Edit":
+                        if (gridFAQ.SelectedItem != null)
+                        {
+                            var datatable = sp_view.Children.OfType<DataGrid>().First();
+                            var textboxQuestion = sp_middle.Children.OfType<TextBox>().First();
+                            var textboxAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                            FAQ faq = (FAQ)datatable.SelectedItem;
+                            if (textboxQuestion.Text != "" && textboxAnswer.Text != "" && faq != null)
+                            {
+                                service.editFAQ(faq, textboxQuestion.Text, textboxAnswer.Text);
+                                gridFAQ.ItemsSource = null;
+                                gridFAQ.ItemsSource = db.FAQs.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Fill answer, question and pick a FAQ");
+                            }
+                        }
+                        break;
+                }
+            }
         }
 
         //Følgende Button_Clicked sætter CRUD options for de forskellige tabs

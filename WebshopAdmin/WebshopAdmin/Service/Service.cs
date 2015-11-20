@@ -54,6 +54,7 @@ namespace WebshopAdmin.Service
             p.rating = 0;
             p.countAvailable = countavailable;
             p.country = country;
+            p.monthsale = false;
             db.Products.Add(p);
             db.SaveChanges();
 
@@ -112,6 +113,32 @@ namespace WebshopAdmin.Service
             l = db.Products.ToList();
             return l;
         }
+
+        public List<Product> getSaleProduct()
+        {
+            var querySaleProduct = from product in db.Products
+                                   where product.monthsale == true
+                                   select product;
+            return querySaleProduct.ToList();
+        }
+
+        public List<Package> getPackages()
+        {
+            List<Package> p = new List<Package>();
+            p = db.Packages.ToList();
+            return p;
+        }
+
+        public List<Package> getSalePackage()
+        {
+            var querySalePackage = from package in db.Packages
+                                   where package.monthsale == true
+                                   select package;
+            return querySalePackage.ToList();
+        }
+
+      
+
         public DataTable getTable()
         {
             return dt;
@@ -169,6 +196,7 @@ namespace WebshopAdmin.Service
             {
                 pro.Package1 = p;
             }
+            p.monthsale = false;
             db.Packages.Add(p);
             db.SaveChanges();
         }
