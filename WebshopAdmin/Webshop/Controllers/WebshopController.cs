@@ -117,9 +117,10 @@ namespace Webshop.Controllers
             Service.Service.addToCart(u, p, Antal);
             return RedirectToAction("productInfo", new { id = p.id, bid = u.id });
         }
-        public ActionResult IndkoebsKurv()
+        public ActionResult IndkoebsKurv(int bid)
         {
-
+            UserProfile u = Service.Service.findUser(bid);
+            return View(u);
         }
     }
 }
