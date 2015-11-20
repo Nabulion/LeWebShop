@@ -48,7 +48,7 @@ namespace WebshopAdmin.Service
                 p.picture = null;
             }
             p.category = category;
-            p.PDescription = description;
+            p.description = description;
             p.@new = newP;
             p.unitPrice = unitprice;
             p.rating = 0;
@@ -99,7 +99,7 @@ namespace WebshopAdmin.Service
                 {
                     p.picture = null;
                 } 
-                p.PDescription = description;
+                p.description = description;
                 p.category = category;
                 p.@new = @new;
                 db.SaveChanges();
@@ -126,7 +126,7 @@ namespace WebshopAdmin.Service
                 row["countavailable"] = Convert.ToString(product.countAvailable);
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
-                row["PDescription"] = product.PDescription;
+                row["PDescription"] = product.description;
                 dt.Rows.Add(row);
             }
 

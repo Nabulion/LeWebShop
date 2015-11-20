@@ -28,7 +28,8 @@ namespace WebshopAdmin
         public Nullable<decimal> rating { get; set; }
         public byte[] picture { get; set; }
         public string category { get; set; }
-        public string PDescription { get; set; }
+        public string description { get; set; }
+        public Nullable<bool> monthsale { get; set; }
         public Nullable<bool> @new { get; set; }
         public Nullable<int> Package { get; set; }
         public Nullable<int> ShoppingCart { get; set; }

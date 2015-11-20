@@ -22,6 +22,7 @@ namespace WebshopAdmin
         public int id { get; set; }
         public string name { get; set; }
         public Nullable<decimal> price { get; set; }
+        public Nullable<bool> monthsale { get; set; }
     
         public virtual ICollection<Product> Products { get; set; }
     }
