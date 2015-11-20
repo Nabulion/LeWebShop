@@ -65,7 +65,8 @@
                         Navn: @Model.produkt.name <br />
                         Land: @Model.produkt.country <br />
                         Rating: @Model.produkt.rating <br />
-                        Beskrivelse: @Model.produkt.description
+                        Beskrivelse: @Model.produkt.description<br />
+                        Antal på lager: @Model.produkt.countAvailable
                     </td>
                     <td>
                         <img src="@String.Format("data:image/png;base64,{0}", @Model.produkt.getImg())" />
