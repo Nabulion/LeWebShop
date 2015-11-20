@@ -211,6 +211,31 @@ namespace WebshopAdmin
 
         }
 
+        private void btnMonthlySale_Click(object sender, RoutedEventArgs e)
+        {
+            clear();
+
+            string[] buttons = { "Create", "Edit", "Delete" };
+
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
+
+                b.Click += b_Click_FAQ;
+                sp_Options.Children.Add(b);
+            }
+
+
+        }
+
         //Følgende Button_Clicked sætter CRUD options for de forskellige tabs
         //Product CRUD
         void Button_Clicked_Product(object sender, EventArgs e)
@@ -431,6 +456,8 @@ namespace WebshopAdmin
                 }
             }
         }
+
+      
 
     }
 }

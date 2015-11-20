@@ -10,7 +10,7 @@ namespace Webshop.Service
 {
     public static class Service
     {
-        private static lewebshopEntities2 DB = Dao.Dao.getDB();
+        private static lewebshopEntities4 DB = Dao.Dao.getDB();
 
         public static UserProfile createUser(String name, String password, String email, String adress, String zipcode, bool newsletter)
         {
@@ -37,7 +37,9 @@ namespace Webshop.Service
             temp.zipcode = zipcode;
             temp.newsletter = newsletter;
             temp.LoginUser = u;
+            createShoppingCart(temp);
             DB.UserProfiles.Add(temp);
+            DB.SaveChanges();
             return temp;
         }
         private static String HashPass(String password)
@@ -105,7 +107,20 @@ namespace Webshop.Service
         {
             return Dao.Dao.findProduct(id);
         }
+        public static ShoppingCart createShoppingCart(UserProfile u)
+        {
+            return Dao.Dao.createShoppingCart(u);
+        }
+        public static void findShoppingCart(UserProfile u)
+        {
+            
+        }
+        public static void addToCart(UserProfile u, Product p, int count)
+        {
+            Dao.Dao.AddToCart(u,p,count);
 
+        }
+            
         
     }
 }

@@ -8,13 +8,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
     <title>DiscountCheese</title>
 </head>
 
 <body>
     <header id="indkøbskurv">
         @if (Model.userprofile.id == 0)
-        { 
+        {
             @Html.ActionLink("Login", "Index", "Login")
         }
         else
@@ -28,6 +29,8 @@
         </div>
     </header>
     <div>
+   
+
         <h1>Discount pris</h1>
         <table id="produktList">
             @foreach (var i in Model.list)
@@ -39,11 +42,11 @@
                         Land: @i.country<br />
                         Bedømmelse: @i.rating<br />
                         Pris: @i.unitPrice<br />
-                        @Html.ActionLink("Produkt", "productInfo", new { id = i.id }, new { id = Model.userprofile.id})
+                        @Html.ActionLink("Produkt", "productInfo", new { id = @i.id}, new { bid = Model.userprofile.id })
 
                     </td>
                     <td>
-                        Billede
+                        <img src="@String.Format("data:image/png;base64,{0}", @i.getImg())" />
                     </td>
                 </tr>
             }

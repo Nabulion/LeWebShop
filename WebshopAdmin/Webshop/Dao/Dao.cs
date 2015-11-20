@@ -8,13 +8,13 @@ namespace Webshop.Dao
 {
     public class Dao
     {
-        private static lewebshopEntities2 DB;
+        private static lewebshopEntities4 DB;
 
-        public static lewebshopEntities2 getDB()
+        public static lewebshopEntities4 getDB()
         {
             if (DB == null)
             {
-                DB = new lewebshopEntities2();
+                DB = new lewebshopEntities4();
             }
             return DB;
         }
@@ -53,6 +53,24 @@ namespace Webshop.Dao
         public static Product findProduct(int id)
         {
             return DB.Products.Find(id);
+        }
+        public static ShoppingCart createShoppingCart(UserProfile u)
+        {
+            ShoppingCart sc = new ShoppingCart();
+            sc.ShoppingOrders = new List<ShoppingOrder>();
+            sc.UserProfile1 = u;
+            DB.ShoppingCarts.Add(sc);
+            DB.SaveChanges();
+            return sc;
+        }
+        public static void AddToCart(UserProfile u, Product p, int count)
+        {
+            OrderLine ol = new OrderLine();
+            ol.Product = p.id;
+            ol.productCount = count;
+            ol.ShoppingCart1 = u.ShoppingCarts.FirstOrDefault();
+            DB.OrderLines.Add(ol);
+            DB.SaveChanges();
         }
     }
 }
