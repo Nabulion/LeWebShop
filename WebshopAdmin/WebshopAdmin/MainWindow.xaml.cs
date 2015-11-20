@@ -413,12 +413,12 @@ namespace WebshopAdmin
                 switch (button.Name)
                 {
                     case "Create":
-
+                        decimal d;
                         Package pac = new Package();
                         var textBox = sp_middle.Children.OfType<TextBox>().FirstOrDefault();
                         var textBox1 = sp_middle.Children.OfType<TextBox>().ElementAt(1);
                         var listbox = sp_middle.Children.OfType<ListBox>().First();
-                        if (textBox1.Text != null && textBox.Text != "")
+                        if (textBox1.Text != null && textBox.Text != "" && decimal.TryParse(textBox1.Text, out d))
                         {
                             pac.price = Convert.ToDecimal(textBox1.Text);
                             pac.name = textBox.Text;
@@ -431,8 +431,6 @@ namespace WebshopAdmin
                             l.Add((Product)i);
                         }
 
-
-                        decimal d;
                         if (decimal.TryParse(textBox1.Text, out d) && textBox.Text != "")
                         {
                             service.createPackage(l, textBox.Text, Convert.ToDecimal(textBox1.Text));
@@ -651,6 +649,8 @@ namespace WebshopAdmin
                         var datepickerEnd = sp_middle.Children.OfType<DatePicker>().ElementAt(1);
                         var textbox = sp_view.Children.OfType<TextBox>().First();
                         var textbox2 = sp_view.Children.OfType<TextBox>().ElementAt(1);
+                        textbox.IsReadOnly = true;
+                        textbox2.IsReadOnly = true;
                         if (datepickerStart.SelectedDate != null && datepickerEnd != null)
                         {
                             int i = 0;
