@@ -40,7 +40,7 @@ namespace UnitTestProject1
             Assert.AreEqual((decimal)0, p.rating);
             Assert.AreEqual("Danmark", p.country);
             Assert.AreEqual("Test kategori", p.category);
-            Assert.AreEqual("MMMMMM OSTE", p.PDescription);
+            Assert.AreEqual("MMMMMM OSTE", p.description);
             Assert.AreEqual(true, p.@new);
         }
 

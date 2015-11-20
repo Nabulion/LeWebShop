@@ -10,8 +10,8 @@
             <Button Content="Product" Width="75" Height="50" Margin="5,0,5,0" Click="Button_Click_Products"/>
             <Button Content="Package" Width="75" Height="50"  Margin="5,0,5,0" Click="Button_Click_Package"/>
             <Button Content="FAQ" Width="75" Height="50" Margin="5,0,5,0" Click="Button_Click_FAQ"/>
-            <Button Content="Button" Width="75" Height="50" Margin="5,0,5,0"/>
-            <Button Content="Button" Width="75" Height="50" Margin="5,0,5,0"/>
+            <Button x:Name="btnMonthlySale" Content="Tilbud" Width="75" Height="50" Margin="5,0,5,0" Click="btnMonthlySale_Click"/>
+            <Button x:Name="Stats" Content="Stats" Width="75" Height="50" Margin="5,0,5,0" Click="Stats_Click"/>
         </StackPanel>
         <StackPanel x:Name="sp_Options" Height="247" Orientation="Vertical" Width="75"  DockPanel.Dock="Left">
         </StackPanel>

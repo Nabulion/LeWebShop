@@ -48,12 +48,13 @@ namespace WebshopAdmin.Service
                 p.picture = null;
             }
             p.category = category;
-            p.PDescription = description;
+            p.description = description;
             p.@new = newP;
             p.unitPrice = unitprice;
             p.rating = 0;
             p.countAvailable = countavailable;
             p.country = country;
+            p.monthsale = false;
             db.Products.Add(p);
             db.SaveChanges();
 
@@ -99,7 +100,7 @@ namespace WebshopAdmin.Service
                 {
                     p.picture = null;
                 } 
-                p.PDescription = description;
+                p.description = description;
                 p.category = category;
                 p.@new = @new;
                 db.SaveChanges();
@@ -112,6 +113,32 @@ namespace WebshopAdmin.Service
             l = db.Products.ToList();
             return l;
         }
+
+        public List<Product> getSaleProduct()
+        {
+            var querySaleProduct = from product in db.Products
+                                   where product.monthsale == true
+                                   select product;
+            return querySaleProduct.ToList();
+        }
+
+        public List<Package> getPackages()
+        {
+            List<Package> p = new List<Package>();
+            p = db.Packages.ToList();
+            return p;
+        }
+
+        public List<Package> getSalePackage()
+        {
+            var querySalePackage = from package in db.Packages
+                                   where package.monthsale == true
+                                   select package;
+            return querySalePackage.ToList();
+        }
+
+      
+
         public DataTable getTable()
         {
             return dt;
@@ -126,7 +153,7 @@ namespace WebshopAdmin.Service
                 row["countavailable"] = Convert.ToString(product.countAvailable);
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
-                row["PDescription"] = product.PDescription;
+                row["description"] = product.description;
                 dt.Rows.Add(row);
             }
 
@@ -169,6 +196,7 @@ namespace WebshopAdmin.Service
             {
                 pro.Package1 = p;
             }
+            p.monthsale = false;
             db.Packages.Add(p);
             db.SaveChanges();
         }
@@ -248,6 +276,39 @@ namespace WebshopAdmin.Service
 
             SmtpClient smtp = new SmtpClient("127.0.0.1");
             smtp.Send(m);
+        }
+
+        public int numberOfSales(DateTime start, DateTime end)
+        {
+            int i = 0;
+            List<ShoppingOrder> l = new List<ShoppingOrder>();
+            l = db.ShoppingOrders.ToList();
+            if (l.Count != 0 && start != null && end != null)
+            {
+                foreach (ShoppingOrder s in l)
+                {
+                    if (s.dato > start && s.dato < end)
+                    {
+                        i++;
+                    }
+                }
+            }
+            return i;
+
+        }
+        public decimal averagePriceOnSales(DateTime start, DateTime end)
+        {
+            decimal d = 0;
+            List<ShoppingOrder> l = new List<ShoppingOrder>();
+            l = db.ShoppingOrders.ToList();
+            if (l.Count != 0 && start != null && end != null)
+            {
+                foreach (ShoppingOrder s in l)
+                {
+                    d = (decimal)s.orderPrice + d;
+                }
+            }
+            return d / l.Count;
         }
         
 

@@ -46,6 +46,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="monthsale" Type="bit" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -59,7 +60,8 @@
           <Property Name="rating" Type="decimal" Precision="18" Scale="0" />
           <Property Name="picture" Type="image" />
           <Property Name="category" Type="nvarchar" MaxLength="50" />
-          <Property Name="PDescription" Type="nvarchar(max)" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="monthsale" Type="bit" />
           <Property Name="new" Type="bit" />
           <Property Name="Package" Type="int" />
           <Property Name="ShoppingCart" Type="int" />
@@ -78,6 +80,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="orderPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="productCount" Type="int" />
+          <Property Name="dato" Type="datetime" />
           <Property Name="ShoppingCart" Type="int" />
         </EntityType>
         <EntityType Name="UserProfile">
@@ -322,6 +325,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="monthsale" Type="Boolean" />
           <NavigationProperty Name="Products" Relationship="Self.FK__Product__Package__1FCDBCEB" FromRole="Package" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
@@ -336,7 +340,8 @@
           <Property Name="rating" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="monthsale" Type="Boolean" />
           <Property Name="new" Type="Boolean" />
           <Property Name="Package" Type="Int32" />
           <Property Name="ShoppingCart" Type="Int32" />
@@ -363,6 +368,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="orderPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="productCount" Type="Int32" />
+          <Property Name="dato" Type="DateTime" Precision="3" />
           <Property Name="ShoppingCart" Type="Int32" />
           <NavigationProperty Name="ShoppingCart1" Relationship="Self.FK__ShoppingO__Shopp__1CF15040" FromRole="ShoppingOrder" ToRole="ShoppingCart" />
         </EntityType>
@@ -612,6 +618,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="monthsale" ColumnName="monthsale" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -626,7 +633,8 @@
                 <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="picture" ColumnName="picture" />
                 <ScalarProperty Name="category" ColumnName="category" />
-                <ScalarProperty Name="PDescription" ColumnName="PDescription" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="monthsale" ColumnName="monthsale" />
                 <ScalarProperty Name="new" ColumnName="new" />
                 <ScalarProperty Name="Package" ColumnName="Package" />
                 <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
@@ -647,6 +655,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="orderPrice" ColumnName="orderPrice" />
                 <ScalarProperty Name="productCount" ColumnName="productCount" />
+                <ScalarProperty Name="dato" ColumnName="dato" />
                 <ScalarProperty Name="ShoppingCart" ColumnName="ShoppingCart" />
               </MappingFragment>
             </EntityTypeMapping>

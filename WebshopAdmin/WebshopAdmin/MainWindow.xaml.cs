@@ -211,6 +211,140 @@ namespace WebshopAdmin
 
         }
 
+        private void btnMonthlySale_Click(object sender, RoutedEventArgs e)
+        {
+            clear();
+
+            ComboBox boxProducts = new ComboBox();
+            boxProducts.Width = 175;
+            var margin1 = boxProducts.Margin;
+            margin1.Bottom = 20;
+            margin1.Left = 10;
+            margin1.Top = 10;
+            margin1.Right = 10;
+            boxProducts.Margin = margin1;
+            boxProducts.ItemsSource = service.getProducts();
+            sp_middle.Children.Add(boxProducts);
+
+            ComboBox boxPackages = new ComboBox();
+            boxPackages.Width = 175;
+            boxPackages.ItemsSource = db.Packages.ToList();
+            sp_middle.Children.Add(boxPackages);
+
+            Label labelProduct = new Label();
+            labelProduct.Width = 200;
+            labelProduct.Content = "Sale Products:";
+            sp_view.Children.Add(labelProduct);
+
+            ListBox saleProduct = new ListBox();
+            saleProduct.Width = 200;
+            saleProduct.Height = 90;
+            sp_view.Children.Add(saleProduct);
+
+            Label labelPackage = new Label();
+            labelPackage.Width = 200;
+            labelPackage.Content = "Sale Products:";
+            sp_view.Children.Add(labelPackage);
+
+            ListBox salePackage = new ListBox();
+            salePackage.Width = 200;
+            salePackage.Height = 90;
+            sp_view.Children.Add(salePackage);
+
+
+
+            string[] buttons = { "Add", "Remove"};
+
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
+
+                b.Click += b_Click_MonthlySale;
+                sp_Options.Children.Add(b);
+            }
+
+
+        }
+
+        private void b_Click_MonthlySale(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                switch (button.Name)
+                {
+                    case "Add":
+                        var comboProduct = sp_middle.Children.OfType<ComboBox>().First();
+                        var comboPackage = sp_middle.Children.OfType<ComboBox>().ElementAt(1);
+                        var listProduct = sp_view.Children.OfType<ListBox>().First();
+                        var listPackage = sp_view.Children.OfType<ListBox>().ElementAt(1);
+
+                        if (comboProduct.SelectedItem != null)
+                        {
+                            Product p = (Product)comboProduct.SelectedItem;
+                            p.monthsale = true;
+                            
+
+                        }
+
+                        if (comboPackage.SelectedItem != null)
+                        {
+                            Package pac = (Package)comboPackage.SelectedItem;
+                            pac.monthsale = true;
+                        }                  
+                        else
+                        {
+                            MessageBox.Show("Fill answer and question");
+                        }
+                        break;
+
+                    case "Remove":
+                        {
+
+                            if (gridFAQ.SelectedItem != null)
+                            {
+                                service.deleteFAQ((FAQ)gridFAQ.SelectedItem);
+                                gridFAQ.ItemsSource = null;
+                                gridFAQ.ItemsSource = db.FAQs.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Pick a FAQ");
+                            }
+                        }
+                        break;
+
+                    case "Edit":
+                        if (gridFAQ.SelectedItem != null)
+                        {
+                            var datatable = sp_view.Children.OfType<DataGrid>().First();
+                            var textboxQuestion = sp_middle.Children.OfType<TextBox>().First();
+                            var textboxAnswer = sp_middle.Children.OfType<TextBox>().ElementAt(1);
+                            FAQ faq = (FAQ)datatable.SelectedItem;
+                            if (textboxQuestion.Text != "" && textboxAnswer.Text != "" && faq != null)
+                            {
+                                service.editFAQ(faq, textboxQuestion.Text, textboxAnswer.Text);
+                                gridFAQ.ItemsSource = null;
+                                gridFAQ.ItemsSource = db.FAQs.ToList();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Fill answer, question and pick a FAQ");
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
         //Følgende Button_Clicked sætter CRUD options for de forskellige tabs
         //Product CRUD
         void Button_Clicked_Product(object sender, EventArgs e)
@@ -431,6 +565,82 @@ namespace WebshopAdmin
                 }
             }
         }
+        private void Stats_Click(object sender, RoutedEventArgs e)
+        {
+            clear();
+            string[] buttons = { "Hent" };
+
+            Label l1 = new Label();
+            l1.Content = "Start Dato";
+            l1.Width = 175;
+            sp_middle.Children.Add(l1);
+
+            DatePicker dp = new DatePicker();
+            sp_middle.Children.Add(dp);
+
+            Label l2 = new Label();
+            l2.Content = "Slut Dato";
+            l2.Width = 175;
+            sp_middle.Children.Add(l2);
+
+            DatePicker dp2 = new DatePicker();
+            sp_middle.Children.Add(dp2);
+
+            Label l3 = new Label();
+            l3.Content = "Gennemsnit Salg";
+            l3.Width = 175;
+            sp_view.Children.Add(l3);
+
+            TextBox t1 = new TextBox();
+            t1.Text = "";
+            sp_view.Children.Add(t1);
+
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
+
+                b.Click += b_Click_Stats;
+                sp_Options.Children.Add(b);
+            }
+
+
+        }
+
+        void b_Click_Stats(Object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                switch (button.Name)
+                {
+                    case "Hent":
+                        var datepickerStart = sp_middle.Children.OfType<DatePicker>().First();
+                        var datepickerEnd = sp_middle.Children.OfType<DatePicker>().ElementAt(1);
+                        var textbox = sp_view.Children.OfType<TextBox>().First();
+                        if (datepickerStart.SelectedDate != null && datepickerEnd != null)
+                        {
+                            int i = 0;
+                            i = service.numberOfSales((DateTime)datepickerStart.SelectedDate, (DateTime)datepickerEnd.SelectedDate);
+                            textbox.Text = i + "";
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("Pick dates");
+                        }
+                        break;
+                }
+            }
+        }
+      
 
     }
 }
