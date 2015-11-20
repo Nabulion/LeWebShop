@@ -565,7 +565,81 @@ namespace WebshopAdmin
                 }
             }
         }
+        private void Stats_Click(object sender, RoutedEventArgs e)
+        {
+            clear();
+            string[] buttons = { "Hent" };
 
+            Label l1 = new Label();
+            l1.Content = "Start Dato";
+            l1.Width = 175;
+            sp_middle.Children.Add(l1);
+
+            DatePicker dp = new DatePicker();
+            sp_middle.Children.Add(dp);
+
+            Label l2 = new Label();
+            l2.Content = "Slut Dato";
+            l2.Width = 175;
+            sp_middle.Children.Add(l2);
+
+            DatePicker dp2 = new DatePicker();
+            sp_middle.Children.Add(dp2);
+
+            Label l3 = new Label();
+            l3.Content = "Gennemsnit Salg";
+            l3.Width = 175;
+            sp_view.Children.Add(l3);
+
+            TextBox t1 = new TextBox();
+            t1.Text = "";
+            sp_view.Children.Add(t1);
+
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
+
+                b.Click += b_Click_Stats;
+                sp_Options.Children.Add(b);
+            }
+
+
+        }
+
+        void b_Click_Stats(Object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                switch (button.Name)
+                {
+                    case "Hent":
+                        var datepickerStart = sp_middle.Children.OfType<DatePicker>().First();
+                        var datepickerEnd = sp_middle.Children.OfType<DatePicker>().ElementAt(1);
+                        var textbox = sp_view.Children.OfType<TextBox>().First();
+                        if (datepickerStart.SelectedDate != null && datepickerEnd != null)
+                        {
+                            int i = 0;
+                            i = service.numberOfSales((DateTime)datepickerStart.SelectedDate, (DateTime)datepickerEnd.SelectedDate);
+                            textbox.Text = i + "";
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("Pick dates");
+                        }
+                        break;
+                }
+            }
+        }
       
 
     }
