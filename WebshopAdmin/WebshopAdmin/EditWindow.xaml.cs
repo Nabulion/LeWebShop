@@ -49,7 +49,7 @@ namespace WebshopAdmin
             txtUnitprice.Text = service.filldata(service.getProducts()).Rows[rowIndex]["unitPrice"].ToString();
             txtCountAvailable.Text = service.filldata(service.getProducts()).Rows[rowIndex]["countAvailable"].ToString();
             txtCountry.Text = service.filldata(service.getProducts()).Rows[rowIndex]["country"].ToString();
-            txtDescription.Text = service.filldata(service.getProducts()).Rows[rowIndex]["PDescription"].ToString();
+            txtDescription.Text = service.filldata(service.getProducts()).Rows[rowIndex]["description"].ToString();
 
         }
 

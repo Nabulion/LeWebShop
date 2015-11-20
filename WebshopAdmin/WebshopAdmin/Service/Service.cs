@@ -28,7 +28,7 @@ namespace WebshopAdmin.Service
             dt.Columns.Add("countavailable");
             dt.Columns.Add("country");
             dt.Columns.Add("pic");
-            dt.Columns.Add("PDescription");
+            dt.Columns.Add("description");
             dt.Columns.Add("rating");
             
         }
