@@ -126,7 +126,7 @@ namespace WebshopAdmin.Service
                 row["countavailable"] = Convert.ToString(product.countAvailable);
                 row["country"] = product.country;
                 row["rating"] = Convert.ToString(product.rating);
-                row["PDescription"] = product.description;
+                row["description"] = product.description;
                 dt.Rows.Add(row);
             }
 
