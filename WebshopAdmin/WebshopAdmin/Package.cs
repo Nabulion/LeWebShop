@@ -25,5 +25,10 @@ namespace WebshopAdmin
         public Nullable<bool> monthsale { get; set; }
     
         public virtual ICollection<Product> Products { get; set; }
+
+        public override string ToString()
+        {
+            return name + ", " + price;
+        }
     }
 }

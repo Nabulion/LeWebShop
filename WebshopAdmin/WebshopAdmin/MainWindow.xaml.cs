@@ -291,18 +291,20 @@ namespace WebshopAdmin
                         {
                             Product p = (Product)comboProduct.SelectedItem;
                             p.monthsale = true;
-                            
-
+                            listProduct.ItemsSource = null;
+                            listProduct.ItemsSource = service.getSaleProduct();
                         }
 
                         if (comboPackage.SelectedItem != null)
                         {
                             Package pac = (Package)comboPackage.SelectedItem;
                             pac.monthsale = true;
+                            listPackage.ItemsSource = null;
+                            listPackage.ItemsSource = service.getSalePackage();
                         }                  
                         else
                         {
-                            MessageBox.Show("Fill answer and question");
+                            MessageBox.Show("Select Products and/or Packages to go on sale from comboboxes");
                         }
                         break;
 
