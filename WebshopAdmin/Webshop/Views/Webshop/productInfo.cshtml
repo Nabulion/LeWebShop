@@ -14,7 +14,8 @@
 </head>
 <body>
     <header id="indkøbskurv">
-        @if (Model.userprofile.id == 0)
+       
+        @if (Model.userprofile.LoginUser.name == "DefaultUser")
         {
             @Html.ActionLink("Login", "Index", "Login")
         }
@@ -73,7 +74,7 @@
                 <tr>
                     <td>
                         <div>
-                            @using (Html.BeginForm(new { pid = @Model.produkt.id,  id = Model.userprofile.id }))
+                            @using (Html.BeginForm(new { id = @Model.produkt.id,  bid = Model.userprofile.id }))
                             {
                                 @Html.Label("Antal")
 

@@ -16,8 +16,7 @@ namespace Webshop.Controllers
             UserProfile temp = Dao.Dao.getDB().UserProfiles.Find(id.GetValueOrDefault());
             if (temp == null)
             {
-                temp = new UserProfile();
-                temp.id = 0;
+                temp = Service.Service.getDefaultUser();
             }
             return View(temp);
         }
@@ -59,53 +58,68 @@ namespace Webshop.Controllers
             List<Product> list = Service.Service.getProductCategory("Discount pris");
             Wrapper w = new Wrapper();
             w.list = list;
-            
-            w.userprofile = new UserProfile();
-            if (id.GetValueOrDefault() == 0)
-            {
-                w.userprofile.id = 0;
-            }
-            else
-            {
-                w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
-            }
+            w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
             return View(w);
         }
-        public ActionResult productInfo(int id, int? brugerid)
+        public ActionResult EveryDayCheese(int? id)
+        {
+            List<Product> list = Service.Service.getProductCategory("Hverdags oste");
+            Wrapper w = new Wrapper();
+            w.list = list;
+            w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
+            return View(w);
+        }
+        public ActionResult luxusCheese(int? id)
+        {
+            List<Product> list = Service.Service.getProductCategory("Luxus oste");
+            Wrapper w = new Wrapper();
+            w.list = list;
+            w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
+            return View(w);
+        }
+        public ActionResult exclusiveCheese(int? id)
+        {
+            List<Product> list = Service.Service.getProductCategory("Eksklusive oste");
+            Wrapper w = new Wrapper();
+            w.list = list;
+            w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
+            return View(w);
+        }
+        public ActionResult pieceCheese(int? id)
+        {
+            List<Product> list = Service.Service.getProductCategory("Styk ost");
+            Wrapper w = new Wrapper();
+            w.list = list;
+            w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
+            return View(w);
+        }
+        public ActionResult cheeseTable(int? id)
+        {
+            List<Product> list = Service.Service.getProductCategory("Osteborde");
+            Wrapper w = new Wrapper();
+            w.list = list;
+            w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
+            return View(w);
+        }
+        public ActionResult productInfo(int id, int? bid)
         {
             Wrapper w = new Wrapper();
-            w.userprofile = new UserProfile();
-            if (brugerid.GetValueOrDefault() == 0)
-            {
-                w.userprofile.id = 0;
-            }
-            else
-            {
-                w.userprofile = Service.Service.findUser(brugerid.GetValueOrDefault());
-            }
+            w.userprofile = Service.Service.findUser(bid.GetValueOrDefault());
             w.produkt = Service.Service.findProduct(id);
             return View(w);
         }
         [HttpPost]
-        public ActionResult productInfo(FormCollection fc, int id, int pid)
+        public ActionResult productInfo(FormCollection fc, int id, int bid)
         {
             int Antal = int.Parse(fc["Antal"]);
-            UserProfile u = null;
-
-            if (id == 0)
-            {
-                u = new UserProfile();
-                u.id = 0;
-            }
-            else {
-                u = Service.Service.findUser(id);
-            }
-            Product p = Service.Service.findProduct(pid);
-
+            UserProfile u = Service.Service.findUser(bid);
+            Product p = Service.Service.findProduct(id);
             Service.Service.addToCart(u, p, Antal);
-            return RedirectToAction("productInfo", new { pid = p.id, id = u.id });
+            return RedirectToAction("productInfo", new { id = p.id, bid = u.id });
         }
+        public ActionResult IndkoebsKurv()
+        {
 
-
+        }
     }
 }

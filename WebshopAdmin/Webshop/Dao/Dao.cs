@@ -57,10 +57,10 @@ namespace Webshop.Dao
         public static ShoppingCart createShoppingCart(UserProfile u)
         {
             ShoppingCart sc = new ShoppingCart();
-            sc.ShoppingOrders = new List<ShoppingOrder>();
+            //sc.ShoppingOrders = new List<ShoppingOrder>();
             sc.UserProfile1 = u;
             DB.ShoppingCarts.Add(sc);
-            DB.SaveChanges();
+            //DB.SaveChanges();
             return sc;
         }
         public static void AddToCart(UserProfile u, Product p, int count)

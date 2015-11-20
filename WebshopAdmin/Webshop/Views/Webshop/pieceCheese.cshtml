@@ -14,7 +14,7 @@
 
 <body>
     <header id="indkøbskurv">
-       
+
         @if (Model.userprofile.LoginUser.name == "DefaultUser")
         {
             @Html.ActionLink("Login", "Index", "Login")
@@ -29,33 +29,10 @@
             @Html.ActionLink("Indkøbskurv", "Index")
         </div>
     </header>
-    <h1>OSTEPAKKEN</h1>
     <div>
-        <nav>
-            <table id="menutop">
-                <tr>
-                    <td>@Html.ActionLink("Home", "Index")</td>
-                    <td>@Html.ActionLink("Sidste nyt", "Index", new { id = Model.userprofile.id })</td>
-                    <td>@Html.ActionLink("Månedens tilbud", "Index", new { id = Model.userprofile.id })</td>
-                    <td>@Html.ActionLink("Handelsbetingelser", "Index", new { id = Model.userprofile.id })</td>
-                    <td>@Html.ActionLink("Kundeservice", "Index", new { id = Model.userprofile.id })</td>
-                </tr>
 
-            </table>
-            <ul id="menu">
-                <li>@Html.ActionLink("Discount pris", "DiscountCheese", new { id = Model.userprofile.id })</li>
-                <li>@Html.ActionLink("Hverdagsoste", "EveryDayCheese", new { id = Model.userprofile.id })</li>
-                <li>@Html.ActionLink("Luksusoste", "luxusCheese", new { id = Model.userprofile.id })</li>
-                <li>@Html.ActionLink("Eksklusive oste", "exclusiveCheese", new { id = Model.userprofile.id })</li>
-                <li>@Html.ActionLink("Stykost", "pieceCheese", new { id = Model.userprofile.id })</li>
-                <li>@Html.ActionLink("Osteborde", "cheeseTable", new { id = Model.userprofile.id })</li>
-            </ul>
-        </nav>
-    </div>
-    <div>
-   
 
-        <h1>Discount pris</h1>
+        <h1>Styk Ost</h1>
         <table id="produktList">
             @foreach (var i in Model.list)
             {
