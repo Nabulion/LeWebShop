@@ -207,8 +207,6 @@ namespace WebshopAdmin
                 b.Click += b_Click_FAQ;
                 sp_Options.Children.Add(b);
             }
-
-
         }
 
         private void btnMonthlySale_Click(object sender, RoutedEventArgs e)
@@ -254,7 +252,7 @@ namespace WebshopAdmin
 
             Label labelPackage = new Label();
             labelPackage.Width = 200;
-            labelPackage.Content = "Sale Products:";
+            labelPackage.Content = "Sale Packages:";
             sp_view.Children.Add(labelPackage);
 
             ListBox salePackage = new ListBox();
@@ -308,7 +306,7 @@ namespace WebshopAdmin
                                 p.monthsale = true;
                                 db.SaveChanges();
                                 listProduct.ItemsSource = null;
-                                listProduct.ItemsSource = service.getSaleProduct(); 
+                                listProduct.ItemsSource = service.getSaleProduct();
                             }
 
                             if (comboPackage.SelectedItem != null)
@@ -328,24 +326,27 @@ namespace WebshopAdmin
 
                     case "Remove":
                         {
-                            if (listProduct.SelectedItem != null)
+                            if (listProduct.SelectedItem != null || listPackage.SelectedItem != null)
                             {
-                                Product p = (Product)listProduct.SelectedItem;
-                                p.monthsale = false;
-                                db.SaveChanges();
-                                listProduct.ItemsSource = null;
-                                listProduct.ItemsSource = service.getSaleProduct(); 
+                                if (listProduct.SelectedItem != null)
+                                {
+                                    Product p = (Product)listProduct.SelectedItem;
+                                    p.monthsale = false;
+                                    db.SaveChanges();
+                                    listProduct.ItemsSource = null;
+                                    listProduct.ItemsSource = service.getSaleProduct();
 
-                            }
+                                }
 
-                            if (listPackage.SelectedItem != null)
-                            {
-                                Package pac = (Package)listPackage.SelectedItem;
-                                pac.monthsale = false;
-                                db.SaveChanges();
-                                listPackage.ItemsSource = null;
-                                listPackage.ItemsSource = service.getSaleProduct();
+                                if (listPackage.SelectedItem != null)
+                                {
+                                    Package pac = (Package)listPackage.SelectedItem;
+                                    pac.monthsale = false;
+                                    db.SaveChanges();
+                                    listPackage.ItemsSource = null;
+                                    listPackage.ItemsSource = service.getSalePackage();
 
+                                }
                             }
                             else
                             {
@@ -605,6 +606,7 @@ namespace WebshopAdmin
             sp_view.Children.Add(l3);
 
             TextBox t1 = new TextBox();
+            t1.Width = 175;
             t1.Text = "";
             sp_view.Children.Add(t1);
 
@@ -614,6 +616,7 @@ namespace WebshopAdmin
             sp_view.Children.Add(l4);
 
             TextBox t2 = new TextBox();
+            t2.Width = 175;
             t2.Text = "";
             sp_view.Children.Add(t2);
 
