@@ -54,28 +54,58 @@ namespace Webshop.Controllers
             Service.Service.createVisa(temp, visa);
             return RedirectToAction("userProfile", new { id = temp.id });
         }
-        public ActionResult DiscountCheese(int id)
+        public ActionResult DiscountCheese(int? id)
         {
             List<Product> list = Service.Service.getProductCategory("Discount pris");
             Wrapper w = new Wrapper();
             w.list = list;
+            
             w.userprofile = new UserProfile();
-            if (id == 0)
+            if (id.GetValueOrDefault() == 0)
             {
                 w.userprofile.id = 0;
             }
             else
             {
-                w.userprofile = Service.Service.findUser(id);
+                w.userprofile = Service.Service.findUser(id.GetValueOrDefault());
             }
             return View(w);
         }
-        public ActionResult productInfo(int id)
+        public ActionResult productInfo(int id, int? brugerid)
         {
             Wrapper w = new Wrapper();
+            w.userprofile = new UserProfile();
+            if (brugerid.GetValueOrDefault() == 0)
+            {
+                w.userprofile.id = 0;
+            }
+            else
+            {
+                w.userprofile = Service.Service.findUser(brugerid.GetValueOrDefault());
+            }
             w.produkt = Service.Service.findProduct(id);
             return View(w);
         }
+        [HttpPost]
+        public ActionResult productInfo(FormCollection fc, int id, int pid)
+        {
+            int Antal = int.Parse(fc["Antal"]);
+            UserProfile u = null;
+
+            if (id == 0)
+            {
+                u = new UserProfile();
+                u.id = 0;
+            }
+            else {
+                u = Service.Service.findUser(id);
+            }
+            Product p = Service.Service.findProduct(pid);
+
+            Service.Service.addToCart(u, p, Antal);
+            return RedirectToAction("productInfo", new { pid = p.id, id = u.id });
+        }
+
 
     }
 }

@@ -18,7 +18,6 @@ namespace Webshop
         public ShoppingCart()
         {
             this.OrderLines = new HashSet<OrderLine>();
-            this.Products = new HashSet<Product>();
             this.ShoppingOrders = new HashSet<ShoppingOrder>();
         }
     
@@ -27,8 +26,6 @@ namespace Webshop
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderLine> OrderLines { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
         public virtual UserProfile UserProfile1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingOrder> ShoppingOrders { get; set; }
