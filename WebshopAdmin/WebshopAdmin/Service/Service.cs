@@ -249,6 +249,39 @@ namespace WebshopAdmin.Service
             SmtpClient smtp = new SmtpClient("127.0.0.1");
             smtp.Send(m);
         }
+
+        public int numberOfSales(DateTime start, DateTime end)
+        {
+            int i = 0;
+            List<ShoppingOrder> l = new List<ShoppingOrder>();
+            l = db.ShoppingOrders.ToList();
+            if (l.Count != 0 && start != null && end != null)
+            {
+                foreach (ShoppingOrder s in l)
+                {
+                    if (s.dato > start && s.dato < end)
+                    {
+                        i++;
+                    }
+                }
+            }
+            return i;
+
+        }
+        public decimal averagePriceOnSales(DateTime start, DateTime end)
+        {
+            decimal d = 0;
+            List<ShoppingOrder> l = new List<ShoppingOrder>();
+            l = db.ShoppingOrders.ToList();
+            if (l.Count != 0 && start != null && end != null)
+            {
+                foreach (ShoppingOrder s in l)
+                {
+                    d = (decimal)s.orderPrice + d;
+                }
+            }
+            return d / l.Count;
+        }
         
 
     }
