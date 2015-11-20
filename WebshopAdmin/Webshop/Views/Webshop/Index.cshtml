@@ -15,7 +15,7 @@
 
 <body>
     <header id="indkøbskurv">
-        @if (Model.LoginUser == null)
+        @if (Model.LoginUser.name == "DefaultUser")
         {
             @Html.ActionLink("Login", "Index", "Login")
         }
@@ -44,10 +44,11 @@
             </table>
             <ul id="menu">
                 <li>@Html.ActionLink("Discount pris", "DiscountCheese", new { id = Model.id })</li>
-                <li>@Html.ActionLink("Hverdagsoste", "Index", new { id = Model.id })</li>
-                <li>@Html.ActionLink("Luksusoste", "Index", new { id = Model.id })</li>
-                <li>@Html.ActionLink("Eksklusive oste", "Index", new { id = Model.id })</li>
-                <li>@Html.ActionLink("Osteborde", "Index", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Hverdagsoste", "EveryDayCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Luksusoste", "luxusCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Eksklusive oste", "exclusiveCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Stykost", "pieceCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Osteborde", "cheeseTable", new { id = Model.id })</li>
             </ul>
         </nav>
     </div>

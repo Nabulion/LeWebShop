@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace Webshop.Service
 {
@@ -119,6 +121,24 @@ namespace Webshop.Service
         {
             Dao.Dao.AddToCart(u,p,count);
 
+        }
+        public static UserProfile getDefaultUser()
+        {
+            UserProfile p = new UserProfile();
+            p.LoginUser = new LoginUser();
+            createShoppingCart(p);
+            p.LoginUser.name = "DefaultUser";
+            try
+            {
+                DB.LoginUsers.Add(p.LoginUser);
+                DB.UserProfiles.Add(p);
+                DB.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                
+            }
+                return p;
         }
             
         

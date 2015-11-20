@@ -199,6 +199,11 @@
     <Content Include="Views\Webshop\visa.cshtml" />
     <Content Include="Views\Webshop\DiscountCheese.cshtml" />
     <Content Include="Views\Webshop\productInfo.cshtml" />
+    <Content Include="Views\Webshop\EveryDayCheese.cshtml" />
+    <Content Include="Views\Webshop\luxusCheese.cshtml" />
+    <Content Include="Views\Webshop\exclusiveCheese.cshtml" />
+    <Content Include="Views\Webshop\pieceCheese.cshtml" />
+    <Content Include="Views\Webshop\cheeseTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
