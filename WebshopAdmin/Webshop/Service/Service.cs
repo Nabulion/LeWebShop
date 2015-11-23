@@ -126,12 +126,13 @@ namespace Webshop.Service
         {
             UserProfile p = new UserProfile();
             p.LoginUser = new LoginUser();
-            createShoppingCart(p);
+            
             p.LoginUser.name = "DefaultUser";
             try
             {
                 DB.LoginUsers.Add(p.LoginUser);
                 DB.UserProfiles.Add(p);
+                createShoppingCart(p);
                 DB.SaveChanges();
             }
             catch (DbUpdateException ex)
@@ -140,7 +141,19 @@ namespace Webshop.Service
             }
                 return p;
         }
-            
-        
+
+        public static List<Product> findNewest()
+        {
+            return Dao.Dao.findNewest();
+        }
+        public static List<FAQ> getFAQ()
+        {
+            return DB.FAQs.ToList();
+        }
+
+        public static ShoppingOrder createShoppingOrder(ShoppingCart sc)
+        {
+            return Dao.Dao.createShoppingOrder(sc);
+        }
     }
 }

@@ -1,0 +1,80 @@
+﻿@model Webshop.Models.Wrapper
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
+    <title>sidsteNyt</title>
+</head>
+<body>
+    <header id="indkøbskurv">
+
+        @if (Model.userprofile.LoginUser.name == "DefaultUser")
+        {
+            @Html.ActionLink("Login", "Index", "Login")
+        }
+        else
+        {
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.userprofile.id })<br />
+            @Html.ActionLink("Log ud", "index", new { id = -1 })
+        }
+
+        <div>
+            @Html.ActionLink("Indkøbskurv", "IndkoebsKurv", new { bid = Model.userprofile.id })
+        </div>
+    </header>
+    <h1>OSTEPAKKEN</h1>
+    <div>
+        <nav>
+            <table id="menutop">
+                <tr>
+                    <td>@Html.ActionLink("Home", "Index")</td>
+                    <td>@Html.ActionLink("Sidste nyt", "Index", new { id = Model.userprofile.id })</td>
+                    <td>@Html.ActionLink("Månedens tilbud", "Index", new { id = Model.userprofile.id })</td>
+                    <td>@Html.ActionLink("Handelsbetingelser", "Index", new { id = Model.userprofile.id })</td>
+                    <td>@Html.ActionLink("Kundeservice", "Index", new { id = Model.userprofile.id })</td>
+                </tr>
+
+            </table>
+            <ul id="menu">
+                <li>@Html.ActionLink("Discount pris", "DiscountCheese", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Hverdagsoste", "Index", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Luksusoste", "Index", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Eksklusive oste", "Index", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Osteborde", "Index", new { id = Model.userprofile.id })</li>
+            </ul>
+        </nav>
+    </div>
+
+    <div> 
+        <h1>Sidste nyt</h1>
+        <table id="produktList">
+            @foreach (var i in Model.list)
+            {
+                <tr>
+                    <td>
+                        Id: @i.id <br />
+                        Navn: @i.name<BR />
+                        Land: @i.country<br />
+                        Bedømmelse: @i.rating<br />
+                        Pris: @i.unitPrice<br />
+                        @Html.ActionLink("Produkt", "productInfo", new { id = @i.id, bid = Model.userprofile.id })
+
+                    </td>
+                    <td>
+                        <img src="@String.Format("data:image/png;base64,{0}", @i.getImg())" />
+                    </td>
+                </tr>
+            }
+        </table>
+
+
+    </div>
+</body>
+</html>

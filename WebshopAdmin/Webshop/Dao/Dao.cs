@@ -59,6 +59,7 @@ namespace Webshop.Dao
             ShoppingCart sc = new ShoppingCart();
             //sc.ShoppingOrders = new List<ShoppingOrder>();
             sc.UserProfile1 = u;
+            //u.ShoppingCarts.Add(sc);
             DB.ShoppingCarts.Add(sc);
             //DB.SaveChanges();
             return sc;
@@ -68,9 +69,29 @@ namespace Webshop.Dao
             OrderLine ol = new OrderLine();
             ol.Product = p.id;
             ol.productCount = count;
-            ol.ShoppingCart1 = u.ShoppingCarts.FirstOrDefault();
+            ol.ShoppingCart1 = u.ShoppingCarts.LastOrDefault();
             DB.OrderLines.Add(ol);
             DB.SaveChanges();
+        }
+
+        public static List<Product> findNewest()
+        {
+            var product = from p in DB.Products where p.@new == true select p;
+
+            return product.ToList();
+        }
+
+        public static ShoppingOrder createShoppingOrder(ShoppingCart sc)
+        {
+            ShoppingOrder so = new ShoppingOrder();
+            so.ShoppingCart = sc.id;
+            so.orderPrice = sc.getTotalPrice();
+            so.productCount = sc.count();
+            so.dato = DateTime.Now;
+            sc.ShoppingOrders.Add(so);
+            DB.ShoppingOrders.Add(so);
+            DB.SaveChanges();
+            return so;
         }
     }
 }

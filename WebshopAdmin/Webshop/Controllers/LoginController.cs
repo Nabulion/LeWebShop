@@ -22,6 +22,7 @@ namespace Webshop.Controllers
             String pass = fc["password"];
             try {
                 UserProfile temp = Service.Service.validateLogin(pass, name);
+                Service.Service.createShoppingCart(temp);
                 return RedirectToAction("Index","Webshop", new { id = temp.id });
             }
             catch

@@ -1,0 +1,112 @@
+﻿@model Webshop.Models.Wrapper
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
+    <title>handelsbetingelser</title>
+</head>
+<body>
+    <header id="indkøbskurv">
+
+        @if (Model.userprofile.LoginUser.name == "DefaultUser")
+        {
+            @Html.ActionLink("Login", "Index", "Login")
+        }
+        else
+        {
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.userprofile.id })<br />
+            @Html.ActionLink("Log ud", "index", new { id = -1 })
+        }
+
+        <div>
+            @Html.ActionLink("Indkøbskurv", "IndkoebsKurv", new { bid = Model.userprofile.id })
+        </div>
+    </header>
+    <h1>OSTEPAKKEN</h1>
+    <div>
+        <nav>
+            <table id="menutop">
+                <tr>
+                    <td>@Html.ActionLink("Home", "Index")</td>
+                    <td>@Html.ActionLink("Sidste nyt", "Index", new { id = Model.userprofile.id })</td>
+                    <td>@Html.ActionLink("Månedens tilbud", "Index", new { id = Model.userprofile.id })</td>
+                    <td>@Html.ActionLink("Handelsbetingelser", "Index", new { id = Model.userprofile.id })</td>
+                    <td>@Html.ActionLink("Kundeservice", "Index", new { id = Model.userprofile.id })</td>
+                </tr>
+
+            </table>
+            <ul id="menu">
+                <li>@Html.ActionLink("Discount pris", "DiscountCheese", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Hverdagsoste", "Index", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Luksusoste", "Index", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Eksklusive oste", "Index", new { id = Model.userprofile.id })</li>
+                <li>@Html.ActionLink("Osteborde", "Index", new { id = Model.userprofile.id })</li>
+            </ul>
+        </nav>
+    </div>
+    <div id="handelsbetingelser">
+        <p>
+            Nedenstående salgs- og leveringsbetingelser gælder for alle leverancer fra Ostepakken.dk.
+
+
+
+
+            Betingelserne g&aelig;lder i det tilf&aelig;lde, hvor der ikke er indg&aring;et andre skriftlige aftaler mellem dig som k&oslash;ber og Ostepakken.dk.&nbsp;<br />
+            <br />
+            <strong>Dokumentation og vejledning</strong><br />
+            Hvis der findes produktbeskrivelser og brugervejledninger til varen, f&oslash;lger disse med leverancen fra Ostepakken.dk.<br />
+            <br />
+            &Oslash;nsker du yderligere oplysning eller r&aring;dgivning fra Ostepakken.dks side, er denne af vejledende art. Ostepakken.dk indest&aring;r for, at varerne opfylder kravene til CE-m&aelig;rkning.<br />
+            &nbsp;<br />
+            <strong>Leveringstidspunkt og transport </strong><br />
+            Levering af varer fra Ostepakken.dk anses for sket, n&aring;r forbrugeren har f&aring;et varen udleveret. Forsendelsen af varer sker med Post Danmark pakket i flamingokasser/k&oslash;lekasser med fryseelement.<br />
+            Leveringstid&nbsp;1 - 4 dage, bestilles der inden klokken 11 mandag - torsdag bliver varerne sendt samme dag og forventes leveret dagen efter, bestilles der efter klokken 11 torsdag bliver varerne f&oslash;rst sendt mandag.<br />
+            <br />
+            <strong>Risikoen for varerne </strong><br />
+            Risikoen for varer k&oslash;bt&nbsp;af Ostepakken.dk overg&aring;r til dig som forbruger p&aring; leveringstidspunktet.<br />
+            &nbsp;<br />
+            <strong>Reklamation </strong><br />
+            Eventuelle fejl eller mangler ved levering fra Ostepakken.dk, skal p&aring;ber&aring;bes i rimelig tid efter, at du har opdaget fejlen. Det en din pligt at angive og p&aring; forlangende vise, hvordan fejlen eller manglen ytrer sig. Hvis du opdager en fejl, skal du hurtigt rette henvendelse til Ostepakken.dk.<br />
+            <br />
+            Du kan som udgangspunkt kun klage over fejl, der viser sig senest to &aring;r efter du har f&aring;et varen leveret. For varer med begr&aelig;nset holdbarhed, er din klagemulighed afgr&aelig;nset af den holdbarhedsperiode, Ostepakken.dk har stillet dig i udsigt.<br />
+            &nbsp;<br />
+            <strong>Pris og betaling </strong><br />
+            I denne butik kan du bestille dine varer online og betale med [Betalingsmetode]<br />
+            Alle priser i Ostepakken.dk - p&aring; web-adressen http://www.ostepakken.dk. - er inkl. Moms.<br />
+            &nbsp;<br />
+            <strong>Fortrydelsesret </strong><br />
+            Jvf. forbrugeraftaleloven er der ingen fortrydelsesret p&aring; k&oslash;b af levnedsmidler og andre varer til husholdningens l&oslash;bende brug. Ostepakken.dk yder 14 dages fortrydelsesret p&aring; andre varer, g&aelig;ldende fra den dag du modtager dine varer.&nbsp;<br />
+            <br />
+            Du har pligt til at returnere varen i v&aelig;sentlig samme stand og m&aelig;ngde, som den er modtaget. Du skal selv afholde de omkostninger, der er forbundet med at returnere varen.</span></td></tr></table></td></tr></table>
+        </p>
+        </div>
+    
+    
+    <div>
+        <h1>FAQ</h1>
+        <table>
+            @foreach (FAQ f in Model.FAQ)
+            {
+                <tr>
+                    <td>
+                        Spørgsmål: @f.question <br />
+                        Svar: @f.answer
+                    </td>
+                </tr>
+
+
+           
+
+
+            }
+        </table>
+    </div>
+</body>
+</html>
