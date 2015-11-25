@@ -1,0 +1,87 @@
+﻿@model Webshop.UserProfile
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/css/StyleSheet1.css">
+    <title>IndkoebsKurv</title>
+</head>
+<body>
+    <header id="indkøbskurv">
+
+        @if (Model.LoginUser.name == "DefaultUser")
+        {
+            @Html.ActionLink("Login", "Index", "Login")
+        }
+        else
+        {
+            @Html.ActionLink("Bruger Profile", "userProfile", new { id = Model.id }) < br />
+            @Html.ActionLink("Log ud", "index", new { id = -1 })
+        }
+
+        <div>
+            @Html.ActionLink("Indkøbskurv", "IndkoebsKurv", new { bid = Model.id })
+        </div>
+    </header>
+    <h1>OSTEPAKKEN</h1>
+    <div>
+        <nav>
+            <table id="menutop">
+                <tr>
+                    <td>@Html.ActionLink("Home", "Index")</td>
+                    <td>@Html.ActionLink("Sidste nyt", "Index", new { id = Model.id })</td>
+                    <td>@Html.ActionLink("Månedens tilbud", "Index", new { id = Model.id })</td>
+                    <td>@Html.ActionLink("Handelsbetingelser", "Index", new { id = Model.id })</td>
+                    <td>@Html.ActionLink("Kundeservice", "Index", new { id = Model.id })</td>
+                </tr>
+
+            </table>
+            <ul id="menu">
+                <li>@Html.ActionLink("Discount pris", "DiscountCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Hverdagsoste", "EveryDayCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Luksusoste", "luxusCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Eksklusive oste", "exclusiveCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Stykost", "pieceCheese", new { id = Model.id })</li>
+                <li>@Html.ActionLink("Osteborde", "cheeseTable", new { id = Model.id })</li>
+            </ul>
+        </nav>
+    </div>
+        <div>
+            <h1>Indkøbskurv</h1>
+            <table style="width:70%">
+                <thead>
+                    <tr>
+                        <th>Produkt navn</th>
+                        <th>Antal</th>
+                        <th>Pris</th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model.ShoppingCarts.LastOrDefault().OrderLines)
+                {
+                    <tr>
+                        <td>@item.Product1.name</td>
+                        <td>@item.productCount</td>
+                        <td>@item.Product1.unitPrice</td>
+                    </tr>
+                }
+                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="float:right"> TotalPris : @Model.ShoppingCarts.LastOrDefault().getTotalPrice()</td>
+                    </tr>
+                <tr>
+                    <td>@Html.ActionLink("Køb", "Buy", new { id = Model.id })</td>
+                </tr>
+              
+            </table>
+        </div>
+</body>
+</html>
