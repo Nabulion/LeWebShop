@@ -11,5 +11,6 @@ namespace Webshop.Models
         public LoginUser loginuser { get; set; }
         public Product produkt { get; set; }
         public List<Product> list { get; set; }
+        public List<FAQ> FAQ { get; set; }
     }
 }

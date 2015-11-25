@@ -205,6 +205,8 @@
     <Content Include="Views\Webshop\pieceCheese.cshtml" />
     <Content Include="Views\Webshop\cheeseTable.cshtml" />
     <Content Include="Views\Webshop\IndkoebsKurv.cshtml" />
+    <Content Include="Views\Webshop\sidsteNyt.cshtml" />
+    <Content Include="Views\Webshop\handelsbetingelser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -12,7 +12,6 @@ namespace Webshop.Controllers
         // GET: Webshop
         public ActionResult Index(int? id)
         {
-
             UserProfile temp = Dao.Dao.getDB().UserProfiles.Find(id.GetValueOrDefault());
             if (temp == null)
             {
@@ -121,6 +120,29 @@ namespace Webshop.Controllers
         {
             UserProfile u = Service.Service.findUser(bid);
             return View(u);
+        }
+        public ActionResult sidsteNyt(int id)
+        {
+            List<Product> list = Service.Service.findNewest();
+            UserProfile u = Service.Service.findUser(id);
+            Wrapper r = new Wrapper();
+            r.list = list;
+            r.userprofile = u;
+            return View(r);
+        }
+        public ActionResult handelsbetingelser(int id)
+        {
+            Wrapper r = new Wrapper();
+            r.userprofile = Service.Service.findUser(id);
+            r.FAQ = Service.Service.getFAQ();
+            return View(r);
+        }
+        public ActionResult Buy(int id)
+        {
+            UserProfile u = Service.Service.findUser(id);
+            ShoppingOrder so = Service.Service.createShoppingOrder(u.ShoppingCarts.LastOrDefault());
+            Service.Service.createShoppingCart(u);
+            return RedirectToAction("IndkoebsKurv", new { bid = id });
         }
     }
 }
