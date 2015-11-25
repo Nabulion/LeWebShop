@@ -53,8 +53,8 @@ namespace WebshopAdmin
 
         }
 
-        //Følgende button_click metoder er til tab-knapperne øverst i gui'et
-        //Denne metode sætter Products
+        //Følgende button_click events er til tab-knapperne øverst i gui'et
+        //Denne event sætter Products
         private void Button_Click_Products(object sender, RoutedEventArgs e)
         {
             clear();
@@ -89,6 +89,8 @@ namespace WebshopAdmin
             }
         }
 
+
+        //Hjælpe event til products: lytter på om selection ændres i datagrided
         private void Event_SelectionChanged(object sender, RoutedEventArgs e)
         {
             List<Product> l = new List<Product>();
@@ -106,7 +108,7 @@ namespace WebshopAdmin
 
         }
 
-        //Denne metode sætter package
+        //Denne event sætter package
         private void Button_Click_Package(object sender, RoutedEventArgs e)
         {
 
@@ -161,7 +163,7 @@ namespace WebshopAdmin
             }
         }
 
-        //denne metode sætter FAQ
+        //denne event sætter FAQ
         private void Button_Click_FAQ(object sender, RoutedEventArgs e)
         {
             clear();
@@ -209,6 +211,7 @@ namespace WebshopAdmin
             }
         }
 
+        // Denne event sætter Monthly sale
         private void btnMonthlySale_Click(object sender, RoutedEventArgs e)
         {
             clear();
@@ -283,78 +286,64 @@ namespace WebshopAdmin
 
         }
 
-        private void b_Click_MonthlySale(object sender, RoutedEventArgs e)
+        //denne event sætter statistik
+        private void Stats_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            var comboProduct = sp_middle.Children.OfType<ComboBox>().First();
-            var comboPackage = sp_middle.Children.OfType<ComboBox>().ElementAt(1);
-            var listProduct = sp_view.Children.OfType<ListBox>().First();
-            var listPackage = sp_view.Children.OfType<ListBox>().ElementAt(1);
+            clear();
+            string[] buttons = { "Hent" };
 
-            if (button != null)
+            Label l1 = new Label();
+            l1.Content = "Start Dato";
+            l1.Width = 175;
+            sp_middle.Children.Add(l1);
+
+            DatePicker dp = new DatePicker();
+            sp_middle.Children.Add(dp);
+
+            Label l2 = new Label();
+            l2.Content = "Slut Dato";
+            l2.Width = 175;
+            sp_middle.Children.Add(l2);
+
+            DatePicker dp2 = new DatePicker();
+            sp_middle.Children.Add(dp2);
+
+            Label l3 = new Label();
+            l3.Content = "Gennemsnit Salg";
+            l3.Width = 175;
+            sp_view.Children.Add(l3);
+
+            TextBox t1 = new TextBox();
+            t1.Width = 175;
+            t1.Text = "";
+            sp_view.Children.Add(t1);
+            t1.IsReadOnly = true;
+
+            Label l4 = new Label();
+            l4.Content = "Gennemsnit Salg i Kr";
+            l4.Width = 175;
+            sp_view.Children.Add(l4);
+
+            TextBox t2 = new TextBox();
+            t2.Width = 175;
+            t2.Text = "";
+            t2.IsReadOnly = true;
+            sp_view.Children.Add(t2);
+
+            for (int i = 0; i < buttons.Count(); i++)
             {
-                switch (button.Name)
-                {
-                    case "Add":
+                string name = buttons[i];
+                Button b = new Button();
+                b.Name = name;
+                b.Content = buttons[i];
+                var margin = b.Margin;
+                margin.Left = 5;
+                margin.Top = 10;
+                margin.Right = 5;
+                b.Margin = margin;
 
-                        if (comboProduct.SelectedItem != null || comboPackage.SelectedItem != null)
-                        {
-
-                            if (comboProduct.SelectedItem != null)
-                            {
-                                Product p = (Product)comboProduct.SelectedItem;
-                                p.monthsale = true;
-                                db.SaveChanges();
-                                listProduct.ItemsSource = null;
-                                listProduct.ItemsSource = service.getSaleProduct();
-                            }
-
-                            if (comboPackage.SelectedItem != null)
-                            {
-                                Package pac = (Package)comboPackage.SelectedItem;
-                                pac.monthsale = true;
-                                db.SaveChanges();
-                                listPackage.ItemsSource = null;
-                                listPackage.ItemsSource = service.getSalePackage();
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Select Products and/or Packages to go on sale from comboboxes");
-                        }
-                        break;
-
-                    case "Remove":
-                        {
-                            if (listProduct.SelectedItem != null || listPackage.SelectedItem != null)
-                            {
-                                if (listProduct.SelectedItem != null)
-                                {
-                                    Product p = (Product)listProduct.SelectedItem;
-                                    p.monthsale = false;
-                                    db.SaveChanges();
-                                    listProduct.ItemsSource = null;
-                                    listProduct.ItemsSource = service.getSaleProduct();
-
-                                }
-
-                                if (listPackage.SelectedItem != null)
-                                {
-                                    Package pac = (Package)listPackage.SelectedItem;
-                                    pac.monthsale = false;
-                                    db.SaveChanges();
-                                    listPackage.ItemsSource = null;
-                                    listPackage.ItemsSource = service.getSalePackage();
-
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Select an item from sale items");
-                            }
-                        }
-                        break;
-                }
+                b.Click += b_Click_Stats;
+                sp_Options.Children.Add(b);
             }
         }
 
@@ -559,86 +548,83 @@ namespace WebshopAdmin
             }
         }
 
-        private void clear()
+        // Monthly sale, add remove event
+        private void b_Click_MonthlySale(object sender, RoutedEventArgs e)
         {
-            sp_Options.Children.Clear();
-            sp_view.Children.Clear();
-            sp_middle.Children.Clear();
-        }
+            Button button = sender as Button;
+            var comboProduct = sp_middle.Children.OfType<ComboBox>().First();
+            var comboPackage = sp_middle.Children.OfType<ComboBox>().ElementAt(1);
+            var listProduct = sp_view.Children.OfType<ListBox>().First();
+            var listPackage = sp_view.Children.OfType<ListBox>().ElementAt(1);
 
-        private void removeColumn()
-        {
-            foreach (DataGridColumn column in gridPackage.Columns)
+            if (button != null)
             {
-                if (column.Header.ToString() == "Products")
+                switch (button.Name)
                 {
-                    gridPackage.Columns.Remove(column);
-                    break;
+                    case "Add":
+
+                        if (comboProduct.SelectedItem != null || comboPackage.SelectedItem != null)
+                        {
+
+                            if (comboProduct.SelectedItem != null)
+                            {
+                                Product p = (Product)comboProduct.SelectedItem;
+                                p.monthsale = true;
+                                db.SaveChanges();
+                                listProduct.ItemsSource = null;
+                                listProduct.ItemsSource = service.getSaleProduct();
+                            }
+
+                            if (comboPackage.SelectedItem != null)
+                            {
+                                Package pac = (Package)comboPackage.SelectedItem;
+                                pac.monthsale = true;
+                                db.SaveChanges();
+                                listPackage.ItemsSource = null;
+                                listPackage.ItemsSource = service.getSalePackage();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Select Products and/or Packages to go on sale from comboboxes");
+                        }
+                        break;
+
+                    case "Remove":
+                        {
+                            if (listProduct.SelectedItem != null || listPackage.SelectedItem != null)
+                            {
+                                if (listProduct.SelectedItem != null)
+                                {
+                                    Product p = (Product)listProduct.SelectedItem;
+                                    p.monthsale = false;
+                                    db.SaveChanges();
+                                    listProduct.ItemsSource = null;
+                                    listProduct.ItemsSource = service.getSaleProduct();
+
+                                }
+
+                                if (listPackage.SelectedItem != null)
+                                {
+                                    Package pac = (Package)listPackage.SelectedItem;
+                                    pac.monthsale = false;
+                                    db.SaveChanges();
+                                    listPackage.ItemsSource = null;
+                                    listPackage.ItemsSource = service.getSalePackage();
+
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Select an item from sale items");
+                            }
+                        }
+                        break;
                 }
             }
         }
-        private void Stats_Click(object sender, RoutedEventArgs e)
-        {
-            clear();
-            string[] buttons = { "Hent" };
-
-            Label l1 = new Label();
-            l1.Content = "Start Dato";
-            l1.Width = 175;
-            sp_middle.Children.Add(l1);
-
-            DatePicker dp = new DatePicker();
-            sp_middle.Children.Add(dp);
-
-            Label l2 = new Label();
-            l2.Content = "Slut Dato";
-            l2.Width = 175;
-            sp_middle.Children.Add(l2);
-
-            DatePicker dp2 = new DatePicker();
-            sp_middle.Children.Add(dp2);
-
-            Label l3 = new Label();
-            l3.Content = "Gennemsnit Salg";
-            l3.Width = 175;
-            sp_view.Children.Add(l3);
-
-            TextBox t1 = new TextBox();
-            t1.Width = 175;
-            t1.Text = "";
-            sp_view.Children.Add(t1);
-            t1.IsReadOnly = true;
-
-            Label l4 = new Label();
-            l4.Content = "Gennemsnit Salg i Kr";
-            l4.Width = 175;
-            sp_view.Children.Add(l4);
-
-            TextBox t2 = new TextBox();
-            t2.Width = 175;
-            t2.Text = "";
-            t2.IsReadOnly = true;
-            sp_view.Children.Add(t2);
-
-            for (int i = 0; i < buttons.Count(); i++)
-            {
-                string name = buttons[i];
-                Button b = new Button();
-                b.Name = name;
-                b.Content = buttons[i];
-                var margin = b.Margin;
-                margin.Left = 5;
-                margin.Top = 10;
-                margin.Right = 5;
-                b.Margin = margin;
-
-                b.Click += b_Click_Stats;
-                sp_Options.Children.Add(b);
-            }
-
-
-        }
-
+        
+        //Statistik hent event
         void b_Click_Stats(Object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -670,7 +656,24 @@ namespace WebshopAdmin
             }
         }
 
+        private void clear()
+        {
+            sp_Options.Children.Clear();
+            sp_view.Children.Clear();
+            sp_middle.Children.Clear();
+        }
 
+        private void removeColumn()
+        {
+            foreach (DataGridColumn column in gridPackage.Columns)
+            {
+                if (column.Header.ToString() == "Products")
+                {
+                    gridPackage.Columns.Remove(column);
+                    break;
+                }
+            }
+        }
     }
 }
 
