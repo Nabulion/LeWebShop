@@ -32,26 +32,5 @@ namespace Webshop
         public virtual ICollection<ShoppingOrder> ShoppingOrders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
-        public decimal getTotalPrice()
-        {
-            decimal total = 0;
-            foreach(var o in OrderLines)
-            {
-                total += o.Product1.unitPrice.GetValueOrDefault() * o.productCount.GetValueOrDefault();
-            }
-            return total;
-        }
-        public int count()
-        {
-            int count = 0;
-            foreach (var o in OrderLines)
-            {
-                count += o.productCount.GetValueOrDefault();
-            }
-            return count;
-        }
-
-        
     }
-
 }

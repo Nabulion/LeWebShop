@@ -41,10 +41,5 @@ namespace Webshop
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Package Package1 { get; set; }
         public virtual ShoppingCart ShoppingCart1 { get; set; }
-        public String getImg()
-        {
-            String baseString = Convert.ToBase64String(this.picture);
-            return baseString;
-        }
     }
 }
