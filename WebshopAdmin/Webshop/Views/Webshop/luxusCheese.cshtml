@@ -37,9 +37,9 @@
                 <table id="menutop">
                     <tr>
                         <td>@Html.ActionLink("Home", "Index")</td>
-                        <td>@Html.ActionLink("Sidste nyt", "Index", new { id = Model.userprofile.id })</td>
+                        <td>@Html.ActionLink("Sidste nyt", "sidsteNyt", new { id = Model.userprofile.id })</td>
                         <td>@Html.ActionLink("Månedens tilbud", "Index", new { id = Model.userprofile.id })</td>
-                        <td>@Html.ActionLink("Handelsbetingelser", "Index", new { id = Model.userprofile.id })</td>
+                        <td>@Html.ActionLink("Handelsbetingelser", "handelsbetingelser", new { id = Model.userprofile.id })</td>
                         <td>@Html.ActionLink("Kundeservice", "Index", new { id = Model.userprofile.id })</td>
                     </tr>
 
